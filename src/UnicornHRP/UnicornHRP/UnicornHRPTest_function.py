@@ -39,6 +39,9 @@ class UnicornHRPTest(Node):
         self.HRP_subscription
 
         self.curPoint = Point()
+        self.direction = True
+        #HRPmsg.linear.x = 0.0
+        HRPmsg.linear.x = 0.4
         self.move()
 
         #timer_period = 0.5  # seconds
@@ -53,15 +56,22 @@ class UnicornHRPTest(Node):
         print('Linear: "%s"' % HRPmsg.linear)
         print('Angular: "%s"' % HRPmsg.angular)
         print('Odometry: "%s"' % self.curPoint)
+        print('Direction: "%s"' % self.direction)
         #self.get_logger().info('Linear: "%s"' % HRPmsg.linear)
         #self.get_logger().info('Angular: "%s"' % HRPmsg.angular)
         #self.get_logger().info('Odometry data: "%s"' % self.curPoint)
 
-
     def listener_callback(self, msg):
         self.curPoint = msg.pose.pose.position
-        #self.get_logger().info('Odometry data: "%s"' % currentPos)
-        #print('Odometry data: "%s"' % self.curPoint)
+        cur_dir = self.direction
+
+        if self.curPoint.x >= 10 and self.direction:
+            HRPmsg.linear.x = -0.4
+            self.direction = False
+        elif self.curPoint.x < 0 and not self.direction:
+            HRPmsg.linear.x = 0.4
+            self.direction = True
+
 
     def move(self):
         velocity_update_period = 0.01  # seconds
@@ -69,7 +79,6 @@ class UnicornHRPTest(Node):
         velocity_message_period = 0.5  # seconds
         self.velocity_message = self.create_timer(velocity_message_period, self.velocity_message_callback)
         
-        HRPmsg.linear.x = 0.0
         HRPmsg.linear.y = 0.0
         HRPmsg.linear.z = 0.0
         HRPmsg.angular.x = 0.0
