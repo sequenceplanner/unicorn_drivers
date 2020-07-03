@@ -1,2 +1,2 @@
 # UNICORN-ROS2-CONTROLLER
-ROS2 package for controlling hrp platform
+ROS2 ppackages for controlling hrp platform
