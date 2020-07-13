@@ -22,6 +22,7 @@ setup(
         'console_scripts': [
         	'UnicornHRPTest_function = UnicornHRP.UnicornHRPTest_function:main',
         	'UnicornHRPSTOP_function = UnicornHRP.UnicornHRPSTOP_function:main',
-	],
+        	'UnicornHRPTrack_function = UnicornHRP.UnicornHRPTrack_function:main',
+	    ],
     },
 )

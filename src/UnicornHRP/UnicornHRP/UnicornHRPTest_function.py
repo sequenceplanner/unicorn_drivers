@@ -36,7 +36,7 @@ class UnicornHRPTest(Node):
         #Initialize publish and subscritestptions
         super().__init__('unicorn_hrp_test')
         self.HRP_publisher_ = self.create_publisher(Twist, 'cmd_vel', 10)
-        self.Unicorn_point_publisher_ = self.create_publisher(Int16, 'unicorn_point_reached', 10)
+        self.Unicorn_point_reached_publisher_ = self.create_publisher(Int16, 'unicorn_point_reached', 10)
         self.HRP_subscription = self.create_subscription(Odometry, 'odom', self.odometry_callback,10)
         self.HRP_subscription = self.create_subscription(Float32, 'angle_test', self.angle_test_callback,10)
         self.HRP_subscription = self.create_subscription(Point, 'point_test', self.point_test_callback,10)
@@ -60,9 +60,12 @@ class UnicornHRPTest(Node):
         self.goal_angle = 0
 
         #Other constants
-        self.linear_velocity = 0.4
-        self.angular_velocity = 0.8
-        self.angular_velocity_turn = 0.5
+        #self.linear_velocity = 0.4
+        #self.angular_velocity = 0.8
+        #self.angular_velocity_turn = 0.6
+        self.linear_velocity = 0.8
+        self.angular_velocity = 1.2
+        self.angular_velocity_turn = 0.9
         self.angular_velocity_proportional_gain = 0.001
         self.angular_velocity_integral_gain = 0.0001
         self.angle_tolerance = 10
@@ -91,6 +94,9 @@ class UnicornHRPTest(Node):
         self.HRPmsg.angular.x = 0.0  
         self.HRPmsg.angular.y = 0.0
         self.HRPmsg.angular.z = 0.0
+
+        #Whenever to publish or not, allowing manual control
+        self.do_publish = True
 
         velocity_update_period = 0.01  # seconds
         self.velocity_update = self.create_timer(velocity_update_period, self.velocity_update_callback)
@@ -151,7 +157,7 @@ class UnicornHRPTest(Node):
             if self.reached_point:
                 self.reached_point = False
                 self.reached_point_message.data = 1
-                self.Unicorn_point_publisher_.publish(self.reached_point_message)
+                self.Unicorn_point_reached_publisher_.publish(self.reached_point_message)
 
         #If the robot is within the angle tolerance, move to the target point
         else: 
@@ -174,7 +180,8 @@ class UnicornHRPTest(Node):
             self.current_function=4
 
         #Publish new velocity
-        self.HRP_publisher_.publish(self.HRPmsg)
+        if self.do_publish:
+            self.HRP_publisher_.publish(self.HRPmsg)
 
     #Show user information in command window
     def velocity_message_callback(self):
@@ -244,12 +251,15 @@ class UnicornHRPTest(Node):
         self.current_coordinate.z = new_coordinates[2]
 
     def angle_test_callback(self,msg):
-        self.turn(msg.data)
-        self.reached_point = True
+        if not msg.data == 1000.0:
+            self.turn(msg.data)
+            self.reached_point = True
+        print("here now")
 
     def point_test_callback(self,msg):
-        self.moveToPoint(msg.x,msg.y)
-        self.reached_point = True
+        if not msg.x == 1000.0:
+            self.moveToPoint(msg.x,msg.y)
+            self.reached_point = True
 
 ##################################### MOVEMENT ######################################################s###
 
