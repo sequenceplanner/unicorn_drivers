@@ -10,21 +10,18 @@ screen -S ros-hrp -X screen -t am_driver bash
 screen -S ros-hrp -X screen -t ros1_bridge bash
 screen -S ros-hrp -X screen -t teleop bash
 # launching am driver with loop off:
-screen -S ros-hrp -p am_driver -X stuff 'cd ~
-source /opt/ros/melodic/setup.bash
+screen -S ros-hrp -p am_driver -X stuff 'source /opt/ros/melodic/setup.bash
 source ./catkin_ws/devel/setup.bash
 roslaunch am_driver_safe automower_hrp.launch startWithoutLoop:=false
 '
 echo "Starting am_driver..."
 sleep 10
-screen -S ros-hrp -p teleop -X stuff 'cd ~
-source /opt/ros/melodic/setup.bash
+screen -S ros-hrp -p teleop -X stuff 'source /opt/ros/melodic/setup.bash
 source ./catkin_ws/devel/setup.bash
 rosrun am_driver hrp_teleop.py
 '
 echo "Starting teleop..."
-screen -S ros-hrp -p ros1_bridge -X stuff 'cd ~
-source /opt/ros/melodic/setup.bash
+screen -S ros-hrp -p ros1_bridge -X stuff 'source /opt/ros/melodic/setup.bash
 source /opt/ros/eloquent/setup.bash
 ros2 run ros1_bridge dynamic_bridge --bridge-all-topics
 '
