@@ -1,2 +1,2 @@
-# UNICORN-ROS2-CONTROLLER
-ROS2 ppackages for controlling hrp platform
+ROS and ROS2 packages for controller unicorn demo with HRP and SP
+* Todo: add links to hrp and sp
