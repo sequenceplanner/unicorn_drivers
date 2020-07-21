@@ -25,24 +25,20 @@ from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
 from geometry_msgs.msg import Point
 
+from unicorn_msgs.msg import UnicornMove
+
 class UnicornHRP_TRACK(Node):
 
 ##################################### INIT ##############################################################
     def __init__(self):
         #Initialize publishers
         super().__init__('unicorn_hrp_track')
-        self.Unicorn_angle_publisher_ = self.create_publisher(Float32, 'angle_test', 10)
-        self.Unicorn_point_publisher_ = self.create_publisher(Point, 'point_test', 10)
-        self.Unicorn_reverse_publisher_ = self.create_publisher(Float32, 'reverse_test', 10)
-        self.Unicorn_soft_reset_publisher_ = self.create_publisher(Float32, 'soft_reset', 10)
-        self.Unicorn_update_linear_velocity_publisher_ = self.create_publisher(Float32, 'linear_velocity', 10)
+        self.Unicorn_soft_reset_publisher_ = self.create_publisher(Float32, 'unicorn_hrp_soft_reset', 10)
+        self.Unicorn_hrp_move_publisher_ = self.create_publisher(UnicornMove, 'unicorn_hrp_move', 10)
 
         #Message variables
-        self.angle_message = Float32()
-        self.point_message = Point()
-        self.reverse_message = Float32()
         self.soft_reset_message = Float32()
-        self.linear_velocity_message = Float32()
+        self.unicorn_hrp_move_message = UnicornMove()
 
         #Keep current state
         self.current_state = 0 #0=idle, 1=executing, 2=finished, 3=error
@@ -52,29 +48,27 @@ class UnicornHRP_TRACK(Node):
         self.first_command_sent = False
         self.track_finished = False
 
-        #Points, (point=-200,reverse=200 / distance, angle=[-180,180] / x-coord / y-coord)
+        #Points, (x-coord / y-coord / angle=[-180,180] (200 dont care) / linear-velocity / angular-velocity)
         
-        self.points = np.array([[-200,  5.0,    0.0,    0.6],
-                                [-200,  6.0,    -1.0,   0.4],
-                                [-200,  7.5,    -1.0,   0.4],
-                                [-200,  7.5,    0.0,    0.4],
-                                [15.0,  0.0,    0.15,   0.0],
-                                [-200,  1.0,    0.15,   0.6],
-                                [-200,  0.0,    0.15,   0.4],
-                                [-200,  0.1,    -1.5,   0.4],
-                                [-200,  0.0,    0.15,   0.4],
-                                [-200,  -2.0,   0.15,   0.4],
-                                [-200,  -2.0,   0.8,    0.4],
-                                [-90.0, 0,      0,      0.0],
-                                [200,   0.5,    0.0,    0.0],
-                                [-200,  -2.0,   0.0,    0.4],
-                                [-200,  0.0,    0.0,    0.4],
-                                [-200,  0.0,    0.6,    0.4],
-                                [0.0,   0,      0,      0.0]])
-        '''                       
-        self.points = np.array([[-200,  2.0,    0.0],
-                                [200,   2.0,   0.0]])
-                    '''        
+        self.points = np.array([[5.0,    0.0,    200,    0.6,    0.5],
+                                [6.0,    -1.0,   200,    0.4,    0.5],
+                                [7.5,    -1.0,   200,    0.4,    0.5],
+                                [7.5,    0.0,    200,    0.4,    0.5],
+                                [7.5,    0.0,     15,    0.0,    0.5],
+                                [1.0,    0.15,   200,    0.6,    0.5],
+                                [0.0,    0.15,   200,    0.4,    0.5],
+                                [0.1,    -1.5,   200,    0.4,    0.5],
+                                [0.0,    0.15,   200,    0.4,    0.5],
+                                [-2.0,   0.15,   200,    0.4,    0.5],
+                                [-2.0,   0.8,    200,    0.4,    0.5],
+                                [-2.0,   0-8,    -90,    0.0,    0.5],
+                                [0.5,    0.0,   -200,    0.4,    0.5],
+                                [-2.0,   0.0,    200,    0.4,    0.5],
+                                [0.0,    0.0,    200,    0.4,    0.5],
+                                [0.0,    0.6,    200,    0.4,    0.5],
+                                [0.0,    0.6,      0,    0.0,    0.5]])    
+
+        #self.points = np.array([[5.0,    0.0,    -200,   0.6,    0.5]])
 
         #Let other nodes set up their subscriptions
         print("Initializing...")
@@ -100,11 +94,13 @@ class UnicornHRP_TRACK(Node):
         self.current_state = msg.data
         if self.current_state == 2 and self.index < self.points.shape[0]-1:
             self.index += 1
-            self.publish_new_command(self.points[self.index,:])
+            #self.publish_new_command(self.points[self.index,:])
+            self.publish_move_message(self.points[self.index,:])
         elif self.current_state == 0 and not self.first_command_sent and self.index < self.points.shape[0]-1:
             self.index += 1
             self.first_command_sent == True
-            self.publish_new_command(self.points[self.index,:])
+            #self.publish_new_command(self.points[self.index,:])
+            self.publish_move_message(self.points[self.index,:])
         elif self.index == self.points.shape[0]-1:
             self.track_finished = True
 
@@ -128,10 +124,9 @@ class UnicornHRP_TRACK(Node):
         print("current point: [", self.points[self.index,1], ",", self.points[self.index,2], "]")
         #print('Current point: "%s"' %self.points[self.index,1:2])
 
-            
-        if self.points[self.index,0] == -200 and self.current_state == 1:
+        if self.points[self.index,0] == 200 and self.current_state == 1:
             print('Current command type: Moving')
-        elif self.points[self.index,0] == 200 and self.current_state == 1:
+        elif self.points[self.index,0] == -200 and self.current_state == 1:
             print('Current command type: Reversing')
         elif self.current_state == 1:
             print('Current command type: Turning')
@@ -148,26 +143,13 @@ class UnicornHRP_TRACK(Node):
 ########################################################################################################
 
 ##################################### OTHER FUNCTIONS ##################################################
-    def publish_new_command(self,command):
-        #Publish point
-        if command[0] == -200:
-            self.linear_velocity_message.data = command[3]
-            self.Unicorn_update_linear_velocity_publisher_.publish(self.linear_velocity_message)
-            self.point_message.x = command[1]
-            self.point_message.y = command[2]
-            self.point_message.z = 0.0
-            self.Unicorn_point_publisher_.publish(self.point_message)
-            #print('Publishing point: "%s"' %self.point_message) 
-        #Publish reverse
-        elif command[0] == 200:
-            self.reverse_message.data = command[1]
-            self.Unicorn_reverse_publisher_.publish(self.reverse_message)
-            #print('Publishing reverse: "%s"' %self.reverse_message) 
-        #Publish angle
-        else:
-            self.angle_message.data = command[0]
-            self.Unicorn_angle_publisher_.publish(self.angle_message)
-            #print('Publishing angle: "%s"' %self.angle_message)
+    def publish_move_message(self,data):
+        self.unicorn_hrp_move_message.x = data[0]
+        self.unicorn_hrp_move_message.y = data[1]
+        self.unicorn_hrp_move_message.angle = data[2]
+        self.unicorn_hrp_move_message.lin_vel = data[3]
+        self.unicorn_hrp_move_message.ang_vel = data[4]
+        self.Unicorn_hrp_move_publisher_.publish(self.unicorn_hrp_move_message)
 
 ########################################################################################################
 

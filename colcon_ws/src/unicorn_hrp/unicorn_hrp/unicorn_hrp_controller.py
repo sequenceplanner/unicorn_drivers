@@ -29,6 +29,8 @@ from geometry_msgs.msg import Point
 from geometry_msgs.msg import Quaternion
 from geometry_msgs.msg import Vector3
 
+from unicorn_msgs.msg import UnicornMove
+
 class UnicornHRPTest(Node):
 
 ##################################### INIT ##############################################################
@@ -38,11 +40,8 @@ class UnicornHRPTest(Node):
         self.HRP_publisher_ = self.create_publisher(Twist, 'cmd_vel', 10)
         self.Unicorn_current_state_publisher_ = self.create_publisher(Int16, 'unicorn_current_state', 10)
         self.HRP_subscription = self.create_subscription(Odometry, 'odom', self.odometry_callback,10)
-        self.HRP_subscription = self.create_subscription(Float32, 'angle_test', self.angle_test_callback,10)
-        self.HRP_subscription = self.create_subscription(Point, 'point_test', self.point_test_callback,10)
-        self.HRP_subscription = self.create_subscription(Float32, 'reverse_test', self.reverse_test_callback,10)
-        self.HRP_subscription = self.create_subscription(Float32, 'soft_reset', self.soft_reset_callback,10)
-        self.HRP_subscription = self.create_subscription(Float32, 'linear_velocity', self.update_linear_velocity_callback,10)
+        self.HRP_subscription = self.create_subscription(Float32, 'unicorn_hrp_soft_reset', self.soft_reset_callback,10)
+        self.HRP_subscription = self.create_subscription(UnicornMove, 'unicorn_hrp_move', self.move_hrp_callback,10)
         self.HRP_subscription
 
         #Variable to keep the current coordinate
@@ -64,9 +63,7 @@ class UnicornHRPTest(Node):
 
         #Velocity constants
         self.linear_velocity = 0.4
-        self.linear_velocity_reverse = 0.3
         self.angular_velocity = 0.8
-        self.angular_velocity_turn = 0.6 #Angular velocity when only turning (lower to be more exact)
         self.perform_only_turn = False #Used when only turning, allows the use of a lower angular velocity
         self.reversing = False #Used to keep tack of when the robot is reversing
 
@@ -90,6 +87,14 @@ class UnicornHRPTest(Node):
         self.current_function=0 #DEBUG
         self.angle_outside=0 #DEBUG, shows the current angle when the angle tolerance maximum is triggered
         self.init = True #For first time run
+        self.turn_in_end = False #Used to turn in the end if an angle is specified in the UnicornMove message
+        self.turn_in_end_angle = 0.0 #Used to save the angle in which to turn 
+        self.old_coords = np.array(((0.0),(0.0),(0.0))) #Used for point transformation
+        self.new_coords = np.array(((0.0),(0.0),(0.0))) #Used for point transformation
+        self.R = np.array((
+            (0.0,   0.0,   0.0),
+            (0.0,   0.0,   0.0),
+            (0.0,   0.0,   0.0))) #Used for point transformation
 
         #Keep current state
         self.current_state = 0 #0=idle, 1=executing, 2=finished, 3=error
@@ -108,6 +113,8 @@ class UnicornHRPTest(Node):
         self.do_publish = True
         #Force publish of finished state
         self.publish_finished_state = False
+        #Debug output
+        self.debug_output = True
 
         #Setup callbacks
         velocity_update_period = 0.01  # seconds
@@ -150,11 +157,11 @@ class UnicornHRPTest(Node):
         #Reverse
         if self.reversing and not (abs(self.goal_coordinate.x-self.current_coordinate.x) < self.point_tolerance and abs(self.goal_coordinate.y-self.current_coordinate.y) < self.point_tolerance):
             self.HRPmsg.angular.z = 0.0
-            self.HRPmsg.linear.x = -self.linear_velocity_reverse
+            self.HRPmsg.linear.x = -self.linear_velocity
 
         #Perform only a turn, with different angular speed
         elif self.angle_difference > self.angle_tolerance_turn and self.perform_only_turn:
-            self.perform_turn(self.angular_velocity_turn, self.current_orientation_rpy.z, self.goal_angle)
+            self.perform_turn(self.angular_velocity, self.current_orientation_rpy.z, self.goal_angle)
             self.current_function=1 #DEBUG
 
         #If the robot is outside the angle tolerance it needs to turn in the right direction before moving
@@ -177,8 +184,13 @@ class UnicornHRPTest(Node):
             
             self.current_function=3 #DEBUG
 
+            #Begin to turn if specified in the UnicornMove message
+            if self.turn_in_end:
+                self.turn_in_end = False
+                self.turn(self.turn_in_end_angle)
+
             #Publish that the robot has reached the point
-            if not self.reached_point:
+            elif not self.reached_point:
                 self.reached_point = True
                 self.publish_finished_state = True
                 self.current_state = 2 #Finished
@@ -216,30 +228,31 @@ class UnicornHRPTest(Node):
 
     #Show user information in command window
     def velocity_message_callback(self):
-        print("\033c")
-        print('Linear: "%s"' % self.HRPmsg.linear)
-        print('Angular: "%s"' % self.HRPmsg.angular)
-        print('Odometry HRP: "%s"' % self.current_coordinate_HRP)
-        print('Odometry: "%s"' % self.current_coordinate)
-        print('Coordinate translation: "%s"' % self.coordinate_translation)
-        print('Goal coordinate: "%s"' % self.goal_coordinate)
-        print('RPY HRP: "%s"' % self.current_orientation_rpy_HRP)
-        print('RPY: "%s"' % self.current_orientation_rpy)
-        print('Angle translation: "%s"' % self.angle_translation)
-        print('Goal angle: "%s"' % self.goal_angle)
-        print('Calculate_HRP_offset: "%s"' % self.calculate_HRP_offset)
-        print('Old coords: "%s"' %self.old_coords)
-        print('R: "%s"' % self.R)
-        print('New coords: "%s"' %self.new_coords)
-        print('Current function: "%s"' %self.current_function)
-        print('Within tolerance: "%s"' %self.within_tolerance)
-        print('Angle when triggering outside tolerance: "%s"' %self.angle_outside)
-        print('Angle difference abs: "%s"' %self.angle_difference)
-        print('Integral term: "%s"' %self.integral_term)
-        print('Proportional term: "%s"' %self.proportional_term)
-        print('Angle error: "%s"' %self.angular_error)
-        print('Current state: "%s"' %self.current_state)
-        print('Publish finished state: "%s"' %self.publish_finished_state)
+        if self.debug_output:
+            print("\033c")
+            print('Linear: "%s"' % self.HRPmsg.linear)
+            print('Angular: "%s"' % self.HRPmsg.angular)
+            print('Odometry HRP: "%s"' % self.current_coordinate_HRP)
+            print('Odometry: "%s"' % self.current_coordinate)
+            print('Coordinate translation: "%s"' % self.coordinate_translation)
+            print('Goal coordinate: "%s"' % self.goal_coordinate)
+            print('RPY HRP: "%s"' % self.current_orientation_rpy_HRP)
+            print('RPY: "%s"' % self.current_orientation_rpy)
+            print('Angle translation: "%s"' % self.angle_translation)
+            print('Goal angle: "%s"' % self.goal_angle)
+            print('Calculate_HRP_offset: "%s"' % self.calculate_HRP_offset)
+            print('Old coords: "%s"' %self.old_coords)
+            print('R: "%s"' % self.R)
+            print('New coords: "%s"' %self.new_coords)
+            print('Current function: "%s"' %self.current_function)
+            print('Within tolerance: "%s"' %self.within_tolerance)
+            print('Angle when triggering outside tolerance: "%s"' %self.angle_outside)
+            print('Angle difference abs: "%s"' %self.angle_difference)
+            print('Integral term: "%s"' %self.integral_term)
+            print('Proportional term: "%s"' %self.proportional_term)
+            print('Angle error: "%s"' %self.angular_error)
+            print('Current state: "%s"' %self.current_state)
+            print('Publish finished state: "%s"' %self.publish_finished_state)
         
         #self.get_logger().info('Linear: "%s"' % HRPmsg.linear)
         #self.get_logger().info('Angular: "%s"' % HRPmsg.angular)
@@ -308,28 +321,36 @@ class UnicornHRPTest(Node):
         self.current_coordinate.y = new_coordinates[1]
         self.current_coordinate.z = new_coordinates[2]
 
-    def angle_test_callback(self,msg):
-        self.reached_point = False
-        self.turn(msg.data)
-        self.current_state = 1 #Executing
-
-    def point_test_callback(self,msg):
-        self.reached_point = False
-        self.moveToPoint(msg.x,msg.y)
-        self.current_state = 1 #Executing
-
-    def reverse_test_callback(self,msg):
-        self.reached_point = False
-        self.reverse(self.current_orientation_rpy.z, self.current_coordinate.x, self.current_coordinate.y, msg.data)
-        self.current_state = 1 #Executing
-
     def soft_reset_callback(self,msg):
         if msg.data == 1.0:
             self.__init__()
 
-    def update_linear_velocity_callback(self,msg):
-        self.linear_velocity = msg.data
+    def move_hrp_callback(self,msg):
+        self.reached_point = False
+        self.linear_velocity = msg.lin_vel
+        self.angular_velocity = msg.ang_vel
+        print(msg.angle)
 
+        #Don't care what the goal angle will be
+        if msg.angle == 200:
+            self.moveToPoint(msg.x,msg.y)
+        
+        #Reverse, use "x coordinate" as distanse
+        elif msg.angle == -200:
+            self.reverse(msg.x)
+
+        #Drive and turn in the end or only turn if new coordinates are the same as the current        
+        else:
+            #Only turn
+            if (abs(msg.x-self.current_coordinate.x) < self.point_tolerance and abs(msg.y-self.current_coordinate.y) < self.point_tolerance): 
+                self.turn(msg.angle)
+                print("here")
+            else:
+                self.turn_in_end = True
+                self.turn_in_end_angle = msg.angle
+                self.moveToPoint(msg.x,msg.y)
+
+        self.current_state = 1 #Executing
 
 ##################################### MOVEMENT ######################################################s###
 
@@ -362,10 +383,10 @@ class UnicornHRPTest(Node):
         self.HRPmsg.linear.x = 0.0
 
     #Reverse
-    def reverse(self, current_orientation, current_x_coord, current_y_coord, distance):
-        self.goal_angle = current_orientation
-        self.goal_coordinate.x = current_x_coord - distance*np.cos(np.deg2rad(current_orientation))
-        self.goal_coordinate.y = current_y_coord - distance*np.sin(np.deg2rad(current_orientation))
+    def reverse(self, distance):
+        self.goal_angle = self.current_orientation_rpy.z
+        self.goal_coordinate.x = self.current_coordinate.x - distance*np.cos(np.deg2rad(self.current_orientation_rpy.z))
+        self.goal_coordinate.y = self.current_coordinate.y - distance*np.sin(np.deg2rad(self.current_orientation_rpy.z))
         self.reversing = True
 
 ########################################################################################################
