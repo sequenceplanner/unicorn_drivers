@@ -1,6 +1,6 @@
 from setuptools import setup
 
-package_name = 'UnicornHRP'
+package_name = 'unicorn_hrp'
 
 setup(
     name=package_name,
@@ -20,9 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-        	'UnicornHRPTest_function = UnicornHRP.UnicornHRPTest_function:main',
-        	'UnicornHRPSTOP_function = UnicornHRP.UnicornHRPSTOP_function:main',
-        	'UnicornHRPTrack_function = UnicornHRP.UnicornHRPTrack_function:main',
+        	'unicorn_hrp_controller = unicorn_hrp.unicorn_hrp_controller:main',
+        	'unicorn_hrp_interface = unicorn_hrp.unicorn_hrp_interface:main',
 	    ],
     },
 )
