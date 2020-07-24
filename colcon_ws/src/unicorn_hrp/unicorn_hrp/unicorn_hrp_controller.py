@@ -16,6 +16,9 @@ import numpy as np
 
 import rclpy
 from rclpy.node import Node
+from rclpy.executors import MultiThreadedExecutor
+
+import time
 
 from std_msgs.msg import String
 from std_msgs.msg import Float32
@@ -35,15 +38,23 @@ class UnicornHRPTest(Node):
 
 ##################################### INIT ##############################################################
     def __init__(self):
-        #Initialize publish and subscriptions
+        #Initialize publishers and subscribers
         super().__init__('unicorn_hrp_test')
         self.HRP_publisher_ = self.create_publisher(Twist, 'cmd_vel', 10)
         self.Unicorn_current_state_publisher_ = self.create_publisher(Int16, 'unicorn_current_state', 10)
         self.HRP_subscription = self.create_subscription(Odometry, 'odom', self.odometry_callback,10)
         self.HRP_subscription = self.create_subscription(Float32, 'unicorn_hrp_soft_reset', self.soft_reset_callback,10)
         self.HRP_subscription = self.create_subscription(UnicornMove, 'unicorn_hrp_move', self.move_hrp_callback,10)
+        self.HRP_subscription = self.create_subscription(Float32, 'unicorn_hrp_stop', self.stop_hrp_callback,100)
         self.HRP_subscription
 
+        print("Initializing...")
+
+        self.init_callbacks = True
+        self.setup()
+
+    #Initialize variables and callbacks, also runs during soft reset
+    def setup(self):
         #Variable to keep the current coordinate
         self.current_coordinate = Point()
         self.current_coordinate_HRP = Point()
@@ -57,15 +68,22 @@ class UnicornHRPTest(Node):
         self.current_orientation_rpy_HRP = Vector3()
         self.angle_translation = Vector3()
 
-        #Variable to keep goal cooardinate and yaw angle
+        #Variable to keep goal cooardinate, yaw angle and total travel distance
         self.goal_coordinate = Point()
         self.goal_angle = 0
+        self.travel_distance_total = 0.0
 
         #Velocity constants
-        self.linear_velocity = 0.4
+        self.linear_velocity = 0.6
+        self.linear_velocity_turn = 0.1 #Velocity to use during turning
+        self.linear_velocity_reverse = 0.25
+        self.linear_velocity_ramp = 0.2 #Lowest velocity to use for ramp
+        self.ramp_distance = 0.75 #Distance for which to ramp up and down in speeed
         self.angular_velocity = 0.8
+        self.angular_velocity_turn = 0.6
         self.perform_only_turn = False #Used when only turning, allows the use of a lower angular velocity
         self.reversing = False #Used to keep tack of when the robot is reversing
+        self.stop_HRP = False #Used to stop the HRP and keep it from moving
 
         #PI regulator constants
         self.angular_velocity_proportional_gain = 0.001
@@ -78,15 +96,17 @@ class UnicornHRPTest(Node):
         self.angle_tolerance = 10 #Tolerance angle when turning (deg), the robot will stop when within
         self.angle_tolerance_turn = 5 #When only turning
         self.angle_tolerance_maximum = 30 #Maximum deviation from goal angle before stopping and turning
+        self.angle_tolerance_lin_vel_turn = 45 #Maximum angle difference when using linear velocity while turning
+        self.travel_distance_tolerance = 1.0 #Minimum travel distance for when to turn with linear velocity
         self.within_tolerance = True #If the robot is within the allowed angle tolerance
         self.point_tolerance = 0.25 #Tolerance in meters, deviation from set point
         self.reset_integral_term_angle_tolerance = 1.0 #If the robot is close enough to the goal angle, reset the integral term to move stright
-        
+
         #Other constants
+        self.init_HRP_offset = True
         self.calculate_HRP_offset = True #Calculate an offset from HRP to our coordinate system
-        self.current_function=0 #DEBUG
+        self.current_function=0 #For user and debug info
         self.angle_outside=0 #DEBUG, shows the current angle when the angle tolerance maximum is triggered
-        self.init = True #For first time run
         self.turn_in_end = False #Used to turn in the end if an angle is specified in the UnicornMove message
         self.turn_in_end_angle = 0.0 #Used to save the angle in which to turn 
         self.old_coords = np.array(((0.0),(0.0),(0.0))) #Used for point transformation
@@ -97,7 +117,7 @@ class UnicornHRPTest(Node):
             (0.0,   0.0,   0.0))) #Used for point transformation
 
         #Keep current state
-        self.current_state = 0 #0=idle, 1=executing, 2=finished, 3=error
+        self.current_state = 0 #0=idle, 1=executing, 2=finished, 3=stoppped, 4=stoppped but recieved command
         self.current_state_message = Int16()
         self.reached_point = False
 
@@ -113,16 +133,20 @@ class UnicornHRPTest(Node):
         self.do_publish = True
         #Force publish of finished state
         self.publish_finished_state = False
-        #Debug output
-        self.debug_output = True
+        #Debug information output
+        self.debug_output = False
+        #User information output
+        self.user_output = True
 
         #Setup callbacks
-        velocity_update_period = 0.01  # seconds
-        self.velocity_update = self.create_timer(velocity_update_period, self.velocity_update_callback)
-        velocity_message_period = 1.0  # seconds
-        self.velocity_message = self.create_timer(velocity_message_period, self.velocity_message_callback)
-        current_state_update_period = 0.1 # seconds
-        self.velocity_message = self.create_timer(current_state_update_period, self.current_state_callback)
+        if self.init_callbacks == True:
+            velocity_update_period = 0.01  # seconds
+            self.velocity_update = self.create_timer(velocity_update_period, self.velocity_update_callback)
+            velocity_message_period = 1.0  # seconds
+            self.velocity_message = self.create_timer(velocity_message_period, self.velocity_message_callback)
+            current_state_update_period = 0.1 # seconds
+            self.current_state_update = self.create_timer(current_state_update_period, self.current_state_callback)
+            self.init_callbacks = False
 
         #Run program
         #self.moveToPoint(4.0,-1.0)
@@ -137,99 +161,135 @@ class UnicornHRPTest(Node):
 ##################################### OUTGOING CALLBACKS ###############################################
     #Publish udated velocity to HRP
     def velocity_update_callback(self):  
-        
-        #Calculate the difference between the goal angle and current orientation
-        angle_difference_calc = self.goal_angle - self.current_orientation_rpy.z
-        if angle_difference_calc > 180:
-            angle_difference_calc -=360
-        elif angle_difference_calc < -180:
-            angle_difference_calc +=360 
-        self.angular_error = angle_difference_calc #For the PI regulator (signed error)
-        self.angle_difference = abs(angle_difference_calc) #For the next Chunk of code (nonsigned error)
 
-        #If the robot are within the tolerance, try to travel straight, if it ends up too far off begin to turn again
-        if self.angle_difference <= self.angle_tolerance and not self.within_tolerance:
-            self.within_tolerance = True #Prevent robot from turning
-        elif self.angle_difference > self.angle_tolerance_maximum:
-            self.within_tolerance = False #Allow robot to turn again
-            self.angle_outside = self.current_orientation_rpy.z #DEBUG
+        #If HRP is not stopped
+        if not self.stop_HRP:
+            #Calculate the difference between the goal angle and current orientation
+            angle_difference_calc = self.goal_angle - self.current_orientation_rpy.z
+            if angle_difference_calc > 180:
+                angle_difference_calc -=360
+            elif angle_difference_calc < -180:
+                angle_difference_calc +=360 
+            self.angular_error = angle_difference_calc #For the PI regulator (signed error)
+            self.angle_difference = abs(angle_difference_calc) #For the next Chunk of code (nonsigned error)
 
-        #Reverse
-        if self.reversing and not (abs(self.goal_coordinate.x-self.current_coordinate.x) < self.point_tolerance and abs(self.goal_coordinate.y-self.current_coordinate.y) < self.point_tolerance):
-            self.HRPmsg.angular.z = 0.0
-            self.HRPmsg.linear.x = -self.linear_velocity
+            #Calculate the distance between the current and goal coordinate
+            travel_distance_left = np.sqrt(abs(np.float_power(self.goal_coordinate.x - self.current_coordinate.x,2))+abs(np.float_power(self.goal_coordinate.y - self.current_coordinate.y,2)))
 
-        #Perform only a turn, with different angular speed
-        elif self.angle_difference > self.angle_tolerance_turn and self.perform_only_turn:
-            self.perform_turn(self.angular_velocity, self.current_orientation_rpy.z, self.goal_angle)
-            self.current_function=1 #DEBUG
+            #Check if current travel distance has increased, if so update total travel distance
+            if self.travel_distance_total - travel_distance_left < 0.0:
+                self.travel_distance_total = np.sqrt(np.float_power(self.goal_coordinate.x - self.current_coordinate.x,2)+np.float_power(self.goal_coordinate.y - self.current_coordinate.y,2))
 
-        #If the robot is outside the angle tolerance it needs to turn in the right direction before moving
-        elif self.angle_difference > self.angle_tolerance and not self.within_tolerance:
-            self.perform_turn(self.angular_velocity, self.current_orientation_rpy.z, self.goal_angle)
-            self.current_function=2 #DEBUG
-            self.integral_term = 0.0
+            #If the robot are within the tolerance, try to travel straight, if it ends up too far off begin to turn again
+            if self.angle_difference <= self.angle_tolerance and not self.within_tolerance:
+                self.within_tolerance = True #Prevent robot from turning
+            elif self.angle_difference > self.angle_tolerance_maximum:
+                self.within_tolerance = False #Allow robot to turn again
+                self.angle_outside = self.current_orientation_rpy.z #DEBUG
 
-        #If the robot has arrived at the target point
-        elif abs(self.goal_coordinate.x-self.current_coordinate.x) < self.point_tolerance and abs(self.goal_coordinate.y-self.current_coordinate.y) < self.point_tolerance:
-            #Stop the robot, reset PI integral term
-            self.HRPmsg.linear.x = 0.0
-            self.HRPmsg.angular.z = 0.0
-            self.integral_term = 0.0
-            
-            #Reset variables
-            self.perform_only_turn = False
-            self.within_tolerance = False
-            self.reversing = False
-            
-            self.current_function=3 #DEBUG
+            #Reverse
+            if self.reversing and not (abs(self.goal_coordinate.x-self.current_coordinate.x) < self.point_tolerance and abs(self.goal_coordinate.y-self.current_coordinate.y) < self.point_tolerance):
+                self.current_function=0 #For user and debug info
 
-            #Begin to turn if specified in the UnicornMove message
-            if self.turn_in_end:
-                self.turn_in_end = False
-                self.turn(self.turn_in_end_angle)
+                self.HRPmsg.angular.z = 0.0
+                self.HRPmsg.linear.x = -self.linear_velocity_reverse
 
-            #Publish that the robot has reached the point
-            elif not self.reached_point:
-                self.reached_point = True
-                self.publish_finished_state = True
-                self.current_state = 2 #Finished
-            else:
-                self.current_state = 0 #Idle
+            #Perform only a turn, with different angular speed and zero linear velocity
+            elif self.angle_difference > self.angle_tolerance_turn and self.perform_only_turn:
+                self.current_function=1 #For user and debug info
 
-        #If the robot is within the angle tolerance, move to the target point
-        else:
-            #Update goal angle for next callback
-            self.goal_angle = np.rad2deg(np.arctan2(self.goal_coordinate.y-self.current_coordinate.y,self.goal_coordinate.x-self.current_coordinate.x))
-            #Set desired velocity for linear movement
-            self.HRPmsg.linear.x = self.linear_velocity
+                self.perform_turn(self.angular_velocity_turn, self.current_orientation_rpy.z, self.goal_angle)
+                self.HRPmsg.linear.x = 0.0
+                
+            #If the robot is outside the angle tolerance it needs to turn in the right direction before moving
+            elif self.angle_difference > self.angle_tolerance and not self.within_tolerance:
+                self.current_function=2 #For user and debug info
+                
+                self.perform_turn(self.angular_velocity, self.current_orientation_rpy.z, self.goal_angle)
 
-            #PI regulator for adjusting the traveling angle closer to the goal angle
-            self.proportional_term = self.angular_velocity_proportional_gain * self.angular_error
-            
-            self.integral_term  += self.angular_velocity_integral_gain * self.angular_error
-            if self.integral_term > 0.6:
-                self.integral_term = 0.6
-            elif self.integral_term < -0.6:
-                self.integral_term = -0.6
+                #Decide if we want to use linear velocity while turning (smoother turn)
+                if self.angle_difference <= self.angle_tolerance_lin_vel_turn and travel_distance_left >= self.travel_distance_tolerance:
+                    self.HRPmsg.linear.x = self.linear_velocity_turn
+                else:
+                    self.HRPmsg.linear.x = 0.0
 
-            #Reset the integral term instantly if we are close enough to the goal angle
-            if self.angle_difference < self.reset_integral_term_angle_tolerance:
+                #Reset integral term
+                self.integral_term = 0.0        
+
+            #If the robot has arrived at the target point
+            elif abs(self.goal_coordinate.x-self.current_coordinate.x) < self.point_tolerance and abs(self.goal_coordinate.y-self.current_coordinate.y) < self.point_tolerance:
+                self.current_function=3 #For user and debug info
+                
+                #Stop the robot, reset PI integral term
+                self.HRPmsg.linear.x = 0.0
+                self.HRPmsg.angular.z = 0.0
                 self.integral_term = 0.0
+                
+                #Reset variables
+                self.perform_only_turn = False
+                self.within_tolerance = False
+                self.reversing = False
+                
+                #Begin to turn if specified in the UnicornMove message
+                if self.turn_in_end:
+                    self.turn_in_end = False
+                    self.linear_velocity_turn = 0.0
+                    self.turn(self.turn_in_end_angle)
 
-            #Calculate the final angular velocity
-            self.HRPmsg.angular.z = self.proportional_term + self.integral_term
-            
-            self.current_function=4 #DEBUG
+                #Publish that the robot has reached the point
+                elif not self.reached_point:
+                    self.reached_point = True
+                    self.publish_finished_state = True
+                    self.current_state = 2 #Finished
 
-        #Publish new velocity
-        if self.do_publish:
-            self.HRP_publisher_.publish(self.HRPmsg)
+                else:
+                    self.current_state = 0 #Idle
+
+            #If the robot is within the angle tolerance, move to the target point
+            else:
+                self.current_function=4 #For user and debug info
+                
+                #Update goal angle for next callback
+                self.goal_angle = np.rad2deg(np.arctan2(self.goal_coordinate.y-self.current_coordinate.y,self.goal_coordinate.x-self.current_coordinate.x))
+                
+                #Ramp up
+                pt = self.point_tolerance #Just to use a temporary shorter variable name
+                if self.travel_distance_total - travel_distance_left < self.ramp_distance and not (travel_distance_left-pt) < (self.travel_distance_total-pt)/2:
+                    self.HRPmsg.linear.x = ((self.travel_distance_total - travel_distance_left)/self.ramp_distance)*(self.linear_velocity-self.linear_velocity_ramp)+self.linear_velocity_ramp
+                #Ramp down
+                elif travel_distance_left-pt < self.ramp_distance:
+                    self.HRPmsg.linear.x = ((travel_distance_left-pt)/self.ramp_distance)*(self.linear_velocity-self.linear_velocity_ramp)+self.linear_velocity_ramp
+                else:
+                    self.HRPmsg.linear.x = self.linear_velocity
+
+                #PI regulator for adjusting the traveling angle closer to the goal angle
+                self.proportional_term = self.angular_velocity_proportional_gain * self.angular_error
+                
+                self.integral_term  += self.angular_velocity_integral_gain * self.angular_error
+                if self.integral_term > 0.6:
+                    self.integral_term = 0.6
+                elif self.integral_term < -0.6:
+                    self.integral_term = -0.6
+
+                #Reset the integral term instantly if we are close enough to the goal angle
+                if self.angle_difference < self.reset_integral_term_angle_tolerance:
+                    self.integral_term = 0.0
+
+                #Calculate the final angular velocity
+                self.HRPmsg.angular.z = self.proportional_term + self.integral_term
+                
+            #Publish new velocity
+            if self.do_publish:
+                self.HRP_publisher_.publish(self.HRPmsg)
 
     #Show user information in command window
     def velocity_message_callback(self):
-        if self.debug_output:
+        if self.debug_output or self. user_output:
             print("\033c")
+
+        if self.debug_output:
+            print("################# DEBUG INFO ################")
+            
             print('Linear: "%s"' % self.HRPmsg.linear)
             print('Angular: "%s"' % self.HRPmsg.angular)
             print('Odometry HRP: "%s"' % self.current_coordinate_HRP)
@@ -253,6 +313,42 @@ class UnicornHRPTest(Node):
             print('Angle error: "%s"' %self.angular_error)
             print('Current state: "%s"' %self.current_state)
             print('Publish finished state: "%s"' %self.publish_finished_state)
+            
+            print("#############################################")
+            print("")
+
+        if self.user_output:
+            print("################# USER INFO #################")
+
+            if self.current_state == 0:
+                print("Current state: Idle")
+            elif self.current_state == 1:
+                print("Current state: Executing")
+            elif self.current_state == 2:
+                print("Current state: Finished")
+            elif self.current_state == 3:
+                print("Current state: Blocked")
+            elif self.current_state == 4:
+                print("Current state: Stopped")
+            else:
+                print("Current state: Faulty state")
+
+            print("Current point:   x = {:.{}f}".format(self.current_coordinate.x,2), ", y = {:.{}f}".format(self.current_coordinate.y,2), ", angle = {:.{}f}".format(self.current_orientation_rpy.z,2))
+            if self.turn_in_end:
+                print("Moving to point: x = {:.{}f}".format(self.goal_coordinate.x,2), ", y = {:.{}f}".format(self.goal_coordinate.y,2), ", angle = {:.{}f}".format(self.turn_in_end_angle,2))
+            else: 
+                print("Moving to point: x = {:.{}f}".format(self.goal_coordinate.x,2), ", y = {:.{}f}".format(self.goal_coordinate.y,2), ", angle = {:.{}f}".format(self.goal_angle,2))
+
+            if self.current_function == 4:
+                print('Current command type: Moving')
+            elif self.current_function == 0:
+                print('Current command type: Reversing')
+            elif self.current_function == 1 or self.current_function == 2:
+                print('Current command type: Turning')
+            else:
+                print('Current command type: None')
+
+            print("#############################################")
         
         #self.get_logger().info('Linear: "%s"' % HRPmsg.linear)
         #self.get_logger().info('Angular: "%s"' % HRPmsg.angular)
@@ -287,16 +383,16 @@ class UnicornHRPTest(Node):
         self.current_orientation_rpy_HRP.z = rpy_angles[2]
 
         #First time calculate the translation and rotation offset between HRP and our own coordinate system
-        if self.calculate_HRP_offset and self.init:
+        if self.calculate_HRP_offset and self.init_HRP_offset:
             self.calculate_HRP_offset = False
-            self.init = False
+            self.init_HRP_offset = False
             self.coordinate_translation = self.current_coordinate_HRP
             self.angle_translation.x = self.current_orientation_rpy_HRP.x
             self.angle_translation.y = self.current_orientation_rpy_HRP.y
             self.angle_translation.z = self.current_orientation_rpy_HRP.z
             print("First time offset = True, using our own orientation and coordinate system")
-        elif self.init: 
-            self.init = False
+        elif self.init_HRP_offset: 
+            self.init_HRP_offset = False
             self.coordinate_translation = Point()
             self.coordinate_translation.x = 0.0
             self.coordinate_translation.y = 0.0
@@ -323,34 +419,61 @@ class UnicornHRPTest(Node):
 
     def soft_reset_callback(self,msg):
         if msg.data == 1.0:
-            self.__init__()
+            print("Soft reset...")
+            self.setup()
 
     def move_hrp_callback(self,msg):
-        self.reached_point = False
-        self.linear_velocity = msg.lin_vel
-        self.angular_velocity = msg.ang_vel
-        print(msg.angle)
+        #If HRP is not stopped
+        if not self.stop_HRP:
+            self.reached_point = False
 
-        #Don't care what the goal angle will be
-        if msg.angle == 200:
-            self.moveToPoint(msg.x,msg.y)
-        
-        #Reverse, use "x coordinate" as distanse
-        elif msg.angle == -200:
-            self.reverse(msg.x)
-
-        #Drive and turn in the end or only turn if new coordinates are the same as the current        
-        else:
-            #Only turn
-            if (abs(msg.x-self.current_coordinate.x) < self.point_tolerance and abs(msg.y-self.current_coordinate.y) < self.point_tolerance): 
-                self.turn(msg.angle)
-                print("here")
-            else:
-                self.turn_in_end = True
-                self.turn_in_end_angle = msg.angle
+            #Don't care what the goal angle will be
+            if msg.angle == 200:
                 self.moveToPoint(msg.x,msg.y)
+    
+            #Reverse, use "x coordinate" as distanse
+            elif msg.angle == -200:
+                self.reverse(msg.x)
 
-        self.current_state = 1 #Executing
+            #Drive and turn in the end or only turn if new coordinates are the same as the current        
+            else:
+                #Only turn
+                if (abs(msg.x-self.current_coordinate.x) < self.point_tolerance and abs(msg.y-self.current_coordinate.y) < self.point_tolerance): 
+                    self.turn(msg.angle)
+                else:
+                    self.turn_in_end = True
+                    self.turn_in_end_angle = msg.angle
+                    self.moveToPoint(msg.x,msg.y)
+
+            self.current_state = 1 #Executing
+        #If HRP is stopped but still recieves a command
+        else:
+            self.current_state = 4 #Stoppped but recieved command
+            self.stop_hrp_callback(0.0)
+
+    def stop_hrp_callback(self,msg):
+        #Stop HRP (0.0 for blocked, 0.1 for stopped)
+        if msg.data == 0.0 or msg.data == 0.1:
+            self.goal_coordinate.x = self.current_coordinate.x
+            self.goal_coordinate.x = self.current_coordinate.y
+            self.goal_angle = self.current_orientation_rpy.z
+            self.HRPmsg.angular.z = 0.0
+            self.HRPmsg.linear.x = 0.0
+            self.HRP_publisher_.publish(self.HRPmsg)
+            self.stop_HRP = True
+            self.perform_only_turn = False
+            self.within_tolerance = False
+            self.reversing = False
+            
+            if msg.data == 0.0:
+               self.current_state = 3 #Blocked
+            else:
+               self.current_state = 4 #Stopped  
+
+        #Allow HRP to move again
+        elif msg.data == 1.0:
+            self.stop_HRP = False
+            self.current_state = 0 #Idle
 
 ##################################### MOVEMENT ######################################################s###
 
@@ -360,6 +483,8 @@ class UnicornHRPTest(Node):
         self.goal_coordinate.y = target_y_coordinate
         self.goal_angle = np.rad2deg(np.arctan2(self.goal_coordinate.y-self.current_coordinate.y,self.goal_coordinate.x-self.current_coordinate.x))
         self.goal_coordinate.z = 0.0
+        #Calculate the total distance between the current and goal coordinate
+        self.travel_distance_total = np.sqrt(np.float_power(self.goal_coordinate.x - self.current_coordinate.x,2)+np.float_power(self.goal_coordinate.y - self.current_coordinate.y,2))
 
     #Turn HRP from one angle to another
     def turn(self, target_angle):
@@ -380,7 +505,7 @@ class UnicornHRPTest(Node):
             self.HRPmsg.angular.z = velocity
         else:
             self.HRPmsg.angular.z = -velocity
-        self.HRPmsg.linear.x = 0.0
+        self.HRPmsg.linear.x = self.linear_velocity_turn
 
     #Reverse
     def reverse(self, distance):
@@ -445,7 +570,6 @@ class UnicornHRPTest(Node):
         self.new_coords = np.matmul(np.transpose(self.R),self.old_coords)
 
         return self.new_coords
-
 
 ########################################################################################################
 

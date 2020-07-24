@@ -48,27 +48,31 @@ class UnicornHRP_TRACK(Node):
         self.first_command_sent = False
         self.track_finished = False
 
-        #Points, (x-coord / y-coord / angle=[-180,180] (200 dont care) / linear-velocity / angular-velocity)
+        #Points, (x-coord / y-coord / angle=[-180,180] (200 dont care about angle, -200 reverse) / linear-velocity / angular-velocity / linear-velocity during turn)
         
-        self.points = np.array([[5.0,    0.0,    200,    0.6,    0.5],
-                                [6.0,    -1.0,   200,    0.4,    0.5],
-                                [7.5,    -1.0,   200,    0.4,    0.5],
-                                [7.5,    0.0,    200,    0.4,    0.5],
-                                [7.5,    0.0,     15,    0.0,    0.5],
-                                [1.0,    0.15,   200,    0.6,    0.5],
-                                [0.0,    0.15,   200,    0.4,    0.5],
-                                [0.1,    -1.5,   200,    0.4,    0.5],
-                                [0.0,    0.15,   200,    0.4,    0.5],
-                                [-2.0,   0.15,   200,    0.4,    0.5],
-                                [-2.0,   0.8,    200,    0.4,    0.5],
-                                [-2.0,   0-8,    -90,    0.0,    0.5],
-                                [0.5,    0.0,   -200,    0.4,    0.5],
-                                [-2.0,   0.0,    200,    0.4,    0.5],
-                                [0.0,    0.0,    200,    0.4,    0.5],
-                                [0.0,    0.6,    200,    0.4,    0.5],
-                                [0.0,    0.6,      0,    0.0,    0.5]])    
-
-        #self.points = np.array([[5.0,    0.0,    -200,   0.6,    0.5]])
+        self.points = np.array([[5.0,    0.0,    200],
+                                [6.0,    -1.0,   200],
+                                [7.5,    -1.0,   200],
+                                [7.5,    0.0,    200],
+                                [7.5,    0.0,     15],
+                                [1.0,    0.15,   200],
+                                [0.0,    0.15,   200],
+                                [0.1,    -1.5,   200],
+                                [0.0,    0.0,    200],
+                                [-2.0,   0.0,    200],
+                                [-2.0,   0.8,    200],
+                                [-2.0,   0.8,    -90],
+                                [0.5,    0.0,   -200],
+                                [-2.0,   -0.15,  200],  
+                                [0.0,    -0.15,  200],
+                                [0.0,    0.6,    200],
+                                [0.0,    0.6,      0]])
+        '''
+        self.points = np.array([[2.0,   0.0,    200],
+                                [0.0,   0.0,    200],
+                                [2.0,   0.0,    200],
+                                [0.0,   0.0,    0]])'''
+                                
 
         #Let other nodes set up their subscriptions
         print("Initializing...")
@@ -107,7 +111,7 @@ class UnicornHRP_TRACK(Node):
     #Show user information in command window
     def velocity_message_callback(self):
         print("\033c")
-        print("################# DEBUG INFO #################")
+        print("################# USER INFO ################")
 
         if self.current_state == 0:
             print("Current state: Idle")
@@ -116,12 +120,14 @@ class UnicornHRP_TRACK(Node):
         elif self.current_state == 2:
             print("Current state: Finished")
         elif self.current_state == 3:
-            print("Current state: Error")
+            print("Current state: Blocked")
+        elif self.current_state == 4:
+            print("Current state: Stopped")
         else:
             print("Current state: Faulty state")
 
         print("Current point index", self.index, " / ", self.points.shape[0]-1)
-        print("current point: [", self.points[self.index,1], ",", self.points[self.index,2], "]")
+        print("current point: [", self.points[self.index,0], ",", self.points[self.index,1], "]")
         #print('Current point: "%s"' %self.points[self.index,1:2])
 
         if self.points[self.index,0] == 200 and self.current_state == 1:
@@ -147,8 +153,6 @@ class UnicornHRP_TRACK(Node):
         self.unicorn_hrp_move_message.x = data[0]
         self.unicorn_hrp_move_message.y = data[1]
         self.unicorn_hrp_move_message.angle = data[2]
-        self.unicorn_hrp_move_message.lin_vel = data[3]
-        self.unicorn_hrp_move_message.ang_vel = data[4]
         self.Unicorn_hrp_move_publisher_.publish(self.unicorn_hrp_move_message)
 
 ########################################################################################################
