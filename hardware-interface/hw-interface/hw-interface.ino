@@ -1,20 +1,22 @@
-#include "Adafruit_VL53L0X.h"
+#include "src/Adafruit-VL530X/Adafruit_VL53L0X.h"
 
 // address we will assign if dual sensor is present
-#define LOX1_ADDRESS 0x30
-#define LOX2_ADDRESS 0x31
+#define LOXR_ADDRESS 0x30
+#define LOXF_ADDRESS 0x31
+// last one will be left with default adress 0x29
 
 // set the pins to shutdown
-#define SHT_LOX1 A3 //right
-#define SHT_LOX2 A6 //front
+#define SHT_LOXR A3 //right 
+#define SHT_LOXF 3 //front (diode connected)
+#define SHT_LOXL 2 //left  (diode connected)
+
+//define sensor states
+#define LOX_OUT_OF_RANGE 4
 
 // objects for the vl53l0x
-Adafruit_VL53L0X lox1 = Adafruit_VL53L0X();
-Adafruit_VL53L0X lox2 = Adafruit_VL53L0X();
-
-// this holds the measurement
-VL53L0X_RangingMeasurementData_t measure1;
-VL53L0X_RangingMeasurementData_t measure2;
+Adafruit_VL53L0X loxRight = Adafruit_VL53L0X();
+Adafruit_VL53L0X loxFront = Adafruit_VL53L0X();
+Adafruit_VL53L0X loxLeft = Adafruit_VL53L0X();
 
 /*
     Reset all sensors by setting all of their XSHUT pins low for delay(10), then set all XSHUT high to bring out of reset
@@ -24,100 +26,111 @@ VL53L0X_RangingMeasurementData_t measure2;
     Keep sensor #1 awake, and now bring sensor #2 out of reset by setting its XSHUT pin high.
     Initialize sensor #2 with lox.begin(new_i2c_address) Pick any number but 0x29 and whatever you set the first sensor to
  */
-void setID() {
-  // all reset
-  digitalWrite(SHT_LOX1, LOW);    
-  digitalWrite(SHT_LOX2, LOW);
-  delay(100); //go slow to debug
-  // all unreset - dont write 5V high (max 3v3) (set high impeadance instead)
-  //digitalWrite(SHT_LOX1, HIGH);
-  //digitalWrite(SHT_LOX2, HIGH);
-  pinMode(SHT_LOX1,INPUT);
-  pinMode(SHT_LOX2,INPUT);
-  delay(100);
 
-  // activating LOX1 and reseting LOX2
-  //digitalWrite(SHT_LOX1, HIGH);
-  //digitalWrite(SHT_LOX2, LOW);
 
-  pinMode(SHT_LOX2, OUTPUT);
-  digitalWrite(SHT_LOX2, LOW);
-  delay(100);
-
-  // only LOX1 should be active now:
-
-  // initing LOX1
-  if(!lox1.begin(LOX1_ADDRESS)) {
-    Serial.println(F("Failed to boot first VL53L0X"));
-    while(1);
-  }
-  delay(100);
-
-  // activating LOX2
-  //digitalWrite(SHT_LOX2, HIGH);
-  pinMode(SHT_LOX2, INPUT);
-
-  //both sensors should be active with Arduino pins in high impeadance
-  
-  delay(100);
-
-  //initing LOX2
-  if(!lox2.begin(LOX2_ADDRESS)) {
-    Serial.println(F("Failed to boot second VL53L0X"));
-    while(1);
-  }
-}
-
-void read_dual_sensors() {
-  
-  lox1.rangingTest(&measure1, false); // pass in 'true' to get debug data printout!
-  lox2.rangingTest(&measure2, false); // pass in 'true' to get debug data printout!
-
-  // print sensor one reading
-  Serial.print("1: ");
-  if(measure1.RangeStatus != 4) {     // if not out of range
-    Serial.print(measure1.RangeMilliMeter);
-  } else {
-    Serial.print("Out of range");
-  }
-  
-  Serial.print(" ");
-
-  // print sensor two reading
-  Serial.print("2: ");
-  if(measure2.RangeStatus != 4) {
-    Serial.print(measure2.RangeMilliMeter);
-  } else {
-    Serial.print("Out of range");
-  }
-  
-  Serial.println();
-}
+//function prototypes:
+void setID();
+int readRange(Adafruit_VL53L0X *sensor);
 
 void setup() {
   Serial.begin(115200);
-
-  // wait until serial port opens for native USB devices
+  // wait until serial port opens for native USB devices:
   while (! Serial) { delay(1); }
 
-  pinMode(SHT_LOX1, OUTPUT);
-  pinMode(SHT_LOX2, OUTPUT);
-
-  Serial.println("Shutdown pins inited...");
-
-  digitalWrite(SHT_LOX1, LOW);
-  digitalWrite(SHT_LOX2, LOW);
-
-  Serial.println("Both in reset mode...(pins are low)");
-  
-  
-  Serial.println("Starting...");
+  //configure adress for all 3 sensors:
   setID();
- 
 }
 
 void loop() {
-   
-  read_dual_sensors();
+
+  //set up local variables;
+  static int rightRange, leftRange, frontRange;
+  static unsigned long timeInterval;
+
+  //read distances:
+  timeInterval = millis();
+  rightRange = readRange(&loxRight);
+  leftRange = readRange(&loxLeft);
+  frontRange = readRange(&loxFront);
+  timeInterval = millis() - timeInterval;
+  Serial.println(timeInterval);
+
+  //output range over serial:
+  /*
+  Serial.print(F("R: "));
+  Serial.println(rightRange);
+  Serial.print(F("L: "));
+  Serial.println(leftRange);
+  Serial.print(F("F: "));
+  Serial.println(frontRange);
+  /*
+  Serial.print(F("Sensor right: "));
+  Serial.println(readRange(&loxRight));
+  Serial.print(F("Sensor front: "));
+  Serial.println(readRange(&loxFront));
+  Serial.print(F("Sensor left: "));
+  Serial.println(readRange(&loxLeft));
+  */  
+}
+
+
+void setID() {
+  // shutdown all sensors:
+  pinMode(SHT_LOXR, OUTPUT);
+  pinMode(SHT_LOXF, OUTPUT);
+  pinMode(SHT_LOXL, OUTPUT);
+
+  digitalWrite(SHT_LOXR, LOW);
+  digitalWrite(SHT_LOXF, LOW);
+  digitalWrite(SHT_LOXL, LOW);
+
   delay(100);
+
+  // enable right sensor:
+  pinMode(SHT_LOXR, INPUT);
+  delay(10);
+
+  // initing right
+  if(!loxRight.begin(LOXR_ADDRESS)) {
+    Serial.println(F("Right failed"));
+    while(1);
+  }
+  delay(10);
+
+  //enable front sensor:
+  pinMode(SHT_LOXF, INPUT);
+  delay(10);
+
+  //initing front
+  if(!loxFront.begin(LOXF_ADDRESS)) {
+    Serial.println(F("Front failed"));
+    while(1);
+  }
+  delay(10);
+
+  //enable left sensor
+  pinMode(SHT_LOXL, INPUT);
+  delay(10);
+  
+  //initing left (default adress)
+  if(!loxLeft.begin()) {
+    Serial.println(F("Left failed"));
+    while(1);
+  }
+  delay(10);
+}
+
+int readRange(Adafruit_VL53L0X *sensor) {
+  // returns -1 if sensor is out of range
+  // returns range  in mm if sensor is in range
+  // this holds the measurement (what is this struct -  how much memmory?)
+  static VL53L0X_RangingMeasurementData_t measurement;
+  // get measurement with debug disabled
+  sensor->getSingleRangingMeasurement(&measurement, false);
+  if(measurement.RangeStatus != LOX_OUT_OF_RANGE) {
+    return measurement.RangeMilliMeter;
+  }
+  else {
+    return -1;
+  }
 }
