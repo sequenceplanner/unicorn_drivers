@@ -10,6 +10,15 @@
 #define SHT_LOXF 3 //front (diode connected)
 #define SHT_LOXL 2 //left  (diode connected)
 
+// set the pins for motor control
+#define IN1 6
+#define IN2 5
+
+// define actuator control states (see table 1 DRV8871 datasheet)
+#define ACTUATOR_COAST 0
+#define ACTUATOR_UP 1
+#define ACTUATOR_DOWN 2
+
 //define sensor states
 #define LOX_OUT_OF_RANGE 4
 
@@ -31,6 +40,8 @@ Adafruit_VL53L0X loxLeft = Adafruit_VL53L0X();
 //function prototypes:
 void setID();
 int readRange(Adafruit_VL53L0X *sensor);
+void initActuator();
+void setActuator(uint8_t mode);
 
 void setup() {
   Serial.begin(115200);
@@ -39,6 +50,9 @@ void setup() {
 
   //configure adress for all 3 sensors:
   setID();
+
+  //init actuator
+  initActuator();
 }
 
 void loop() {
@@ -132,5 +146,35 @@ int readRange(Adafruit_VL53L0X *sensor) {
   }
   else {
     return -1;
+  }
+}
+
+void initActuator() {
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  setActuator(ACTUATOR_DOWN);
+}
+
+void setActuator(uint8_t mode) {
+  switch (mode) {
+  case ACTUATOR_COAST:
+    Serial.println(F("COAST"));
+    digitalWrite(IN1, LOW);
+    digitalWrite(IN2, LOW);
+    break;
+  case ACTUATOR_UP:
+    Serial.println(F("UP"));
+    digitalWrite(IN1, HIGH);
+    digitalWrite(IN2, LOW);
+    break;
+  case ACTUATOR_DOWN:
+    Serial.println(F("DOWN"));
+    digitalWrite(IN1, LOW);
+    digitalWrite(IN2, HIGH);
+    break;
+  default: //default to coast (ie do nothing)
+    digitalWrite(IN1, LOW);
+    digitalWrite(IN2, LOW);
+    break;
   }
 }
