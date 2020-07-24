@@ -1,0 +1,1 @@
+Holds code for microcontroller that runs trash dump motor and collission avoidance sensors.
