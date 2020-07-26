@@ -18,10 +18,12 @@ TrashActuator::TrashActuator(uint8_t IN1, uint8_t IN2, unsigned long actuationTi
 
     //initial position when starting is unknown
     actuatorState = ACTUATOR_UNKOWN;
+
 }
 
 void TrashActuator::setActuatorCommand(uint8_t command, unsigned long currentTime) {
-    if(command = currentCommand) {
+    Serial.println(F("Setting command"));
+    if(command == currentCommand) {
         return; //ignore repeated same command
     }
     else {
@@ -39,6 +41,7 @@ void TrashActuator::setActuatorCommand(uint8_t command, unsigned long currentTim
         break;
 
     case ACTUATOR_CMD_DOWN:
+        Serial.println(F("CMD: DOWM"));
         prevTime = currentTime; //sets timer
         actuatorState = ACTUATOR_UNKOWN;
         //set motor outputs:
@@ -52,6 +55,7 @@ void TrashActuator::setActuatorCommand(uint8_t command, unsigned long currentTim
         digitalWrite(IN1, LOW);
         digitalWrite(IN2, LOW);
         break;
+
     default:
         //invalid command
         Serial.println(F("ERROR: INVALID COMMAND"));

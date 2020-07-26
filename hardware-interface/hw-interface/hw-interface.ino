@@ -1,6 +1,12 @@
 #include "src/Adafruit-VL530X/Adafruit_VL53L0X.h"
 #include "TrashActuator.h"
 
+//defenition of serial commands:
+#define CMD_UP 'U'
+#define CMD_DOWN 'D'
+#define CMD_COAST 'C'
+#define GET_STATE 'S'
+
 // address we will assign if dual sensor is present
 #define LOXR_ADDRESS 0x30
 #define LOXF_ADDRESS 0x31
@@ -11,10 +17,6 @@
 #define SHT_LOXF 3 //front (diode connected)
 #define SHT_LOXL 2 //left  (diode connected)
 
-// set the pins for motor control
-#define IN1 6
-#define IN2 5
-
 //define sensor states
 #define LOX_OUT_OF_RANGE 4
 
@@ -23,21 +25,21 @@ Adafruit_VL53L0X loxRight = Adafruit_VL53L0X();
 Adafruit_VL53L0X loxFront = Adafruit_VL53L0X();
 Adafruit_VL53L0X loxLeft = Adafruit_VL53L0X();
 
-/*
-    Reset all sensors by setting all of their XSHUT pins low for delay(10), then set all XSHUT high to bring out of reset
-    Keep sensor #1 awake by keeping XSHUT pin high
-    Put all other sensors into shutdown by pulling XSHUT pins low
-    Initialize sensor #1 with lox.begin(new_i2c_address) Pick any number but 0x29 and it must be under 0x7F. Going with 0x30 to 0x3F is probably OK.
-    Keep sensor #1 awake, and now bring sensor #2 out of reset by setting its XSHUT pin high.
-    Initialize sensor #2 with lox.begin(new_i2c_address) Pick any number but 0x29 and whatever you set the first sensor to
- */
+// set the pins for motor control
+#define IN1 6
+#define IN2 5
 
+// sets actuation time in ms
+#define ACTUATION_TIME 4000
+
+// object for trash tipper
+TrashActuator actuator = TrashActuator(IN1, IN2, ACTUATION_TIME);
 
 //function prototypes:
 void setID();
 int readRange(Adafruit_VL53L0X *sensor);
-void initActuator();
-void setActuator(uint8_t mode);
+//void initActuator();
+//void setActuator(uint8_t mode);
 
 void setup() {
   Serial.begin(115200);
@@ -46,6 +48,10 @@ void setup() {
 
   //configure adress for all 3 sensors:
   setID();
+
+  //set actuator to down position
+  actuator.setActuatorCommand(ACTUATOR_CMD_DOWN, millis());
+  delay(ACTUATION_TIME);
 }
 
 void loop() {
@@ -53,7 +59,34 @@ void loop() {
   //set up local variables;
   static int rightRange, leftRange, frontRange;
   static unsigned long timeInterval;
+  char cmd;
 
+  cmd = Serial.read();
+
+  switch (cmd)
+  {
+  case -1:
+    break; //corresponds to no command
+  case '\n':
+    break; //ignore end of string
+  case CMD_COAST:
+    actuator.setActuatorCommand(ACTUATOR_CMD_COAST, millis());
+    break;
+  case CMD_UP:
+    actuator.setActuatorCommand(ACTUATOR_CMD_UP, millis());
+    break;
+  case CMD_DOWN:
+    actuator.setActuatorCommand(ACTUATOR_CMD_DOWN, millis());
+    break;
+  case GET_STATE:
+    Serial.println(actuator.getActuatorState(millis()));
+    break;
+  default:
+    Serial.println(F("INVALID CMD"));
+    break;
+  }
+
+  /*
   //read distances:
   timeInterval = millis();
   rightRange = readRange(&loxRight);
