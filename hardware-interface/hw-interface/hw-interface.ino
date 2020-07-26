@@ -1,4 +1,5 @@
 #include "src/Adafruit-VL530X/Adafruit_VL53L0X.h"
+#include "TrashActuator.h"
 
 // address we will assign if dual sensor is present
 #define LOXR_ADDRESS 0x30
@@ -13,11 +14,6 @@
 // set the pins for motor control
 #define IN1 6
 #define IN2 5
-
-// define actuator control states (see table 1 DRV8871 datasheet)
-#define ACTUATOR_COAST 0
-#define ACTUATOR_UP 1
-#define ACTUATOR_DOWN 2
 
 //define sensor states
 #define LOX_OUT_OF_RANGE 4
@@ -50,9 +46,6 @@ void setup() {
 
   //configure adress for all 3 sensors:
   setID();
-
-  //init actuator
-  initActuator();
 }
 
 void loop() {
@@ -148,7 +141,7 @@ int readRange(Adafruit_VL53L0X *sensor) {
     return -1;
   }
 }
-
+/*
 void initActuator() {
   pinMode(IN1, OUTPUT);
   pinMode(IN2, OUTPUT);
@@ -178,3 +171,4 @@ void setActuator(uint8_t mode) {
     break;
   }
 }
+*/
