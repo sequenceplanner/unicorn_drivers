@@ -16,7 +16,7 @@
 class TrashActuator {
     public:
     //default constructor (takes connected pins as input):
-    TrashActuator(const uint8_t IN1, const uint8_t IN2, unsigned long actuationTime);
+    TrashActuator(uint8_t IN1, uint8_t IN2, unsigned long actuationTime);
 
     uint8_t getActuatorState(unsigned long currentTime); //call using millis()
     void setActuatorCommand(uint8_t command, unsigned long currentTime);

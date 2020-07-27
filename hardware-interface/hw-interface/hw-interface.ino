@@ -56,12 +56,18 @@ void setup() {
 
 void loop() {
 
-  //set up local variables;
+  //set up static local variables;
   static int rightRange, leftRange, frontRange;
   static unsigned long timeInterval;
-  char cmd;
+  static char tempCmd;
 
-  cmd = Serial.read();
+  
+
+  // grab latest command
+  char cmd = -1;
+  while( (tempCmd = Serial.read()) != -1 ) {
+    cmd = tempCmd;
+  }
 
   switch (cmd)
   {
@@ -174,34 +180,3 @@ int readRange(Adafruit_VL53L0X *sensor) {
     return -1;
   }
 }
-/*
-void initActuator() {
-  pinMode(IN1, OUTPUT);
-  pinMode(IN2, OUTPUT);
-  setActuator(ACTUATOR_DOWN);
-}
-
-void setActuator(uint8_t mode) {
-  switch (mode) {
-  case ACTUATOR_COAST:
-    Serial.println(F("COAST"));
-    digitalWrite(IN1, LOW);
-    digitalWrite(IN2, LOW);
-    break;
-  case ACTUATOR_UP:
-    Serial.println(F("UP"));
-    digitalWrite(IN1, HIGH);
-    digitalWrite(IN2, LOW);
-    break;
-  case ACTUATOR_DOWN:
-    Serial.println(F("DOWN"));
-    digitalWrite(IN1, LOW);
-    digitalWrite(IN2, HIGH);
-    break;
-  default: //default to coast (ie do nothing)
-    digitalWrite(IN1, LOW);
-    digitalWrite(IN2, LOW);
-    break;
-  }
-}
-*/
