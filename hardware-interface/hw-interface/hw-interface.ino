@@ -5,7 +5,6 @@
 #define CMD_UP 'U'
 #define CMD_DOWN 'D'
 #define CMD_COAST 'C'
-#define GET_STATE 'S'
 
 // address we will assign if dual sensor is present
 #define LOXR_ADDRESS 0x30
@@ -59,11 +58,9 @@ void loop() {
   //set up static local variables;
   static int rightRange, leftRange, frontRange;
   static unsigned long timeInterval;
-  static char tempCmd;
+  static char tempCmd;  
 
-  
-
-  // grab latest command
+  // grab latest command (reads serial buffer until empty)
   char cmd = -1;
   while( (tempCmd = Serial.read()) != -1 ) {
     cmd = tempCmd;
@@ -84,39 +81,28 @@ void loop() {
   case CMD_DOWN:
     actuator.setActuatorCommand(ACTUATOR_CMD_DOWN, millis());
     break;
-  case GET_STATE:
-    Serial.println(actuator.getActuatorState(millis()));
-    break;
   default:
     Serial.println(F("INVALID CMD"));
     break;
   }
 
-  /*
   //read distances:
-  timeInterval = millis();
   rightRange = readRange(&loxRight);
   leftRange = readRange(&loxLeft);
   frontRange = readRange(&loxFront);
-  timeInterval = millis() - timeInterval;
-  Serial.println(timeInterval);
 
-  //output range over serial:
-  /*
+  //print range over serial:
   Serial.print(F("R: "));
   Serial.println(rightRange);
   Serial.print(F("L: "));
   Serial.println(leftRange);
   Serial.print(F("F: "));
   Serial.println(frontRange);
-  /*
-  Serial.print(F("Sensor right: "));
-  Serial.println(readRange(&loxRight));
-  Serial.print(F("Sensor front: "));
-  Serial.println(readRange(&loxFront));
-  Serial.print(F("Sensor left: "));
-  Serial.println(readRange(&loxLeft));
-  */  
+
+  //print state of trash actuator
+  Serial.print(F("T: "));
+  Serial.println(actuator.getActuatorState(millis()));
+ 
 }
 
 
