@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(unicorn_msgs)
+project(hrp_msgs)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
@@ -25,8 +25,8 @@ find_package(std_msgs REQUIRED)
 find_package(builtin_interfaces REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
-rosidl_generate_interfaces(unicorn_msgs
-  "msg/UnicornMove.msg"
+rosidl_generate_interfaces(hrp_msgs
+  "msg/Hrpmove.msg"
   DEPENDENCIES builtin_interfaces
 )
 
