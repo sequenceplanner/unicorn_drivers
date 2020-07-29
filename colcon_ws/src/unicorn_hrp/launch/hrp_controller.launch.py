@@ -1,6 +1,8 @@
 # Note will only work on foxy, will need to be slightly rewritten to launch using eloquent
 # See: https://index.ros.org/doc/ros2/Tutorials/Launch-Files/Creating-Launch-Files/
 
+# Will make stdout unaccesible, if required add namespace via ros-args (see readme)
+
 from launch import LaunchDescription
 from launch_ros.actions import Node
 
