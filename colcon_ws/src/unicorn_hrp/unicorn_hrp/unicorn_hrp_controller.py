@@ -32,7 +32,8 @@ from geometry_msgs.msg import Point
 from geometry_msgs.msg import Quaternion
 from geometry_msgs.msg import Vector3
 
-from unicorn_msgs.msg import UnicornMove
+#from unicorn_msgs.msg import UnicornMove
+from hrp_msgs.msg import Hrpmove as UnicornMove
 
 class UnicornHRPTest(Node):
 
