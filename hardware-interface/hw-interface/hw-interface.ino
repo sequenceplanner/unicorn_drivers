@@ -1,5 +1,6 @@
 #include "src/Adafruit-VL530X/Adafruit_VL53L0X.h"
 #include "TrashActuator.h"
+#include "IndicatorLight.h"
 
 //defenition of serial commands:
 #define CMD_UP 'U'
@@ -15,6 +16,14 @@
 #define SHT_LOXR A3 //right 
 #define SHT_LOXF 3 //front (diode connected)
 #define SHT_LOXL 2 //left  (diode connected)
+
+//define pins for indicator light
+#define R_OUT (uint8_t)8
+#define G_OUT (uint8_t)9
+#define B_OUT (uint8_t)10
+
+// add object for indicator light
+IndicatorLight indicator = IndicatorLight(R_OUT, G_OUT, B_OUT);
 
 //define sensor states
 #define LOX_OUT_OF_RANGE 4
@@ -51,6 +60,14 @@ void setup() {
   //set actuator to down position
   actuator.setActuatorCommand(ACTUATOR_CMD_DOWN, millis());
   delay(ACTUATION_TIME);
+  indicator.setColor(INDICATOR_RED);
+  delay(1000);
+  indicator.setColor(INDICATOR_GREEN);
+  delay(1000);
+  indicator.setColor(INDICATOR_BLUE);
+  delay(1000);
+  indicator.setColor(INDICATOR_YELLOW);
+  delay(1000);
 }
 
 void loop() {
@@ -58,7 +75,15 @@ void loop() {
   //set up static local variables;
   static int rightRange, leftRange, frontRange;
   static unsigned long timeInterval;
-  static char tempCmd;  
+  static char tempCmd; 
+
+  pinMode(R_OUT, OUTPUT);
+  pinMode(G_OUT, OUTPUT);
+  pinMode(B_OUT, OUTPUT);
+
+  digitalWrite(R_OUT, HIGH);
+  digitalWrite(G_OUT, LOW);
+  digitalWrite(B_OUT, LOW); 
 
   // grab latest command (reads serial buffer until empty)
   char cmd = -1;
