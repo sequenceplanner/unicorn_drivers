@@ -424,6 +424,10 @@ class UnicornHRPTest(Node):
             self.setup()
 
     def move_hrp_callback(self,msg):
+
+        if msg.x == self.goal_coordinate.x and msg.y == self.goal_coordinate.y:
+            return
+
         #If HRP is not stopped
         if not self.stop_HRP:
             self.reached_point = False
