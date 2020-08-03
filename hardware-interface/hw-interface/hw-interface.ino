@@ -1,11 +1,10 @@
 #include "src/Adafruit-VL530X/Adafruit_VL53L0X.h"
 #include "TrashActuator.h"
-#include "IndicatorLight.h"
 
 //defenition of serial commands:
-#define CMD_UP 'U'
-#define CMD_DOWN 'D'
-#define CMD_COAST 'C'
+#define ACTUATOR_MASK 0b00000011
+#define COLOR_MASK    0b00011100
+
 
 // address we will assign if dual sensor is present
 #define LOXR_ADDRESS 0x30
@@ -17,14 +16,6 @@
 #define SHT_LOXF 3 //front (diode connected)
 #define SHT_LOXL 2 //left  (diode connected)
 
-//define pins for indicator light
-#define R_OUT (uint8_t)8
-#define G_OUT (uint8_t)9
-#define B_OUT (uint8_t)10
-
-// add object for indicator light
-IndicatorLight indicator = IndicatorLight(R_OUT, G_OUT, B_OUT);
-
 //define sensor states
 #define LOX_OUT_OF_RANGE 4
 
@@ -32,6 +23,25 @@ IndicatorLight indicator = IndicatorLight(R_OUT, G_OUT, B_OUT);
 Adafruit_VL53L0X loxRight = Adafruit_VL53L0X();
 Adafruit_VL53L0X loxFront = Adafruit_VL53L0X();
 Adafruit_VL53L0X loxLeft = Adafruit_VL53L0X();
+
+//define pins for indicator light
+#define R_OUT (uint8_t)8
+#define G_OUT (uint8_t)9
+#define B_OUT (uint8_t)10
+
+//define colors for indicator light
+#define INDICATOR_OFF 0
+#define INDICATOR_RED 1
+#define INDICATOR_BLUE 2
+#define INDICATOR_GREEN 3
+#define INDICATOR_YELLOW 4
+
+//global variable for current color
+uint8_t currentColor;
+
+//function prototypes for indicator light
+void setColor(uint8_t color);
+void initIndicator();
 
 // set the pins for motor control
 #define IN1 6
@@ -59,14 +69,15 @@ void setup() {
 
   //set actuator to down position
   actuator.setActuatorCommand(ACTUATOR_CMD_DOWN, millis());
+
   delay(ACTUATION_TIME);
-  indicator.setColor(INDICATOR_RED);
+  setColor(INDICATOR_RED);
   delay(1000);
-  indicator.setColor(INDICATOR_GREEN);
+  setColor(INDICATOR_GREEN);
   delay(1000);
-  indicator.setColor(INDICATOR_BLUE);
+  setColor(INDICATOR_BLUE);
   delay(1000);
-  indicator.setColor(INDICATOR_YELLOW);
+  setColor(INDICATOR_YELLOW);
   delay(1000);
 }
 
@@ -190,4 +201,57 @@ int readRange(Adafruit_VL53L0X *sensor) {
   else {
     return -1;
   }
+}
+
+void initIndicator() {
+  pinMode(R_OUT, OUTPUT);
+  pinMode(G_OUT, OUTPUT);
+  pinMode(B_OUT, OUTPUT);
+
+  digitalWrite(R_OUT, LOW);
+  digitalWrite(G_OUT, LOW);
+  digitalWrite(B_OUT, LOW);
+
+  currentColor = INDICATOR_OFF;
+}
+
+void setColor(uint8_t color) {
+    Serial.println(F("Setting color"));
+    currentColor = color;
+    switch (color) {
+    case INDICATOR_OFF:
+      digitalWrite(R_OUT, LOW);
+      digitalWrite(G_OUT, LOW);
+      digitalWrite(B_OUT, LOW);
+      break;
+
+    case INDICATOR_RED:
+      digitalWrite(R_OUT, HIGH);
+      digitalWrite(G_OUT, LOW);
+      digitalWrite(B_OUT, LOW);
+      break;
+
+    case INDICATOR_BLUE:
+      digitalWrite(R_OUT, LOW);
+      digitalWrite(G_OUT, LOW);
+      digitalWrite(B_OUT, HIGH);
+      break;
+
+    case INDICATOR_GREEN:
+        digitalWrite(R_OUT, LOW);
+        digitalWrite(G_OUT, HIGH);
+        digitalWrite(B_OUT, LOW);
+        break;
+
+    case INDICATOR_YELLOW:
+        digitalWrite(R_OUT, HIGH);
+        digitalWrite(G_OUT, HIGH);
+        digitalWrite(B_OUT, LOW);
+        break;
+    default:
+        digitalWrite(R_OUT, LOW);
+        digitalWrite(G_OUT, LOW);
+        digitalWrite(B_OUT, LOW);
+        break;
+    }
 }
