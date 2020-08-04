@@ -27,6 +27,7 @@ find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(hrp_msgs
   "msg/Hrpmove.msg"
+  "msg/HrpMeasurementSensor.msg"
   DEPENDENCIES builtin_interfaces
 )
 

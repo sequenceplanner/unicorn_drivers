@@ -34,6 +34,7 @@ from geometry_msgs.msg import Vector3
 
 #from unicorn_msgs.msg import UnicornMove
 from hrp_msgs.msg import Hrpmove as UnicornMove
+from hrp_msgs.msg import HrpMeasurementSensor
 
 class UnicornHRPTest(Node):
 
@@ -47,6 +48,7 @@ class UnicornHRPTest(Node):
         self.HRP_subscription = self.create_subscription(Float32, 'unicorn_hrp_soft_reset', self.soft_reset_callback,10)
         self.HRP_subscription = self.create_subscription(UnicornMove, 'unicorn_hrp_move', self.move_hrp_callback,10)
         self.HRP_subscription = self.create_subscription(Float32, 'unicorn_hrp_stop', self.stop_hrp_callback,100)
+        self.HRP_subscription = self.create_subscription(HrpMeasurementSensor, 'unicorn_measurement_sensor', self.measurement_sensor_callback,10)
         self.HRP_subscription
 
         print("Initializing...")
@@ -103,6 +105,11 @@ class UnicornHRPTest(Node):
         self.point_tolerance = 0.25 #Tolerance in meters, deviation from set point
         self.point_tolerance_reverse = 0.1 #Tolerance in meters, deviation from set point
         self.reset_integral_term_angle_tolerance = 1.0 #If the robot is close enough to the goal angle, reset the integral term to move stright
+        
+        #Distance sensors
+        self.front_distance_sensor_break = 500 #distance in mm when the robot will break when detecting object in front
+        self.side_distance_sensor_break = 200 #distance in mm when the robot will break when detecting objects on the side
+        self.distance_sensor_measurement = [-1,-1,-1]
 
         #Other constants
         self.init_HRP_offset = True
@@ -476,6 +483,11 @@ class UnicornHRPTest(Node):
         elif msg.data == 1.0:
             self.stop_HRP = False
             self.current_state = 0 #Idle
+
+        def measurement_sensor_callback(self,msg):
+            self.distance_sensor_measurement[0] = msg.f
+            self.distance_sensor_measurement[1] = msg.l
+            self.distance_sensor_measurement[2] = msg.r
 
 ##################################### MOVEMENT ######################################################s###
 
