@@ -20,6 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'hw_controller = hw_controller.hw_controller:main',
         ],
     },
 )

@@ -7,6 +7,9 @@
   <maintainer email="57663874+noel-danielsson@users.noreply.github.com">noel</maintainer>
   <license>TODO: License declaration</license>
 
+   <exec_depend>hrp_msgs</exec_depend>
+   <exec_depend>rclpy</exec_depend>
+
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>
   <test_depend>ament_pep257</test_depend>
