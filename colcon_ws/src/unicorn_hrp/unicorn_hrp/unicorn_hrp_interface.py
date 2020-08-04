@@ -49,7 +49,7 @@ class UnicornHRP_TRACK(Node):
         self.track_finished = False
 
         #Points, (x-coord / y-coord / angle=[-180,180] (200 dont care about angle, -200 reverse) / linear-velocity / angular-velocity / linear-velocity during turn)
-        '''
+        
         self.points = np.array([[5.0,    0.0,    200],
                                 [6.0,    -1.0,   200],
                                 [7.5,    -1.0,   200],
@@ -66,11 +66,11 @@ class UnicornHRP_TRACK(Node):
                                 [-2.0,   -0.15,  200],  
                                 [0.0,    -0.15,  200],
                                 [0.0,    0.6,    200],
-                                [0.0,    0.6,      0]])'''
-        
+                                [0.0,    0.6,      0]])
+        '''
         self.points = np.array([[0.5,   0.0,    -200],
                                 [0.0,   0.0,    90],
-                                [0.0,   0.0,    0]])
+                                [0.0,   0.0,    0]])'''
                                 
 
         #Let other nodes set up their subscriptions
