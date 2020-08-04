@@ -1,9 +1,14 @@
 #include "src/Adafruit-VL530X/Adafruit_VL53L0X.h"
 #include "TrashActuator.h"
 
+//all serial commands are sent in a single byte where only the latest
+//command is considered
+
 //defenition of serial commands:
-#define ACTUATOR_MASK 0b00000011
-#define COLOR_MASK    0b00011100
+#define ACTUATOR_MASK   0b00000011
+#define ACTUATOR_SHIFT  0
+#define COLOR_MASK      0b00011100
+#define COLOR_SHIFT     2
 
 
 // address we will assign if dual sensor is present
@@ -35,6 +40,7 @@ Adafruit_VL53L0X loxLeft = Adafruit_VL53L0X();
 #define INDICATOR_BLUE 2
 #define INDICATOR_GREEN 3
 #define INDICATOR_YELLOW 4
+#define INDICATOR_WHITE 5
 
 //global variable for current color
 uint8_t currentColor;
@@ -56,8 +62,14 @@ TrashActuator actuator = TrashActuator(IN1, IN2, ACTUATION_TIME);
 //function prototypes:
 void setID();
 int readRange(Adafruit_VL53L0X *sensor);
-//void initActuator();
-//void setActuator(uint8_t mode);
+
+//pin defenitions for trash sensors
+#define PROX_PIN1 11
+#define PROX_PIN2 12
+
+//trash status values
+#define TRASH_FULL 1
+#define TRASH_EMPTY 0
 
 void setup() {
   Serial.begin(115200);
@@ -69,8 +81,14 @@ void setup() {
 
   //set actuator to down position
   actuator.setActuatorCommand(ACTUATOR_CMD_DOWN, millis());
+  //delay(ACTUATION_TIME);
 
-  delay(ACTUATION_TIME);
+  //configure trash sensors pins as input:
+  pinMode(PROX_PIN1, INPUT);
+  pinMode(PROX_PIN2, INPUT);
+
+  initIndicator();
+  //testing colors:
   setColor(INDICATOR_RED);
   delay(1000);
   setColor(INDICATOR_GREEN);
@@ -79,6 +97,9 @@ void setup() {
   delay(1000);
   setColor(INDICATOR_YELLOW);
   delay(1000);
+  setColor(INDICATOR_WHITE);
+  delay(1000);
+  setColor(INDICATOR_BLUE);   //default standby color
 }
 
 void loop() {
@@ -86,40 +107,35 @@ void loop() {
   //set up static local variables;
   static int rightRange, leftRange, frontRange;
   static unsigned long timeInterval;
-  static char tempCmd; 
+  static char tempCmd;
+  static uint8_t cmd = 0;
+  static uint8_t trashStatus;
+  static uint8_t cmdColor;
+  static uint8_t cmdActuator;
+  uint8_t prevCmd = cmd;
 
-  pinMode(R_OUT, OUTPUT);
-  pinMode(G_OUT, OUTPUT);
-  pinMode(B_OUT, OUTPUT);
-
-  digitalWrite(R_OUT, HIGH);
-  digitalWrite(G_OUT, LOW);
-  digitalWrite(B_OUT, LOW); 
+  delay(2000);
 
   // grab latest command (reads serial buffer until empty)
-  char cmd = -1;
   while( (tempCmd = Serial.read()) != -1 ) {
     cmd = tempCmd;
   }
 
-  switch (cmd)
-  {
-  case -1:
-    break; //corresponds to no command
-  case '\n':
-    break; //ignore end of string
-  case CMD_COAST:
-    actuator.setActuatorCommand(ACTUATOR_CMD_COAST, millis());
-    break;
-  case CMD_UP:
-    actuator.setActuatorCommand(ACTUATOR_CMD_UP, millis());
-    break;
-  case CMD_DOWN:
-    actuator.setActuatorCommand(ACTUATOR_CMD_DOWN, millis());
-    break;
-  default:
-    Serial.println(F("INVALID CMD"));
-    break;
+  //check if command has changed:
+  if(cmd!=prevCmd) {
+    // Serial.print(F("NEW CMD: "));
+    // Serial.println(cmd, BIN);
+    //parse commands:
+    cmdActuator = (cmd & ACTUATOR_MASK) >> ACTUATOR_SHIFT;
+    cmdColor = (cmd & COLOR_MASK) >> COLOR_SHIFT;
+    // Serial.print(F("NEW CMD ACTUATOR: "));
+    // Serial.println(cmdActuator, BIN);
+    // Serial.print(F("NEW CMD COLOR: "));
+    // Serial.println(cmdColor, BIN);
+
+    //set commands:
+    actuator.setActuatorCommand(cmdActuator, millis());
+    setColor(cmdColor);
   }
 
   //read distances:
@@ -136,8 +152,21 @@ void loop() {
   Serial.println(frontRange);
 
   //print state of trash actuator
-  Serial.print(F("T: "));
+  Serial.print(F("A: "));
   Serial.println(actuator.getActuatorState(millis()));
+
+  //read status of trash proximity sensors
+  //if any of the sensor are active low then trash is considered detected
+  if (!digitalRead(PROX_PIN1) || !digitalRead(PROX_PIN2)) {
+    trashStatus = TRASH_FULL;
+  }
+  else {
+    trashStatus = TRASH_EMPTY;
+  }
+
+  //print state of trash carrying
+  Serial.print(F("T: "));
+  Serial.println(trashStatus);
  
 }
 
@@ -152,7 +181,7 @@ void setID() {
   digitalWrite(SHT_LOXF, LOW);
   digitalWrite(SHT_LOXL, LOW);
 
-  delay(100);
+  delay(10);
 
   // enable right sensor:
   pinMode(SHT_LOXR, INPUT);
@@ -216,7 +245,7 @@ void initIndicator() {
 }
 
 void setColor(uint8_t color) {
-    Serial.println(F("Setting color"));
+    //Serial.println(F("Setting color"));
     currentColor = color;
     switch (color) {
     case INDICATOR_OFF:
@@ -238,16 +267,23 @@ void setColor(uint8_t color) {
       break;
 
     case INDICATOR_GREEN:
-        digitalWrite(R_OUT, LOW);
-        digitalWrite(G_OUT, HIGH);
-        digitalWrite(B_OUT, LOW);
-        break;
+      digitalWrite(R_OUT, LOW);
+      digitalWrite(G_OUT, HIGH);
+      digitalWrite(B_OUT, LOW);
+      break;
 
     case INDICATOR_YELLOW:
-        digitalWrite(R_OUT, HIGH);
-        digitalWrite(G_OUT, HIGH);
-        digitalWrite(B_OUT, LOW);
-        break;
+      digitalWrite(R_OUT, HIGH);
+      digitalWrite(G_OUT, HIGH);
+      digitalWrite(B_OUT, LOW);
+      break;
+
+    case INDICATOR_WHITE:
+      digitalWrite(R_OUT, HIGH);
+      digitalWrite(G_OUT, HIGH);
+      digitalWrite(B_OUT, HIGH);
+      break;
+
     default:
         digitalWrite(R_OUT, LOW);
         digitalWrite(G_OUT, LOW);
