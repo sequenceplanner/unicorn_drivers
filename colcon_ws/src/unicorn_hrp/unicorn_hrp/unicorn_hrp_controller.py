@@ -101,6 +101,7 @@ class UnicornHRPTest(Node):
         self.travel_distance_tolerance = 1.0 #Minimum travel distance for when to turn with linear velocity
         self.within_tolerance = True #If the robot is within the allowed angle tolerance
         self.point_tolerance = 0.25 #Tolerance in meters, deviation from set point
+        self.point_tolerance_reverse = 0.1 #Tolerance in meters, deviation from set point
         self.reset_integral_term_angle_tolerance = 1.0 #If the robot is close enough to the goal angle, reset the integral term to move stright
 
         #Other constants
@@ -118,7 +119,7 @@ class UnicornHRPTest(Node):
             (0.0,   0.0,   0.0))) #Used for point transformation
 
         #Keep current state
-        self.current_state = 0 #0=idle, 1=executing, 2=finished, 3=stoppped, 4=stoppped but recieved command
+        self.current_state = 0 #0=idle, 1=executing, 2=finished, 3=blocked, 4=stopped
         self.current_state_message = Int16()
         self.reached_point = False
 
@@ -189,7 +190,7 @@ class UnicornHRPTest(Node):
                 self.angle_outside = self.current_orientation_rpy.z #DEBUG
 
             #Reverse
-            if self.reversing and not (abs(self.goal_coordinate.x-self.current_coordinate.x) < self.point_tolerance and abs(self.goal_coordinate.y-self.current_coordinate.y) < self.point_tolerance):
+            if self.reversing and not (abs(self.goal_coordinate.x-self.current_coordinate.x) < self.point_tolerance_reverse and abs(self.goal_coordinate.y-self.current_coordinate.y) < self.point_tolerance_reverse):
                 self.current_function=0 #For user and debug info
 
                 self.HRPmsg.angular.z = 0.0
@@ -256,10 +257,10 @@ class UnicornHRPTest(Node):
                 #Ramp up
                 pt = self.point_tolerance #Just to use a temporary shorter variable name
                 if self.travel_distance_total - travel_distance_left < self.ramp_distance and not (travel_distance_left-pt) < (self.travel_distance_total-pt)/2:
-                    self.HRPmsg.linear.x = ((self.travel_distance_total - travel_distance_left)/self.ramp_distance)*(self.linear_velocity-self.linear_velocity_ramp)+self.linear_velocity_ramp
+                    self.HRPmsg.linear.x = round(((self.travel_distance_total - travel_distance_left)/self.ramp_distance)*(self.linear_velocity-self.linear_velocity_ramp)+self.linear_velocity_ramp,2)
                 #Ramp down
                 elif travel_distance_left-pt < self.ramp_distance:
-                    self.HRPmsg.linear.x = ((travel_distance_left-pt)/self.ramp_distance)*(self.linear_velocity-self.linear_velocity_ramp)+self.linear_velocity_ramp
+                    self.HRPmsg.linear.x = round(((travel_distance_left-pt)/self.ramp_distance)*(self.linear_velocity-self.linear_velocity_ramp)+self.linear_velocity_ramp,2)
                 else:
                     self.HRPmsg.linear.x = self.linear_velocity
 
@@ -425,7 +426,7 @@ class UnicornHRPTest(Node):
 
     def move_hrp_callback(self,msg):
 
-        if msg.x == self.goal_coordinate.x and msg.y == self.goal_coordinate.y:
+        if msg.x == self.goal_coordinate.x and msg.y == self.goal_coordinate.y and msg.angle == self.goal_angle:
             return
 
         #If HRP is not stopped
@@ -451,10 +452,6 @@ class UnicornHRPTest(Node):
                     self.moveToPoint(msg.x,msg.y)
 
             self.current_state = 1 #Executing
-        #If HRP is stopped but still recieves a command
-        else:
-            self.current_state = 4 #Stoppped but recieved command
-            self.stop_hrp_callback(0.0)
 
     def stop_hrp_callback(self,msg):
         #Stop HRP (0.0 for blocked, 0.1 for stopped)
