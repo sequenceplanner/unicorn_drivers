@@ -33,7 +33,7 @@ from geometry_msgs.msg import Quaternion
 from geometry_msgs.msg import Vector3
 
 #from unicorn_msgs.msg import UnicornMove
-from hrp_msgs.msg import Hrpmove as UnicornMove
+from hrp_msgs.msg import HrpMove as UnicornMove
 from hrp_msgs.msg import HrpMeasurementSensor
 
 class UnicornHRPTest(Node):
@@ -456,6 +456,7 @@ class UnicornHRPTest(Node):
             return
         else:
             self.oldHrpmove = msg
+            self.stop_hrp_function(1.0)
 
         #If HRP is not stopped
         if not self.stop_HRP:

@@ -25,7 +25,7 @@ from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
 from geometry_msgs.msg import Point
 
-from hrp_msgs.msg import Hrpmove as UnicornMove
+from hrp_msgs.msg import HrpMove as UnicornMove
 
 class UnicornHRP_TRACK(Node):
 
