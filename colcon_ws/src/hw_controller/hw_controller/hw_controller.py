@@ -19,7 +19,7 @@ class hwController(Node):
         self.hrp1 = '/hrp/hrp1/'
         self.ga1 = '/ga/ga1/'
         self.ga_s1 = '/ga_s/ga_s1/'
-        self.light1 = 'light/light_1/'
+        self.light1 = 'light/light1/'
 
         #command and state decoding mapping dictionaries
 
@@ -61,8 +61,8 @@ class hwController(Node):
         self.parsedStateDict = dict.fromkeys(['R', 'L', 'F', 'A' ,'T' ,'I'])
 
         #variable defenitions
-        self.currentColorCmd = 0         # holds current command byte for color
-        self.currentActuatorCmd = 0      # holds current actuator command
+        self.currentColorCmd = self.colorCmdDict["blue"]    # holds current command byte for color
+        self.currentActuatorCmd = 0                         # holds current actuator command
 
         #init of serial com:
         self.ser = self.initSerial()
@@ -125,7 +125,10 @@ class hwController(Node):
                 line = self.ser.readline().decode("utf-8")
                 [stateType, state] = line.split(": ")
                 if stateType in self.parsedStateDict.keys():
-                    self.parsedStateDict[stateType] = int(state.strip())
+                    try:
+                        self.parsedStateDict[stateType] = int(state.strip())
+                    except ValueError:
+                        self.get_logger().warn("String to int conversion failed!")
                 else:
                     self.get_logger().error("INCORRECT SERIAL PARSE KEY")
             print(self.parsedStateDict)
@@ -186,7 +189,7 @@ class hwController(Node):
     def sendSerialCommand(self):
         # compose command via bitwise and:
         cmd = self.currentColorCmd | self.currentActuatorCmd
-        self.get_logger().info("Serial command: " + "{0:b}".format(cmd) ) 
+        self.get_logger().debug("Serial command: " + "{0:b}".format(cmd) ) 
         packet = bytearray()
         packet.append(cmd)
         self.ser.write(packet)
