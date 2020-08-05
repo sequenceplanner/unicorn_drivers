@@ -4,12 +4,13 @@
 //all serial commands are sent in a single byte where only the latest
 //command is considered
 
+#define NEWLINE "\n"
+
 //defenition of serial commands:
 #define ACTUATOR_MASK   0b00000011
 #define ACTUATOR_SHIFT  0
 #define COLOR_MASK      0b00011100
 #define COLOR_SHIFT     2
-
 
 // address we will assign if dual sensor is present
 #define LOXR_ADDRESS 0x30
@@ -90,15 +91,15 @@ void setup() {
   initIndicator();
   //testing colors:
   setColor(INDICATOR_RED);
-  delay(1000);
+  delay(100);
   setColor(INDICATOR_GREEN);
-  delay(1000);
+  delay(100);
   setColor(INDICATOR_BLUE);
-  delay(1000);
+  delay(100);
   setColor(INDICATOR_YELLOW);
-  delay(1000);
+  delay(100);
   setColor(INDICATOR_WHITE);
-  delay(1000);
+  delay(100);
   setColor(INDICATOR_BLUE);   //default standby color
 }
 
@@ -113,8 +114,6 @@ void loop() {
   static uint8_t cmdColor;
   static uint8_t cmdActuator;
   uint8_t prevCmd = cmd;
-
-  delay(2000);
 
   // grab latest command (reads serial buffer until empty)
   while( (tempCmd = Serial.read()) != -1 ) {
@@ -143,18 +142,6 @@ void loop() {
   leftRange = readRange(&loxLeft);
   frontRange = readRange(&loxFront);
 
-  //print range over serial:
-  Serial.print(F("R: "));
-  Serial.println(rightRange);
-  Serial.print(F("L: "));
-  Serial.println(leftRange);
-  Serial.print(F("F: "));
-  Serial.println(frontRange);
-
-  //print state of trash actuator
-  Serial.print(F("A: "));
-  Serial.println(actuator.getActuatorState(millis()));
-
   //read status of trash proximity sensors
   //if any of the sensor are active low then trash is considered detected
   if (!digitalRead(PROX_PIN1) || !digitalRead(PROX_PIN2)) {
@@ -163,11 +150,35 @@ void loop() {
   else {
     trashStatus = TRASH_EMPTY;
   }
+  
+  //indicate start of packet
+  Serial.print(F("PACKET:"));
+  Serial.print(NEWLINE);
+  //print range over serial:
+  Serial.print(F("R: "));
+  Serial.print(rightRange);
+  Serial.print(NEWLINE);
+  Serial.print(F("L: "));
+  Serial.print(leftRange);
+  Serial.print(NEWLINE);
+  Serial.print(F("F: "));
+  Serial.print(frontRange);
+  Serial.print(NEWLINE);
+
+  //print state of trash actuator
+  Serial.print(F("A: "));
+  Serial.print(actuator.getActuatorState(millis()));
+  Serial.print(NEWLINE);
 
   //print state of trash carrying
   Serial.print(F("T: "));
-  Serial.println(trashStatus);
- 
+  Serial.print(trashStatus);
+  Serial.print(NEWLINE);
+
+  //print state of ligt indicator
+  Serial.print(F("I: "));
+  Serial.print(currentColor);
+  Serial.print(NEWLINE);
 }
 
 
