@@ -122,8 +122,13 @@ class hwController(Node):
             while(self.ser.readline().decode("utf-8") !=  "PACKET:\n"):
                 pass
             for _x in range(0, len(self.parsedStateDict)):
-                line = self.ser.readline().decode("utf-8")
-                [stateType, state] = line.split(": ")
+                try:
+                    line = self.ser.readline().decode("utf-8")
+                    [stateType, state] = line.split(": ")
+                except ValueError:
+                    self.get_logger().warn("Decode or splitting of string failed")
+                    return #skips this decode iteration - TODO look into better way to hande this
+
                 if stateType in self.parsedStateDict.keys():
                     try:
                         self.parsedStateDict[stateType] = int(state.strip())
