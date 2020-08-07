@@ -110,7 +110,7 @@ class UnicornHRPTest(Node):
         self.reset_integral_term_angle_tolerance = 1.0 #If the robot is close enough to the goal angle, reset the integral term to move stright
         
         #Distance sensors
-        self.front_distance_sensor_break = 200 #distance in mm when the robot will break when detecting object in front
+        self.front_distance_sensor_break = 400 #distance in mm when the robot will break when detecting object in front
         self.side_distance_sensor_break = 200 #distance in mm when the robot will break when detecting objects on the side
         self.distance_sensor_measurement = [10000,10000,10000]
 
