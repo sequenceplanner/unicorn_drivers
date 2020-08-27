@@ -377,7 +377,7 @@ class UnicornHRPTest(Node):
             
             print("Sensor status: Left: " + sensors[1] + " Front: " + sensors[0] + " Right: " + sensors[2])
 
-            print("Last block sensor value: Left:" + self.distance_sensor_measurement_last_blocked[1] + " Front: " + self.distance_sensor_measurement_last_blocked[0] + " Right: " + self.distance_sensor_measurement_last_blocked[2])
+            print("Last block sensor value: Left: {:.{}f}".format(self.distance_sensor_measurement_last_blocked[1],0), " Front: {:.{}f}".format(self.distance_sensor_measurement_last_blocked[0],0), " Right: {:.{}f}".format(self.distance_sensor_measurement_last_blocked[2],0))
 
             print("#############################################")
         
