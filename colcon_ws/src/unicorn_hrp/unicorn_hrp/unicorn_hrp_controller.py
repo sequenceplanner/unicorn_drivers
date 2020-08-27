@@ -488,11 +488,11 @@ class UnicornHRPTest(Node):
             self.current_state = 1 #Executing
 
     def stop_hrp_callback(self,msg):
+        print("callback")
         self.stop_hrp_function(msg.data)
 
     def stop_hrp_function(self,msg):
         #Stop HRP (0.0 for blocked, 0.1 for stopped)
-        print("stopped")
         print("Last block sensor value: Left: {:.{}f}".format(self.distance_sensor_measurement_last_blocked[1],0), " Front: {:.{}f}".format(self.distance_sensor_measurement_last_blocked[0],0), " Right: {:.{}f}".format(self.distance_sensor_measurement_last_blocked[2],0))
         if msg == 0.0 or msg == 0.1:
             self.goal_coordinate.x = self.current_coordinate.x
@@ -508,8 +508,10 @@ class UnicornHRPTest(Node):
             
             if msg == 0.0:
                self.current_state = 3 #Blocked
+               print("blocked")
             else:
                self.current_state = 4 #Stopped  
+               print("stopped")
 
         #Allow HRP to move again
         elif msg == 1.0:
