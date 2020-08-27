@@ -113,7 +113,6 @@ class UnicornHRPTest(Node):
         self.front_distance_sensor_break = 400 #distance in mm when the robot will break when detecting object in front
         self.side_distance_sensor_break = 200 #distance in mm when the robot will break when detecting objects on the side
         self.distance_sensor_measurement = [10000,10000,10000]
-        self.distance_sensor_measurement_last_blocked = [-2,-2,-2] #Distance values when lastblock occured
         self.sensors_triggered_tolerance = 10 #Skip first n distance sensor values that indicate blocked, delays the blocked response
         self.sensors_triggered_count = 0 #Counts how many times the sensors has been triggered
 
@@ -130,6 +129,8 @@ class UnicornHRPTest(Node):
             (0.0,   0.0,   0.0),
             (0.0,   0.0,   0.0),
             (0.0,   0.0,   0.0))) #Used for point transformation
+        self.unblock_self_counter = 0
+        self.unblock_self_time = 2 #Unblock after n seconds if no obsticle left
 
         #Keep current state
         self.current_state = 0 #0=idle, 1=executing, 2=finished, 3=blocked, 4=stopped
@@ -269,7 +270,6 @@ class UnicornHRPTest(Node):
                     self.sensors_triggered_count += 1
 
                     if self.sensors_triggered_count > self.sensors_triggered_tolerance:
-                        self.distance_sensor_measurement_last_blocked = self.distance_sensor_measurement
                         self.stop_hrp_function(0.0)
                         self.HRPmsg.angular.z = 0.0
                         self.HRPmsg.linear.x = 0.0
@@ -308,6 +308,14 @@ class UnicornHRPTest(Node):
             #Publish new velocity
             if self.do_publish:
                 self.HRP_publisher_.publish(self.HRPmsg)
+
+            self.unblock_self_counter = 0
+
+        elif self.current_state == 3 and (self.distance_sensor_measurement[0] >= self.front_distance_sensor_break and self.distance_sensor_measurement[1] >= self.side_distance_sensor_break and self.distance_sensor_measurement[2] >= self.side_distance_sensor_break):
+            self.unblock_self_counter += 1
+
+            if self.unblock_self_counter >= (self.unblock_self_time/velocity_update_period)
+                self.stop_hrp_function(1.0)
 
     #Show user information in command window
     def velocity_message_callback(self):
@@ -565,7 +573,6 @@ class UnicornHRPTest(Node):
                 self.sensors_triggered_count += 1
 
                 if self.sensors_triggered_count > self.sensors_triggered_tolerance:
-                    self.distance_sensor_measurement_last_blocked = self.distance_sensor_measurement
                     self.stop_hrp_function(0.0)
                     self.HRPmsg.angular.z = 0.0
             else:
@@ -576,7 +583,6 @@ class UnicornHRPTest(Node):
                 self.sensors_triggered_count += 1
 
                 if self.sensors_triggered_count > self.sensors_triggered_tolerance:
-                    self.distance_sensor_measurement_last_blocked = self.distance_sensor_measurement
                     self.stop_hrp_function(0.0)
                     self.HRPmsg.angular.z = 0.0
             else:
