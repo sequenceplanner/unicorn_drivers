@@ -157,7 +157,7 @@ class UnicornHRPTest(Node):
         #Setup callbacks
         if self.init_callbacks == True:
             self.velocity_update_period = 0.01  # seconds
-            self.velocity_update = self.create_timer(velocity_update_period, self.velocity_update_callback)
+            self.velocity_update = self.create_timer(self.velocity_update_period, self.velocity_update_callback)
             velocity_message_period = 1.0  # seconds
             self.velocity_message = self.create_timer(velocity_message_period, self.velocity_message_callback)
             current_state_update_period = 0.1 # seconds
