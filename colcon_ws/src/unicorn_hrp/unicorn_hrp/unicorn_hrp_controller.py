@@ -149,7 +149,7 @@ class UnicornHRPTest(Node):
         #Debug information output
         self.debug_output = False
         #User information output
-        self.user_output = False
+        self.user_output = True
 
         #Setup callbacks
         if self.init_callbacks == True:
@@ -265,7 +265,6 @@ class UnicornHRPTest(Node):
                 
                 if self.distance_sensor_measurement[0] < self.front_distance_sensor_break or self.distance_sensor_measurement[1] < self.side_distance_sensor_break/2 or self.distance_sensor_measurement[2] < self.side_distance_sensor_break/2:
                     self.distance_sensor_measurement_last_blocked = self.distance_sensor_measurement
-                    print("here1")
                     self.stop_hrp_function(0.0)
                     self.HRPmsg.angular.z = 0.0
                     self.HRPmsg.linear.x = 0.0
@@ -493,7 +492,6 @@ class UnicornHRPTest(Node):
 
     def stop_hrp_function(self,msg):
         #Stop HRP (0.0 for blocked, 0.1 for stopped)
-        print("Last block sensor value: Left: {:.{}f}".format(self.distance_sensor_measurement_last_blocked[1],0), " Front: {:.{}f}".format(self.distance_sensor_measurement_last_blocked[0],0), " Right: {:.{}f}".format(self.distance_sensor_measurement_last_blocked[2],0))
         if msg == 0.0 or msg == 0.1:
             self.goal_coordinate.x = self.current_coordinate.x
             self.goal_coordinate.x = self.current_coordinate.y
@@ -508,10 +506,8 @@ class UnicornHRPTest(Node):
             
             if msg == 0.0:
                self.current_state = 3 #Blocked
-               print("blocked")
             else:
                self.current_state = 4 #Stopped  
-               print("stopped")
 
         #Allow HRP to move again
         elif msg == 1.0:
@@ -562,7 +558,6 @@ class UnicornHRPTest(Node):
         if turn_direction >= 0:
             if self.distance_sensor_measurement[1] < self.side_distance_sensor_break:
                 self.distance_sensor_measurement_last_blocked = self.distance_sensor_measurement
-                print("here2")
                 self.stop_hrp_function(0.0)
                 self.HRPmsg.angular.z = 0.0
             else:
@@ -570,7 +565,6 @@ class UnicornHRPTest(Node):
         else:
             if self.distance_sensor_measurement[2] < self.side_distance_sensor_break:
                 self.distance_sensor_measurement_last_blocked = self.distance_sensor_measurement
-                print("here3")
                 self.stop_hrp_function(0.0)
                 self.HRPmsg.angular.z = 0.0
             else:
