@@ -492,6 +492,8 @@ class UnicornHRPTest(Node):
 
     def stop_hrp_function(self,msg):
         #Stop HRP (0.0 for blocked, 0.1 for stopped)
+        print("stopped")
+        print("Last block sensor value: Left: {:.{}f}".format(self.distance_sensor_measurement_last_blocked[1],0), " Front: {:.{}f}".format(self.distance_sensor_measurement_last_blocked[0],0), " Right: {:.{}f}".format(self.distance_sensor_measurement_last_blocked[2],0))
         if msg == 0.0 or msg == 0.1:
             self.goal_coordinate.x = self.current_coordinate.x
             self.goal_coordinate.x = self.current_coordinate.y
