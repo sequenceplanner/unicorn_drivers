@@ -108,14 +108,13 @@ class UnicornHRPTest(Node):
         self.point_tolerance = 0.25 #Tolerance in meters, deviation from set point
         self.point_tolerance_reverse = 0.1 #Tolerance in meters, deviation from set point
         self.reset_integral_term_angle_tolerance = 1.0 #If the robot is close enough to the goal angle, reset the integral term to move stright
-        self.sensors_triggered_tolerance = 2 #Skip first n distance sensor values that indicate blocked
         
         #Distance sensors
         self.front_distance_sensor_break = 400 #distance in mm when the robot will break when detecting object in front
         self.side_distance_sensor_break = 200 #distance in mm when the robot will break when detecting objects on the side
         self.distance_sensor_measurement = [10000,10000,10000]
         self.distance_sensor_measurement_last_blocked = [-2,-2,-2] #Distance values when lastblock occured
-        self.sensors_triggered_tolerance = 2 #Skip first n distance sensor values that indicate blocked, delays the blocked response
+        self.sensors_triggered_tolerance = 10 #Skip first n distance sensor values that indicate blocked, delays the blocked response
         self.sensors_triggered_count = 0 #Counts how many times the sensors has been triggered
 
         #Other constants
