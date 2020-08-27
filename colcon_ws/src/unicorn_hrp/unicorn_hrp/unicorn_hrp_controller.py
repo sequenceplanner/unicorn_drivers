@@ -314,7 +314,7 @@ class UnicornHRPTest(Node):
         elif self.current_state == 3 and (self.distance_sensor_measurement[0] >= self.front_distance_sensor_break and self.distance_sensor_measurement[1] >= self.side_distance_sensor_break and self.distance_sensor_measurement[2] >= self.side_distance_sensor_break):
             self.unblock_self_counter += 1
 
-            if self.unblock_self_counter >= (self.unblock_self_time/velocity_update_period)
+            if self.unblock_self_counter >= (self.unblock_self_time/velocity_update_period):
                 self.stop_hrp_function(1.0)
 
     #Show user information in command window
