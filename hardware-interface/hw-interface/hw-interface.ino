@@ -72,7 +72,7 @@ int readRange(Adafruit_VL53L0X *sensor);
 //trash status values
 #define TRASH_FULL 1
 #define TRASH_EMPTY 0
-#define TRASH_FULL_PATTERN   0b11111111
+#define TRASH_FULL_PATTERN   0b00000011 //sets how many consequtive readings need to be the same for state switch
 #define TRASH_EMPTY_PATTERN  0b00000000
 #define TRASH_PATTERN_MASK   0b00000011 //sets how many consequtive readings need to be the same for state switch
 
@@ -159,12 +159,12 @@ void loop() {
 
   //read status of trash proximity sensors
   //if any of the sensor are active low then trash is considered detected
+
   if (!digitalRead(PROX_PIN1) || !digitalRead(PROX_PIN2)) {
-    trashStatusDebounce |= 1;
     trashStatusDebounce = trashStatusDebounce << 1;
+    trashStatusDebounce |= 1;
   }
   else {
-    trashStatusDebounce |= 0;
     trashStatusDebounce = trashStatusDebounce << 1;
   }
 
@@ -174,6 +174,12 @@ void loop() {
   else if ( (trashStatusDebounce & TRASH_PATTERN_MASK) == TRASH_EMPTY_PATTERN) {
     trashStatus = TRASH_EMPTY;
   }
+
+  //trash debounce debug:
+/*   Serial.print("Trash Status: ");
+  Serial.println(trashStatus);
+  Serial.print("History: ");
+  Serial.println(trashStatusDebounce, BIN); */
   
   //indicate start of packet
   Serial.print(F("PACKET:"));
