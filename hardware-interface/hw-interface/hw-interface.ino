@@ -72,6 +72,9 @@ int readRange(Adafruit_VL53L0X *sensor);
 //trash status values
 #define TRASH_FULL 1
 #define TRASH_EMPTY 0
+#define TRASH_FULL_PATTERN   0b11111111
+#define TRASH_EMPTY_PATTERN  0b00000000
+#define TRASH_PATTERN_MASK   0b00000011 //sets how many consequtive readings need to be the same for state switch
 
 void setup() {
   Serial.begin(115200);
@@ -101,7 +104,7 @@ void setup() {
   delay(100);
   setColor(INDICATOR_WHITE);
   delay(100);
-  setColor(INDICATOR_BLUE);   //default standby color
+  setColor(INDICATOR_GREEN);   //default standby color
 }
 
 void loop() {
@@ -112,6 +115,7 @@ void loop() {
   static char tempCmd;
   static uint8_t cmd = 0;
   static uint8_t trashStatus;
+  static uint8_t trashStatusDebounce = 0;
   static uint8_t cmdColor;
   static uint8_t cmdActuator;
   uint8_t prevCmd = cmd;
@@ -156,9 +160,18 @@ void loop() {
   //read status of trash proximity sensors
   //if any of the sensor are active low then trash is considered detected
   if (!digitalRead(PROX_PIN1) || !digitalRead(PROX_PIN2)) {
-    trashStatus = TRASH_FULL;
+    trashStatusDebounce |= 1;
+    trashStatusDebounce = trashStatusDebounce << 1;
   }
   else {
+    trashStatusDebounce |= 0;
+    trashStatusDebounce = trashStatusDebounce << 1;
+  }
+
+  if ( (trashStatusDebounce & TRASH_PATTERN_MASK) == TRASH_FULL_PATTERN) {
+    trashStatus = TRASH_FULL;
+  }
+  else if ( (trashStatusDebounce & TRASH_PATTERN_MASK) == TRASH_EMPTY_PATTERN) {
     trashStatus = TRASH_EMPTY;
   }
   
@@ -194,6 +207,7 @@ void loop() {
 
 
 void setID() {
+  Serial.println(F("Resetting sensors"));
   // shutdown all sensors:
   pinMode(SHT_LOXR, OUTPUT);
   pinMode(SHT_LOXF, OUTPUT);
@@ -240,22 +254,26 @@ void setID() {
 }
 
 int readRange(Adafruit_VL53L0X *sensor) {
+  int status;
   // returns -1 if sensor is out of range
   // returns range  in mm if sensor is in range
   // this holds the measurement (what is this struct -  how much memmory?)
   static VL53L0X_RangingMeasurementData_t measurement;
   // get measurement with debug disabled
-  if(sensor->getSingleRangingMeasurement(&measurement, false)) {
-      if(measurement.RangeStatus != LOX_OUT_OF_RANGE) {
-    return measurement.RangeMilliMeter;
-  }
-  else {
-    return -1;
-  }
+  status = sensor->getSingleRangingMeasurement(&measurement, false);
+  //Serial.print(F("Status: "));
+  //Serial.println(status);
+  if(status == VL53L0X_ERROR_NONE) {
+    if(measurement.RangeStatus != LOX_OUT_OF_RANGE) {
+      return measurement.RangeMilliMeter;
+    }
+    else {
+      return -1;
+    }
   }
   else {
     //did not manage to read distance correctly
-    return LOX_ERROR
+    return LOX_ERROR;
   }
 
 }
