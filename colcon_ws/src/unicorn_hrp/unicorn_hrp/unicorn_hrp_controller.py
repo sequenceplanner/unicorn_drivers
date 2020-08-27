@@ -523,8 +523,6 @@ class UnicornHRPTest(Node):
             self.current_state = 0 #Idle
 
     def measurement_sensor_callback(self,msg):
-        i
-
         if msg.f == -1:
             self.distance_sensor_measurement[0] = 10000
         else:
