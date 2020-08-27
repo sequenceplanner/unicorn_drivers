@@ -149,7 +149,7 @@ class UnicornHRPTest(Node):
         #Debug information output
         self.debug_output = False
         #User information output
-        self.user_output = True
+        self.user_output = False
 
         #Setup callbacks
         if self.init_callbacks == True:
@@ -265,6 +265,7 @@ class UnicornHRPTest(Node):
                 
                 if self.distance_sensor_measurement[0] < self.front_distance_sensor_break or self.distance_sensor_measurement[1] < self.side_distance_sensor_break/2 or self.distance_sensor_measurement[2] < self.side_distance_sensor_break/2:
                     self.distance_sensor_measurement_last_blocked = self.distance_sensor_measurement
+                    print("here1")
                     self.stop_hrp_function(0.0)
                     self.HRPmsg.angular.z = 0.0
                     self.HRPmsg.linear.x = 0.0
@@ -557,6 +558,7 @@ class UnicornHRPTest(Node):
         if turn_direction >= 0:
             if self.distance_sensor_measurement[1] < self.side_distance_sensor_break:
                 self.distance_sensor_measurement_last_blocked = self.distance_sensor_measurement
+                print("here2")
                 self.stop_hrp_function(0.0)
                 self.HRPmsg.angular.z = 0.0
             else:
@@ -564,6 +566,7 @@ class UnicornHRPTest(Node):
         else:
             if self.distance_sensor_measurement[2] < self.side_distance_sensor_break:
                 self.distance_sensor_measurement_last_blocked = self.distance_sensor_measurement
+                print("here3")
                 self.stop_hrp_function(0.0)
                 self.HRPmsg.angular.z = 0.0
             else:
