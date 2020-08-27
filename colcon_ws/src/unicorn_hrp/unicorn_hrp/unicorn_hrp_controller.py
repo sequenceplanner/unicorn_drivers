@@ -113,6 +113,7 @@ class UnicornHRPTest(Node):
         self.front_distance_sensor_break = 400 #distance in mm when the robot will break when detecting object in front
         self.side_distance_sensor_break = 200 #distance in mm when the robot will break when detecting objects on the side
         self.distance_sensor_measurement = [10000,10000,10000]
+        self.distance_sensor_measurement_last_blocked = [-2,-2,-2] #Distance values when lastblock occured
 
         #Other constants
         self.init_HRP_offset = True
@@ -376,6 +377,8 @@ class UnicornHRPTest(Node):
             
             print("Sensor status: Left: " + sensors[1] + " Front: " + sensors[0] + " Right: " + sensors[2])
 
+            print("Last block sensor value: Left:" + self.distance_sensor_measurement_last_blocked[1] + " Front: " + self.distance_sensor_measurement_last_blocked[0] + " Right: " + self.distance_sensor_measurement_last_blocked[2])
+
             print("#############################################")
         
         #self.get_logger().info('Linear: "%s"' % HRPmsg.linear)
@@ -501,6 +504,7 @@ class UnicornHRPTest(Node):
             
             if msg == 0.0:
                self.current_state = 3 #Blocked
+               self.distance_sensor_measurement_last_blocked = self.distance_sensor_measurement
             else:
                self.current_state = 4 #Stopped  
 
