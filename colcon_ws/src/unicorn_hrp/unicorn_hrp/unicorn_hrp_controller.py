@@ -264,6 +264,7 @@ class UnicornHRPTest(Node):
                 self.current_function=4 #For user and debug info
                 
                 if self.distance_sensor_measurement[0] < self.front_distance_sensor_break or self.distance_sensor_measurement[1] < self.side_distance_sensor_break/2 or self.distance_sensor_measurement[2] < self.side_distance_sensor_break/2:
+                    self.distance_sensor_measurement_last_blocked = self.distance_sensor_measurement
                     self.stop_hrp_function(0.0)
                     self.HRPmsg.angular.z = 0.0
                     self.HRPmsg.linear.x = 0.0
@@ -504,7 +505,6 @@ class UnicornHRPTest(Node):
             
             if msg == 0.0:
                self.current_state = 3 #Blocked
-               self.distance_sensor_measurement_last_blocked = self.distance_sensor_measurement
             else:
                self.current_state = 4 #Stopped  
 
@@ -556,12 +556,14 @@ class UnicornHRPTest(Node):
         #Set velocity
         if turn_direction >= 0:
             if self.distance_sensor_measurement[1] < self.side_distance_sensor_break:
+                self.distance_sensor_measurement_last_blocked = self.distance_sensor_measurement
                 self.stop_hrp_function(0.0)
                 self.HRPmsg.angular.z = 0.0
             else:
                 self.HRPmsg.angular.z = velocity
         else:
             if self.distance_sensor_measurement[2] < self.side_distance_sensor_break:
+                self.distance_sensor_measurement_last_blocked = self.distance_sensor_measurement
                 self.stop_hrp_function(0.0)
                 self.HRPmsg.angular.z = 0.0
             else:
