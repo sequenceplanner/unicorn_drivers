@@ -108,12 +108,15 @@ class UnicornHRPTest(Node):
         self.point_tolerance = 0.25 #Tolerance in meters, deviation from set point
         self.point_tolerance_reverse = 0.1 #Tolerance in meters, deviation from set point
         self.reset_integral_term_angle_tolerance = 1.0 #If the robot is close enough to the goal angle, reset the integral term to move stright
+        self.sensors_triggered_tolerance = 2 #Skip first n distance sensor values that indicate blocked
         
         #Distance sensors
         self.front_distance_sensor_break = 400 #distance in mm when the robot will break when detecting object in front
         self.side_distance_sensor_break = 200 #distance in mm when the robot will break when detecting objects on the side
         self.distance_sensor_measurement = [10000,10000,10000]
         self.distance_sensor_measurement_last_blocked = [-2,-2,-2] #Distance values when lastblock occured
+        self.sensors_triggered_tolerance = 2 #Skip first n distance sensor values that indicate blocked, delays the blocked response
+        self.sensors_triggered_count = 0 #Counts how many times the sensors has been triggered
 
         #Other constants
         self.init_HRP_offset = True
@@ -264,11 +267,16 @@ class UnicornHRPTest(Node):
                 self.current_function=4 #For user and debug info
                 
                 if self.distance_sensor_measurement[0] < self.front_distance_sensor_break or self.distance_sensor_measurement[1] < self.side_distance_sensor_break/2 or self.distance_sensor_measurement[2] < self.side_distance_sensor_break/2:
-                    self.distance_sensor_measurement_last_blocked = self.distance_sensor_measurement
-                    self.stop_hrp_function(0.0)
-                    self.HRPmsg.angular.z = 0.0
-                    self.HRPmsg.linear.x = 0.0
+                    self.sensors_triggered_count += 1
+
+                    if self.sensors_triggered_count > self.sensors_triggered_tolerance:
+                        self.distance_sensor_measurement_last_blocked = self.distance_sensor_measurement
+                        self.stop_hrp_function(0.0)
+                        self.HRPmsg.angular.z = 0.0
+                        self.HRPmsg.linear.x = 0.0
                 else:
+                    self.sensors_triggered_count = 0
+
                     #Update goal angle for next callback
                     self.goal_angle = np.rad2deg(np.arctan2(self.goal_coordinate.y-self.current_coordinate.y,self.goal_coordinate.x-self.current_coordinate.x))
                     
@@ -515,6 +523,8 @@ class UnicornHRPTest(Node):
             self.current_state = 0 #Idle
 
     def measurement_sensor_callback(self,msg):
+        i
+
         if msg.f == -1:
             self.distance_sensor_measurement[0] = 10000
         else:
@@ -557,17 +567,25 @@ class UnicornHRPTest(Node):
         #Set velocity
         if turn_direction >= 0:
             if self.distance_sensor_measurement[1] < self.side_distance_sensor_break:
-                self.distance_sensor_measurement_last_blocked = self.distance_sensor_measurement
-                self.stop_hrp_function(0.0)
-                self.HRPmsg.angular.z = 0.0
+                self.sensors_triggered_count += 1
+
+                if self.sensors_triggered_count > self.sensors_triggered_tolerance:
+                    self.distance_sensor_measurement_last_blocked = self.distance_sensor_measurement
+                    self.stop_hrp_function(0.0)
+                    self.HRPmsg.angular.z = 0.0
             else:
+                self.sensors_triggered_count = 0
                 self.HRPmsg.angular.z = velocity
         else:
             if self.distance_sensor_measurement[2] < self.side_distance_sensor_break:
-                self.distance_sensor_measurement_last_blocked = self.distance_sensor_measurement
-                self.stop_hrp_function(0.0)
-                self.HRPmsg.angular.z = 0.0
+                self.sensors_triggered_count += 1
+
+                if self.sensors_triggered_count > self.sensors_triggered_tolerance:
+                    self.distance_sensor_measurement_last_blocked = self.distance_sensor_measurement
+                    self.stop_hrp_function(0.0)
+                    self.HRPmsg.angular.z = 0.0
             else:
+                self.sensors_triggered_count = 0
                 self.HRPmsg.angular.z = -velocity
         self.HRPmsg.linear.x = self.linear_velocity_turn
 
