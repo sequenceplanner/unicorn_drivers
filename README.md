@@ -38,7 +38,7 @@ The current system has been tested on either a Nvidia Jetson Nano or Jetson Xavi
   Used for the hrp_start.sh script that starts up the system
   Check out this [Quick Reference](https://gist.github.com/jctosta/af918e1618682638aa82) on how to use Screen.
 
-By default Ubuntu does not allow users access to system serial ports. To solve this we need to add the current user to the dial out group:
+By default Ubuntu does not allow users access to system serial ports. To solve this we need to add the current user to the dialout group:
 
 ```bash
 sudo usermod -a -G dialout $USER
