@@ -7,13 +7,23 @@ ROS and ROS2 packages for controller unicorn demo with HRP and SP. Also includes
 * catkin_ws
   * Contains a subset of the code from the [Husqvarna Research Platform](https://github.com/HusqvarnaResearch/hrp) repository.
     Gazebo simulation parts have been removed and only the necessary packages for control of the HRP hardware remain.
+  
 * colcon_ws
   * hw_controller:
+    
     ROS2 node that communicates via serial to the microcontroller that is responsible for interfacing with the garbage tipper, garbage sensors (detects if there is garbage placed on the platform), distance sensors for collision avoidance and LED light strips for status indication.
+    
   * unicorn_hrp:
+    
     ROS2 node that controls the HRP hardware
-  * hrp_msgs
+    
+  * hrp_msgs:
+    
     Custom ROS messages
+  
+* hw-interface
+
+  * Holds code for the microcontroller that interfaces directly with the additional sensors and actuators added to the HRP. Is controlled by the ROS 2 node hw_controller.
 
 ## Installation
 
@@ -24,17 +34,20 @@ The current system has been tested on either a Nvidia Jetson Nano or Jetson Xavi
 * ROS melodic [guide](http://wiki.ros.org/melodic/Installation/Ubuntu)
 
 * ROS Bridge
-  Used to run a dynamic bridge that translates topics between the ROS2 and ROS. Can be installed by running:
-
+  
+Used to run a dynamic bridge that translates topics between the ROS2 and ROS. Can be installed by running:
+  
   ```bash
   sudo apt-get update
   sudo apt install ros-eloquent-ros1-bridge
-  ```
-
-* [Pyserial](https://pypi.org/project/pyserial/)
-  Needed for serial communication with the microcontroller hardware.
-
-* GNU Screen
+```
+  
+* [Pyserial](https://pypi.org/project/pyserial/) 
+  
+Needed for serial communication with the microcontroller hardware.
+  
+* GNU Screen 
+  
   Used for the hrp_start.sh script that starts up the system
   Check out this [Quick Reference](https://gist.github.com/jctosta/af918e1618682638aa82) on how to use Screen.
 
@@ -61,16 +74,27 @@ Run the startup shell script from the repository root folder
 This will launch and automatically connect to a screen sessions with the following windows:
 
 0. ros-bash
+   
    Regular terminal window with bash and ROS sourced
+   
 1. am_driver
+
    Driver used to communicate with the HRP hardware
+
 2. ros1_bridge
+
    Bridge used to bidirectionally translate topics from ROS2 and ROS
+
 3. teleop
+
    Teleoperation and status of the HRP hardware
+
 4. ros2_hw_controller
+
    ROS2 node for interfacing with microcontroller 
+
 5. ros2_hrp_controller
+
    ROS2 node for interfacing with am_driver
 
 Troubleshooting:
