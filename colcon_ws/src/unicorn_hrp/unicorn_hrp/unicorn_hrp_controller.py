@@ -115,6 +115,8 @@ class UnicornHRPTest(Node):
         self.distance_sensor_measurement = [10000,10000,10000]
         self.sensors_triggered_tolerance = 10 #Skip first n distance sensor values that indicate blocked, delays the blocked response
         self.sensors_triggered_count = 0 #Counts how many times the sensors has been triggered
+        self.full_linear_velocity_detection_factor = 1.0 #Variable to keep the increased detection factor, defualt = 1.0 => same as self.front_distance_sensor_break
+        self.full_linear_velocity_detection_multiplier = 1.5 #Increases front_distance_sensor_break by n times when moving at full linear velocity
 
         #Other constants
         self.init_HRP_offset = True
@@ -246,6 +248,8 @@ class UnicornHRPTest(Node):
                 self.perform_only_turn = False
                 self.within_tolerance = False
                 self.reversing = False
+                self.sensors_triggered_count = 0
+                self.full_linear_velocity_detection_factor = 1.0
                 
                 #Begin to turn if specified in the UnicornMove message
                 if self.turn_in_end:
@@ -266,8 +270,8 @@ class UnicornHRPTest(Node):
             else:
                 self.current_function=4 #For user and debug info
                 
-                if self.distance_sensor_measurement[0] < self.front_distance_sensor_break or self.distance_sensor_measurement[1] < self.side_distance_sensor_break/2 or self.distance_sensor_measurement[2] < self.side_distance_sensor_break/2:
-                    self.sensors_triggered_count += 1
+                if self.distance_sensor_measurement[0] < self.front_distance_sensor_break*self.full_linear_velocity_detection_factor or self.distance_sensor_measurement[1] < self.side_distance_sensor_break/2 or self.distance_sensor_measurement[2] < self.side_distance_sensor_break/2:
+                    self.sensors_triggered_count += 1 #Multiple measurements needed, prevents accidently triggering the stop function
 
                     if self.sensors_triggered_count > self.sensors_triggered_tolerance:
                         self.stop_hrp_function(0.0)
@@ -280,14 +284,16 @@ class UnicornHRPTest(Node):
                     self.goal_angle = np.rad2deg(np.arctan2(self.goal_coordinate.y-self.current_coordinate.y,self.goal_coordinate.x-self.current_coordinate.x))
                     
                     #Ramp up
-                    pt = self.point_tolerance #Just to use a temporary shorter variable name
-                    if self.travel_distance_total - travel_distance_left < self.ramp_distance and not (travel_distance_left-pt) < (self.travel_distance_total-pt)/2:
+                    if self.travel_distance_total - travel_distance_left < self.ramp_distance and not (travel_distance_left-self.point_tolerance) < (self.travel_distance_total-self.point_tolerance)/2:
                         self.HRPmsg.linear.x = round(((self.travel_distance_total - travel_distance_left)/self.ramp_distance)*(self.linear_velocity-self.linear_velocity_ramp)+self.linear_velocity_ramp,2)
+                        self.full_linear_velocity_detection_factor = 1.0
                     #Ramp down
-                    elif travel_distance_left-pt < self.ramp_distance:
-                        self.HRPmsg.linear.x = round(((travel_distance_left-pt)/self.ramp_distance)*(self.linear_velocity-self.linear_velocity_ramp)+self.linear_velocity_ramp,2)
+                    elif travel_distance_left-self.point_tolerance < self.ramp_distance:
+                        self.HRPmsg.linear.x = round(((travel_distance_left-self.point_tolerance)/self.ramp_distance)*(self.linear_velocity-self.linear_velocity_ramp)+self.linear_velocity_ramp,2)
+                        self.full_linear_velocity_detection_factor = 1.0
                     else:
                         self.HRPmsg.linear.x = self.linear_velocity
+                        self.full_linear_velocity_detection_factor = self.full_linear_velocity_detection_multiplier #Set to maximum detection distance
 
                     #PI regulator for adjusting the traveling angle closer to the goal angle
                     self.proportional_term = self.angular_velocity_proportional_gain * self.angular_error
