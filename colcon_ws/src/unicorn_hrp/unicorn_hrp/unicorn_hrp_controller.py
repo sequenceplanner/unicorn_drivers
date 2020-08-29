@@ -118,6 +118,11 @@ class UnicornHRPTest(Node):
         self.full_linear_velocity_detection_factor = 1.0 #Variable to keep the increased detection factor, defualt = 1.0 => same as self.front_distance_sensor_break
         self.full_linear_velocity_detection_multiplier = 1.5 #Increases front_distance_sensor_break by n times when moving at full linear velocity
 
+        #Self unblock
+        self.self_unblock_enabled = False #Whenever to reset "blocked" state by itself if the obsticles in front are removed, otherwise the robot needs a new point or a direct command to reset
+        self.unblock_self_counter = 0 #Used to count the time before unblocking
+        self.unblock_self_time = 2 #Unblock after n seconds if no obsticle left
+
         #Other constants
         self.init_HRP_offset = True
         self.calculate_HRP_offset = True #Calculate an offset from HRP to our coordinate system
@@ -131,9 +136,7 @@ class UnicornHRPTest(Node):
             (0.0,   0.0,   0.0),
             (0.0,   0.0,   0.0),
             (0.0,   0.0,   0.0))) #Used for point transformation
-        self.unblock_self_counter = 0
-        self.unblock_self_time = 2 #Unblock after n seconds if no obsticle left
-
+        
         #Keep current state
         self.current_state = 0 #0=idle, 1=executing, 2=finished, 3=blocked, 4=stopped
         self.current_state_message = Int16()
@@ -317,7 +320,7 @@ class UnicornHRPTest(Node):
 
             self.unblock_self_counter = 0
 
-        elif self.current_state == 3 and (self.distance_sensor_measurement[0] >= self.front_distance_sensor_break and self.distance_sensor_measurement[1] >= self.side_distance_sensor_break and self.distance_sensor_measurement[2] >= self.side_distance_sensor_break):
+        elif self.self_unblock_enabled and self.current_state == 3 and (self.distance_sensor_measurement[0] >= self.front_distance_sensor_break and self.distance_sensor_measurement[1] >= self.side_distance_sensor_break and self.distance_sensor_measurement[2] >= self.side_distance_sensor_break):
             self.unblock_self_counter += 1
 
             if self.unblock_self_counter >= (self.unblock_self_time/self.velocity_update_period):
