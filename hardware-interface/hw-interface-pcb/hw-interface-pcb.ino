@@ -32,9 +32,9 @@ Adafruit_VL53L0X loxFront = Adafruit_VL53L0X();
 Adafruit_VL53L0X loxLeft = Adafruit_VL53L0X();
 
 //define pins for indicator light
-#define R_OUT (uint8_t)8
-#define G_OUT (uint8_t)9
-#define B_OUT (uint8_t)10
+#define R_OUT (uint8_t)9
+#define G_OUT (uint8_t)10
+#define B_OUT (uint8_t)11
 
 //define colors for indicator light
 #define INDICATOR_OFF 0
