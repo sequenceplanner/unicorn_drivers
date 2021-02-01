@@ -18,9 +18,9 @@
 // last one will be left with default adress 0x29
 
 // set the pins to shutdown
-#define SHT_LOXR 4 //right (diode connected
+#define SHT_LOXR 2 //right (diode connected
 #define SHT_LOXF 3 //front (diode connected)
-#define SHT_LOXL 2 //left  (diode connected)
+#define SHT_LOXL 4 //left  (diode connected)
 
 //define sensor states
 #define LOX_OUT_OF_RANGE 4
@@ -66,8 +66,8 @@ void setID();
 int readRange(Adafruit_VL53L0X *sensor);
 
 //pin defenitions for trash sensors
-#define PROX_PIN1 11
-#define PROX_PIN2 12
+#define PROX_PIN1 A0
+#define PROX_PIN2 A1
 
 //trash status values
 #define TRASH_FULL 1
