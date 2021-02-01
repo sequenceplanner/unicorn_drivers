@@ -52,8 +52,8 @@ void setColor(uint8_t color);
 void initIndicator();
 
 // set the pins for motor control
-#define IN1 6
-#define IN2 5
+#define IN1 8
+#define IN2 7
 
 // sets actuation time in ms
 #define ACTUATION_TIME 4000
@@ -85,7 +85,8 @@ void setup() {
   setID();
 
   //set actuator to down position
-  actuator.setActuatorCommand(ACTUATOR_CMD_DOWN, millis());
+  actuator.setActuatorCommand(ACTUATOR_CMD_DOWN
+  , millis());
   //delay(ACTUATION_TIME);
 
   //configure trash sensors pins as input:
@@ -93,6 +94,7 @@ void setup() {
   pinMode(PROX_PIN2, INPUT);
 
   initIndicator();
+  
   //testing colors:
   setColor(INDICATOR_RED);
   delay(100);
