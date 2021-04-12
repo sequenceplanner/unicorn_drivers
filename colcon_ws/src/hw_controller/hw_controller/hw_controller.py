@@ -204,7 +204,7 @@ class hwController(Node):
         #TODO: add exception handling when the port fails to be configured
         # Serial port is instantly opened upon creation (https://pyserial.readthedocs.io/en/latest/pyserial_api.html)
         ser = serial.Serial(
-        port='/dev/ttyUSB0',
+        port='/dev/ttyAMC0',
         baudrate=115200,
         timeout = 3)
         return ser
