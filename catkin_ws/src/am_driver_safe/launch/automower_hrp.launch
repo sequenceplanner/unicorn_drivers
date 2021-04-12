@@ -1,6 +1,6 @@
 <launch>
   <!-- Override if you are not using the bottom USB connector but an internal serial port. -->
-  <arg name="serial_port" default="/dev/ttyACM0"
+  <arg name="serial_port" default="/dev/ttyACM1"
        doc="Serial port to use for communicating with robot platform." />
   <arg name="driver_only" default="false"
        doc="Set to true to only start driver, if you want to use your own robot description" />
