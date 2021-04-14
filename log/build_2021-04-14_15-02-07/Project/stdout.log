@@ -1,0 +1,19 @@
+-- Using CATKIN_DEVEL_PREFIX: /home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project/devel
+-- Using CMAKE_PREFIX_PATH: /home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/install/hrp_msgs;/opt/ros/melodic
+-- This workspace overlays: /opt/ros/melodic
+-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.6.9", minimum required is "3") 
+-- Using PYTHON_EXECUTABLE: /usr/bin/python3
+-- Using Debian Python package layout
+-- Using empy: /usr/bin/empy
+-- Using CATKIN_ENABLE_TESTING: ON
+-- Call enable_testing()
+-- Using CATKIN_TEST_RESULTS_DIR: /home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project/test_results
+-- Found gtest sources under '/usr/src/googletest': gtests will be built
+-- Found gmock sources under '/usr/src/googletest': gmock will be built
+-- Found PythonInterp: /usr/bin/python3 (found version "3.6.9") 
+-- Using Python nosetests: /usr/bin/nosetests
+-- catkin 0.7.29
+-- BUILD_SHARED_LIBS is on
+-- Configuring incomplete, errors occurred!
+See also "/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project/CMakeFiles/CMakeOutput.log".
+See also "/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project/CMakeFiles/CMakeError.log".

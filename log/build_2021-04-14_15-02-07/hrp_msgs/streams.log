@@ -1,0 +1,64 @@
+[0.116s] Invoking command in '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/hrp_msgs': CMAKE_PREFIX_PATH=/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/install/hrp_msgs:/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/install/unicorn_hrp:/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/install/hw_controller:/opt/ros/eloquent:/opt/ros/melodic /usr/bin/cmake --build /home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/hrp_msgs -- -j6 -l6
+[0.289s] [35m[1mScanning dependencies of target hrp_msgs__cpp[0m
+[0.292s] [  2%] [34m[1mGenerating C code for ROS interfaces[0m
+[0.332s] [  5%] [34m[1mGenerating C++ code for ROS interfaces[0m
+[1.709s] [  5%] Built target hrp_msgs__cpp
+[1.771s] [  8%] [34m[1mGenerating C++ type support for eProsima Fast-RTPS[0m
+[1.811s] [ 10%] [34m[1mGenerating C++ introspection for ROS interfaces[0m
+[1.873s] [35m[1mScanning dependencies of target hrp_msgs__rosidl_generator_c[0m
+[1.927s] [ 13%] [32mBuilding C object CMakeFiles/hrp_msgs__rosidl_generator_c.dir/rosidl_generator_c/hrp_msgs/msg/hrp_move__functions.c.o[0m
+[1.928s] [ 16%] [32mBuilding C object CMakeFiles/hrp_msgs__rosidl_generator_c.dir/rosidl_generator_c/hrp_msgs/msg/hrp_measurement_sensor__functions.c.o[0m
+[2.189s] [ 18%] [32m[1mLinking C shared library libhrp_msgs__rosidl_generator_c.so[0m
+[2.365s] [ 18%] Built target hrp_msgs__rosidl_generator_c
+[2.410s] [ 21%] [34m[1mGenerating C introspection for ROS interfaces[0m
+[3.196s] [35m[1mScanning dependencies of target hrp_msgs__rosidl_typesupport_introspection_cpp[0m
+[3.253s] [35m[1mScanning dependencies of target hrp_msgs__rosidl_typesupport_fastrtps_cpp[0m
+[3.264s] [ 24%] [32mBuilding CXX object CMakeFiles/hrp_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/hrp_msgs/msg/hrp_move__type_support.cpp.o[0m
+[3.269s] [ 27%] [32mBuilding CXX object CMakeFiles/hrp_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/hrp_msgs/msg/hrp_measurement_sensor__type_support.cpp.o[0m
+[3.341s] [ 29%] [32mBuilding CXX object CMakeFiles/hrp_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/hrp_msgs/msg/dds_fastrtps/hrp_measurement_sensor__type_support.cpp.o[0m
+[3.358s] [ 32%] [32mBuilding CXX object CMakeFiles/hrp_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/hrp_msgs/msg/dds_fastrtps/hrp_move__type_support.cpp.o[0m
+[3.864s] [35m[1mScanning dependencies of target hrp_msgs__rosidl_typesupport_introspection_c[0m
+[3.946s] [ 37%] [32mBuilding C object CMakeFiles/hrp_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/hrp_msgs/msg/hrp_move__type_support.c.o[0m
+[3.946s] [ 37%] [32mBuilding C object CMakeFiles/hrp_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/hrp_msgs/msg/hrp_measurement_sensor__type_support.c.o[0m
+[4.119s] [ 40%] [32m[1mLinking C shared library libhrp_msgs__rosidl_typesupport_introspection_c.so[0m
+[4.257s] [ 40%] Built target hrp_msgs__rosidl_typesupport_introspection_c
+[4.461s] [ 43%] [32m[1mLinking CXX shared library libhrp_msgs__rosidl_typesupport_introspection_cpp.so[0m
+[4.640s] [ 43%] Built target hrp_msgs__rosidl_typesupport_introspection_cpp
+[5.108s] [ 45%] [32m[1mLinking CXX shared library libhrp_msgs__rosidl_typesupport_fastrtps_cpp.so[0m
+[5.459s] [ 45%] Built target hrp_msgs__rosidl_typesupport_fastrtps_cpp
+[5.505s] [ 48%] [34m[1mGenerating C type support for eProsima Fast-RTPS[0m
+[5.507s] [ 51%] [34m[1mGenerating C++ type support dispatch for ROS interfaces[0m
+[6.636s] [35m[1mScanning dependencies of target hrp_msgs__rosidl_typesupport_cpp[0m
+[6.710s] [ 54%] [32mBuilding CXX object CMakeFiles/hrp_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/hrp_msgs/msg/hrp_move__type_support.cpp.o[0m
+[6.724s] [ 56%] [32mBuilding CXX object CMakeFiles/hrp_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/hrp_msgs/msg/hrp_measurement_sensor__type_support.cpp.o[0m
+[6.822s] [35m[1mScanning dependencies of target hrp_msgs__rosidl_typesupport_fastrtps_c[0m
+[6.898s] [ 59%] [32mBuilding CXX object CMakeFiles/hrp_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/hrp_msgs/msg/hrp_measurement_sensor__type_support_c.cpp.o[0m
+[6.899s] [ 62%] [32mBuilding CXX object CMakeFiles/hrp_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/hrp_msgs/msg/hrp_move__type_support_c.cpp.o[0m
+[8.383s] [ 64%] [32m[1mLinking CXX shared library libhrp_msgs__rosidl_typesupport_fastrtps_c.so[0m
+[8.400s] [ 67%] [32m[1mLinking CXX shared library libhrp_msgs__rosidl_typesupport_cpp.so[0m
+[8.714s] [ 67%] Built target hrp_msgs__rosidl_typesupport_fastrtps_c
+[8.719s] [ 67%] Built target hrp_msgs__rosidl_typesupport_cpp
+[8.757s] [ 70%] [34m[1mGenerating C type support dispatch for ROS interfaces[0m
+[9.876s] [35m[1mScanning dependencies of target hrp_msgs__rosidl_typesupport_c[0m
+[9.927s] [ 72%] [32mBuilding CXX object CMakeFiles/hrp_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/hrp_msgs/msg/hrp_move__type_support.cpp.o[0m
+[9.928s] [ 75%] [32mBuilding CXX object CMakeFiles/hrp_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/hrp_msgs/msg/hrp_measurement_sensor__type_support.cpp.o[0m
+[10.052s] [ 78%] [32m[1mLinking CXX shared library libhrp_msgs__rosidl_typesupport_c.so[0m
+[10.233s] [ 78%] Built target hrp_msgs__rosidl_typesupport_c
+[10.274s] [35m[1mScanning dependencies of target hrp_msgs[0m
+[10.315s] [ 78%] Built target hrp_msgs
+[10.358s] [35m[1mScanning dependencies of target hrp_msgs__py[0m
+[10.400s] [ 81%] [34m[1mGenerating Python code for ROS interfaces[0m
+[12.438s] [ 81%] Built target hrp_msgs__py
+[12.480s] [35m[1mScanning dependencies of target hrp_msgs__python[0m
+[12.605s] [ 86%] [32mBuilding C object CMakeFiles/hrp_msgs__python.dir/rosidl_generator_py/hrp_msgs/msg/_hrp_measurement_sensor_s.c.o[0m
+[12.605s] [ 86%] [32mBuilding C object CMakeFiles/hrp_msgs__python.dir/rosidl_generator_py/hrp_msgs/msg/_hrp_move_s.c.o[0m
+[13.014s] [ 89%] [32m[1mLinking CXX shared library rosidl_generator_py/hrp_msgs/libhrp_msgs__python.so[0m
+[13.237s] [ 89%] Built target hrp_msgs__python
+[13.282s] [35m[1mScanning dependencies of target hrp_msgs__rosidl_typesupport_c__pyext[0m
+[13.284s] [35m[1mScanning dependencies of target hrp_msgs__rosidl_typesupport_fastrtps_c__pyext[0m
+[13.371s] [ 91%] [32mBuilding C object CMakeFiles/hrp_msgs__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/hrp_msgs/_hrp_msgs_s.ep.rosidl_typesupport_fastrtps_c.c.o[0m
+[13.371s] [ 94%] [32mBuilding C object CMakeFiles/hrp_msgs__rosidl_typesupport_c__pyext.dir/rosidl_generator_py/hrp_msgs/_hrp_msgs_s.ep.rosidl_typesupport_c.c.o[0m
+[13.748s] [ 97%] [32m[1mLinking CXX shared library rosidl_generator_py/hrp_msgs/hrp_msgs_s__rosidl_typesupport_c.cpython-36m-aarch64-linux-gnu.so[0m
+[13.748s] [100%] [32m[1mLinking CXX shared library rosidl_generator_py/hrp_msgs/hrp_msgs_s__rosidl_typesupport_fastrtps_c.cpython-36m-aarch64-linux-gnu.so[0m
+[13.974s] [100%] Built target hrp_msgs__rosidl_typesupport_c__pyext
+[13.975s] [100%] Built target hrp_msgs__rosidl_typesupport_fastrtps_c__pyext

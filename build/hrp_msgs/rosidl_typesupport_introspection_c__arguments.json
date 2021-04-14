@@ -1,0 +1,27 @@
+{
+  "package_name": "hrp_msgs",
+  "output_dir": "/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/hrp_msgs/rosidl_typesupport_introspection_c/hrp_msgs",
+  "template_dir": "/opt/ros/eloquent/share/rosidl_typesupport_introspection_c/resource",
+  "idl_tuples": [
+    "/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/hrp_msgs/rosidl_adapter/hrp_msgs:msg/HrpMove.idl",
+    "/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/hrp_msgs/rosidl_adapter/hrp_msgs:msg/HrpMeasurementSensor.idl"
+  ],
+  "ros_interface_dependencies": [
+    "builtin_interfaces:/opt/ros/eloquent/share/builtin_interfaces/msg/Duration.idl",
+    "builtin_interfaces:/opt/ros/eloquent/share/builtin_interfaces/msg/Time.idl"
+  ],
+  "target_dependencies": [
+    "/opt/ros/eloquent/lib/rosidl_typesupport_introspection_c/rosidl_typesupport_introspection_c",
+    "/opt/ros/eloquent/lib/python3.6/site-packages/rosidl_typesupport_introspection_c/__init__.py",
+    "/opt/ros/eloquent/share/rosidl_typesupport_introspection_c/resource/idl__rosidl_typesupport_introspection_c.h.em",
+    "/opt/ros/eloquent/share/rosidl_typesupport_introspection_c/resource/idl__type_support.c.em",
+    "/opt/ros/eloquent/share/rosidl_typesupport_introspection_c/resource/msg__rosidl_typesupport_introspection_c.h.em",
+    "/opt/ros/eloquent/share/rosidl_typesupport_introspection_c/resource/msg__type_support.c.em",
+    "/opt/ros/eloquent/share/rosidl_typesupport_introspection_c/resource/srv__rosidl_typesupport_introspection_c.h.em",
+    "/opt/ros/eloquent/share/rosidl_typesupport_introspection_c/resource/srv__type_support.c.em",
+    "/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/hrp_msgs/rosidl_adapter/hrp_msgs/msg/HrpMove.idl",
+    "/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/hrp_msgs/rosidl_adapter/hrp_msgs/msg/HrpMeasurementSensor.idl",
+    "/opt/ros/eloquent/share/builtin_interfaces/msg/Duration.idl",
+    "/opt/ros/eloquent/share/builtin_interfaces/msg/Time.idl"
+  ]
+}

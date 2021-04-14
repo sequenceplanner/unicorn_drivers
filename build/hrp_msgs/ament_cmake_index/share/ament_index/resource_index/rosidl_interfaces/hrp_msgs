@@ -1,0 +1,4 @@
+msg/HrpMeasurementSensor.idl
+msg/HrpMeasurementSensor.msg
+msg/HrpMove.idl
+msg/HrpMove.msg

@@ -1,0 +1,501 @@
+[1.536s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[1.536s] DEBUG:colcon:Parsed command line arguments: Namespace(ament_cmake_args=None, base_paths=['.'], build_base='build', catkin_cmake_args=None, catkin_skip_building_tests=False, cmake_args=None, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, cmake_target=None, cmake_target_skip_unavailable=False, continue_on_error=False, event_handlers=None, executor='parallel', ignore_user_meta=False, install_base='install', log_base=None, log_level=None, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7faf869c18>>, merge_install=False, metas=['./colcon.meta'], packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_end=None, packages_ignore=None, packages_ignore_regex=None, packages_select=None, packages_select_build_failed=False, packages_select_by_dep=None, packages_select_regex=None, packages_select_test_failures=False, packages_skip=None, packages_skip_build_finished=False, packages_skip_by_dep=None, packages_skip_regex=None, packages_skip_test_passed=False, packages_skip_up_to=None, packages_start=None, packages_up_to=None, packages_up_to_regex=None, parallel_workers=6, paths=None, symlink_install=False, test_result_base=None, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7faf869c18>, verb_name='build', verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x7faf869f60>)
+[1.564s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[1.565s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[1.565s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[1.565s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[1.565s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[1.567s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[1.567s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER'
+[1.568s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[1.568s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[1.569s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[1.569s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[1.569s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[1.569s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[1.570s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[1.570s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[1.570s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[1.625s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[1.625s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[1.625s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[1.626s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[1.626s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[1.626s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[1.627s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[1.627s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[1.629s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws) by extensions ['ignore', 'ignore_ament_install']
+[1.629s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws) by extension 'ignore'
+[1.630s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws) by extension 'ignore_ament_install'
+[1.630s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws) by extensions ['colcon_pkg']
+[1.630s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws) by extension 'colcon_pkg'
+[1.631s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws) by extensions ['colcon_meta']
+[1.631s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws) by extension 'colcon_meta'
+[1.631s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws) by extensions ['ros']
+[1.631s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws) by extension 'ros'
+[1.632s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws) by extensions ['cmake', 'python']
+[1.632s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws) by extension 'cmake'
+[1.632s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws) by extension 'python'
+[1.632s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws) by extensions ['python_setup_py']
+[1.633s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws) by extension 'python_setup_py'
+[1.633s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws/build) by extensions ['ignore', 'ignore_ament_install']
+[1.634s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws/build) by extension 'ignore'
+[1.634s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws/build) by extension 'ignore_ament_install'
+[1.635s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws/build) by extensions ['colcon_pkg']
+[1.635s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws/build) by extension 'colcon_pkg'
+[1.635s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws/build) by extensions ['colcon_meta']
+[1.635s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws/build) by extension 'colcon_meta'
+[1.635s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws/build) by extensions ['ros']
+[1.636s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws/build) by extension 'ros'
+[1.636s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws/build) ignored
+[1.636s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws/devel) by extensions ['ignore', 'ignore_ament_install']
+[1.637s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws/devel) by extension 'ignore'
+[1.637s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws/devel) by extension 'ignore_ament_install'
+[1.637s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws/devel) ignored
+[1.638s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws/src) by extensions ['ignore', 'ignore_ament_install']
+[1.638s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws/src) by extension 'ignore'
+[1.639s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws/src) by extension 'ignore_ament_install'
+[1.639s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws/src) by extensions ['colcon_pkg']
+[1.639s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws/src) by extension 'colcon_pkg'
+[1.639s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws/src) by extensions ['colcon_meta']
+[1.639s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws/src) by extension 'colcon_meta'
+[1.640s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws/src) by extensions ['ros']
+[1.640s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws/src) by extension 'ros'
+[1.640s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws/src) by extensions ['cmake', 'python']
+[1.641s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws/src) by extension 'cmake'
+[1.666s] Level 1:colcon.colcon_core.package_identification:_identify(catkin_ws/src) by extension 'python'
+[1.667s] DEBUG:colcon.colcon_core.package_identification:Package 'catkin_ws/src' with type 'cmake' and name 'Project'
+[1.667s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws) by extensions ['ignore', 'ignore_ament_install']
+[1.668s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws) by extension 'ignore'
+[1.668s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws) by extension 'ignore_ament_install'
+[1.668s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws) by extensions ['colcon_pkg']
+[1.669s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws) by extension 'colcon_pkg'
+[1.669s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws) by extensions ['colcon_meta']
+[1.669s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws) by extension 'colcon_meta'
+[1.669s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws) by extensions ['ros']
+[1.670s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws) by extension 'ros'
+[1.670s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws) by extensions ['cmake', 'python']
+[1.670s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws) by extension 'cmake'
+[1.671s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws) by extension 'python'
+[1.671s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws) by extensions ['python_setup_py']
+[1.671s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws) by extension 'python_setup_py'
+[1.671s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/build) by extensions ['ignore', 'ignore_ament_install']
+[1.672s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/build) by extension 'ignore'
+[1.672s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/build) ignored
+[1.673s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/install) by extensions ['ignore', 'ignore_ament_install']
+[1.673s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/install) by extension 'ignore'
+[1.673s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/install) ignored
+[1.674s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/log) by extensions ['ignore', 'ignore_ament_install']
+[1.674s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/log) by extension 'ignore'
+[1.674s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/log) ignored
+[1.675s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src) by extensions ['ignore', 'ignore_ament_install']
+[1.675s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src) by extension 'ignore'
+[1.675s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src) by extension 'ignore_ament_install'
+[1.676s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src) by extensions ['colcon_pkg']
+[1.676s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src) by extension 'colcon_pkg'
+[1.676s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src) by extensions ['colcon_meta']
+[1.676s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src) by extension 'colcon_meta'
+[1.676s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src) by extensions ['ros']
+[1.677s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src) by extension 'ros'
+[1.677s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src) by extensions ['cmake', 'python']
+[1.677s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src) by extension 'cmake'
+[1.678s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src) by extension 'python'
+[1.678s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src) by extensions ['python_setup_py']
+[1.678s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src) by extension 'python_setup_py'
+[1.679s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src/hrp_msgs) by extensions ['ignore', 'ignore_ament_install']
+[1.679s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src/hrp_msgs) by extension 'ignore'
+[1.679s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src/hrp_msgs) by extension 'ignore_ament_install'
+[1.680s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src/hrp_msgs) by extensions ['colcon_pkg']
+[1.680s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src/hrp_msgs) by extension 'colcon_pkg'
+[1.680s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src/hrp_msgs) by extensions ['colcon_meta']
+[1.680s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src/hrp_msgs) by extension 'colcon_meta'
+[1.681s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src/hrp_msgs) by extensions ['ros']
+[1.681s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src/hrp_msgs) by extension 'ros'
+[1.691s] DEBUG:colcon.colcon_core.package_identification:Package 'colcon_ws/src/hrp_msgs' with type 'ros.ament_cmake' and name 'hrp_msgs'
+[1.692s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src/hw_controller) by extensions ['ignore', 'ignore_ament_install']
+[1.692s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src/hw_controller) by extension 'ignore'
+[1.692s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src/hw_controller) by extension 'ignore_ament_install'
+[1.693s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src/hw_controller) by extensions ['colcon_pkg']
+[1.693s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src/hw_controller) by extension 'colcon_pkg'
+[1.693s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src/hw_controller) by extensions ['colcon_meta']
+[1.693s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src/hw_controller) by extension 'colcon_meta'
+[1.694s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src/hw_controller) by extensions ['ros']
+[1.694s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src/hw_controller) by extension 'ros'
+[1.697s] DEBUG:colcon.colcon_core.package_identification:Package 'colcon_ws/src/hw_controller' with type 'ros.ament_python' and name 'hw_controller'
+[1.698s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src/unicorn_hrp) by extensions ['ignore', 'ignore_ament_install']
+[1.699s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src/unicorn_hrp) by extension 'ignore'
+[1.699s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src/unicorn_hrp) by extension 'ignore_ament_install'
+[1.699s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src/unicorn_hrp) by extensions ['colcon_pkg']
+[1.699s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src/unicorn_hrp) by extension 'colcon_pkg'
+[1.700s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src/unicorn_hrp) by extensions ['colcon_meta']
+[1.700s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src/unicorn_hrp) by extension 'colcon_meta'
+[1.700s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src/unicorn_hrp) by extensions ['ros']
+[1.700s] Level 1:colcon.colcon_core.package_identification:_identify(colcon_ws/src/unicorn_hrp) by extension 'ros'
+[1.703s] DEBUG:colcon.colcon_core.package_identification:Package 'colcon_ws/src/unicorn_hrp' with type 'ros.ament_python' and name 'unicorn_hrp'
+[1.704s] Level 1:colcon.colcon_core.package_identification:_identify(hardware) by extensions ['ignore', 'ignore_ament_install']
+[1.705s] Level 1:colcon.colcon_core.package_identification:_identify(hardware) by extension 'ignore'
+[1.705s] Level 1:colcon.colcon_core.package_identification:_identify(hardware) by extension 'ignore_ament_install'
+[1.705s] Level 1:colcon.colcon_core.package_identification:_identify(hardware) by extensions ['colcon_pkg']
+[1.705s] Level 1:colcon.colcon_core.package_identification:_identify(hardware) by extension 'colcon_pkg'
+[1.706s] Level 1:colcon.colcon_core.package_identification:_identify(hardware) by extensions ['colcon_meta']
+[1.706s] Level 1:colcon.colcon_core.package_identification:_identify(hardware) by extension 'colcon_meta'
+[1.706s] Level 1:colcon.colcon_core.package_identification:_identify(hardware) by extensions ['ros']
+[1.707s] Level 1:colcon.colcon_core.package_identification:_identify(hardware) by extension 'ros'
+[1.707s] Level 1:colcon.colcon_core.package_identification:_identify(hardware) by extensions ['cmake', 'python']
+[1.707s] Level 1:colcon.colcon_core.package_identification:_identify(hardware) by extension 'cmake'
+[1.707s] Level 1:colcon.colcon_core.package_identification:_identify(hardware) by extension 'python'
+[1.708s] Level 1:colcon.colcon_core.package_identification:_identify(hardware) by extensions ['python_setup_py']
+[1.708s] Level 1:colcon.colcon_core.package_identification:_identify(hardware) by extension 'python_setup_py'
+[1.709s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb) by extensions ['ignore', 'ignore_ament_install']
+[1.709s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb) by extension 'ignore'
+[1.709s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb) by extension 'ignore_ament_install'
+[1.710s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb) by extensions ['colcon_pkg']
+[1.710s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb) by extension 'colcon_pkg'
+[1.710s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb) by extensions ['colcon_meta']
+[1.710s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb) by extension 'colcon_meta'
+[1.711s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb) by extensions ['ros']
+[1.711s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb) by extension 'ros'
+[1.711s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb) by extensions ['cmake', 'python']
+[1.711s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb) by extension 'cmake'
+[1.712s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb) by extension 'python'
+[1.712s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb) by extensions ['python_setup_py']
+[1.712s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb) by extension 'python_setup_py'
+[1.713s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib) by extensions ['ignore', 'ignore_ament_install']
+[1.713s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib) by extension 'ignore'
+[1.714s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib) by extension 'ignore_ament_install'
+[1.714s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib) by extensions ['colcon_pkg']
+[1.714s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib) by extension 'colcon_pkg'
+[1.714s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib) by extensions ['colcon_meta']
+[1.714s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib) by extension 'colcon_meta'
+[1.715s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib) by extensions ['ros']
+[1.715s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib) by extension 'ros'
+[1.715s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib) by extensions ['cmake', 'python']
+[1.716s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib) by extension 'cmake'
+[1.716s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib) by extension 'python'
+[1.716s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib) by extensions ['python_setup_py']
+[1.716s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib) by extension 'python_setup_py'
+[1.717s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib/local.3dshapes) by extensions ['ignore', 'ignore_ament_install']
+[1.717s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib/local.3dshapes) by extension 'ignore'
+[1.718s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib/local.3dshapes) by extension 'ignore_ament_install'
+[1.718s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib/local.3dshapes) by extensions ['colcon_pkg']
+[1.718s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib/local.3dshapes) by extension 'colcon_pkg'
+[1.718s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib/local.3dshapes) by extensions ['colcon_meta']
+[1.719s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib/local.3dshapes) by extension 'colcon_meta'
+[1.719s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib/local.3dshapes) by extensions ['ros']
+[1.719s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib/local.3dshapes) by extension 'ros'
+[1.720s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib/local.3dshapes) by extensions ['cmake', 'python']
+[1.720s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib/local.3dshapes) by extension 'cmake'
+[1.720s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib/local.3dshapes) by extension 'python'
+[1.720s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib/local.3dshapes) by extensions ['python_setup_py']
+[1.720s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib/local.3dshapes) by extension 'python_setup_py'
+[1.721s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib/local.pretty) by extensions ['ignore', 'ignore_ament_install']
+[1.721s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib/local.pretty) by extension 'ignore'
+[1.722s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib/local.pretty) by extension 'ignore_ament_install'
+[1.722s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib/local.pretty) by extensions ['colcon_pkg']
+[1.722s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib/local.pretty) by extension 'colcon_pkg'
+[1.722s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib/local.pretty) by extensions ['colcon_meta']
+[1.723s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib/local.pretty) by extension 'colcon_meta'
+[1.723s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib/local.pretty) by extensions ['ros']
+[1.723s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib/local.pretty) by extension 'ros'
+[1.723s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib/local.pretty) by extensions ['cmake', 'python']
+[1.724s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib/local.pretty) by extension 'cmake'
+[1.724s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib/local.pretty) by extension 'python'
+[1.724s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib/local.pretty) by extensions ['python_setup_py']
+[1.724s] Level 1:colcon.colcon_core.package_identification:_identify(hardware/rgb-led-pcb/lib/local.pretty) by extension 'python_setup_py'
+[1.725s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface) by extensions ['ignore', 'ignore_ament_install']
+[1.725s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface) by extension 'ignore'
+[1.726s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface) by extension 'ignore_ament_install'
+[1.726s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface) by extensions ['colcon_pkg']
+[1.726s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface) by extension 'colcon_pkg'
+[1.726s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface) by extensions ['colcon_meta']
+[1.727s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface) by extension 'colcon_meta'
+[1.727s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface) by extensions ['ros']
+[1.727s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface) by extension 'ros'
+[1.727s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface) by extensions ['cmake', 'python']
+[1.728s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface) by extension 'cmake'
+[1.728s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface) by extension 'python'
+[1.728s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface) by extensions ['python_setup_py']
+[1.728s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface) by extension 'python_setup_py'
+[1.729s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface) by extensions ['ignore', 'ignore_ament_install']
+[1.729s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface) by extension 'ignore'
+[1.730s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface) by extension 'ignore_ament_install'
+[1.730s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface) by extensions ['colcon_pkg']
+[1.730s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface) by extension 'colcon_pkg'
+[1.730s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface) by extensions ['colcon_meta']
+[1.731s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface) by extension 'colcon_meta'
+[1.731s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface) by extensions ['ros']
+[1.731s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface) by extension 'ros'
+[1.731s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface) by extensions ['cmake', 'python']
+[1.732s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface) by extension 'cmake'
+[1.732s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface) by extension 'python'
+[1.732s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface) by extensions ['python_setup_py']
+[1.732s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface) by extension 'python_setup_py'
+[1.733s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src) by extensions ['ignore', 'ignore_ament_install']
+[1.733s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src) by extension 'ignore'
+[1.734s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src) by extension 'ignore_ament_install'
+[1.734s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src) by extensions ['colcon_pkg']
+[1.734s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src) by extension 'colcon_pkg'
+[1.734s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src) by extensions ['colcon_meta']
+[1.735s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src) by extension 'colcon_meta'
+[1.735s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src) by extensions ['ros']
+[1.735s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src) by extension 'ros'
+[1.735s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src) by extensions ['cmake', 'python']
+[1.736s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src) by extension 'cmake'
+[1.736s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src) by extension 'python'
+[1.736s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src) by extensions ['python_setup_py']
+[1.736s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src) by extension 'python_setup_py'
+[1.737s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X) by extensions ['ignore', 'ignore_ament_install']
+[1.737s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X) by extension 'ignore'
+[1.738s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X) by extension 'ignore_ament_install'
+[1.738s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X) by extensions ['colcon_pkg']
+[1.738s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X) by extension 'colcon_pkg'
+[1.738s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X) by extensions ['colcon_meta']
+[1.739s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X) by extension 'colcon_meta'
+[1.739s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X) by extensions ['ros']
+[1.739s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X) by extension 'ros'
+[1.739s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X) by extensions ['cmake', 'python']
+[1.740s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X) by extension 'cmake'
+[1.740s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X) by extension 'python'
+[1.740s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X) by extensions ['python_setup_py']
+[1.740s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X) by extension 'python_setup_py'
+[1.741s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/core) by extensions ['ignore', 'ignore_ament_install']
+[1.741s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/core) by extension 'ignore'
+[1.742s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/core) by extension 'ignore_ament_install'
+[1.742s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/core) by extensions ['colcon_pkg']
+[1.742s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/core) by extension 'colcon_pkg'
+[1.742s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/core) by extensions ['colcon_meta']
+[1.743s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/core) by extension 'colcon_meta'
+[1.743s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/core) by extensions ['ros']
+[1.743s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/core) by extension 'ros'
+[1.744s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/core) by extensions ['cmake', 'python']
+[1.744s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/core) by extension 'cmake'
+[1.744s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/core) by extension 'python'
+[1.744s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/core) by extensions ['python_setup_py']
+[1.744s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/core) by extension 'python_setup_py'
+[1.745s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/core/src) by extensions ['ignore', 'ignore_ament_install']
+[1.746s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/core/src) by extension 'ignore'
+[1.746s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/core/src) by extension 'ignore_ament_install'
+[1.746s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/core/src) by extensions ['colcon_pkg']
+[1.746s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/core/src) by extension 'colcon_pkg'
+[1.747s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/core/src) by extensions ['colcon_meta']
+[1.747s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/core/src) by extension 'colcon_meta'
+[1.747s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/core/src) by extensions ['ros']
+[1.747s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/core/src) by extension 'ros'
+[1.748s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/core/src) by extensions ['cmake', 'python']
+[1.748s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/core/src) by extension 'cmake'
+[1.748s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/core/src) by extension 'python'
+[1.748s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/core/src) by extensions ['python_setup_py']
+[1.749s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/core/src) by extension 'python_setup_py'
+[1.749s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/platform) by extensions ['ignore', 'ignore_ament_install']
+[1.750s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/platform) by extension 'ignore'
+[1.750s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/platform) by extension 'ignore_ament_install'
+[1.750s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/platform) by extensions ['colcon_pkg']
+[1.751s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/platform) by extension 'colcon_pkg'
+[1.751s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/platform) by extensions ['colcon_meta']
+[1.751s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/platform) by extension 'colcon_meta'
+[1.752s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/platform) by extensions ['ros']
+[1.752s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/platform) by extension 'ros'
+[1.752s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/platform) by extensions ['cmake', 'python']
+[1.753s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/platform) by extension 'cmake'
+[1.753s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/platform) by extension 'python'
+[1.753s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/platform) by extensions ['python_setup_py']
+[1.753s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/platform) by extension 'python_setup_py'
+[1.754s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/platform/src) by extensions ['ignore', 'ignore_ament_install']
+[1.754s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/platform/src) by extension 'ignore'
+[1.755s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/platform/src) by extension 'ignore_ament_install'
+[1.755s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/platform/src) by extensions ['colcon_pkg']
+[1.755s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/platform/src) by extension 'colcon_pkg'
+[1.755s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/platform/src) by extensions ['colcon_meta']
+[1.756s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/platform/src) by extension 'colcon_meta'
+[1.756s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/platform/src) by extensions ['ros']
+[1.756s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/platform/src) by extension 'ros'
+[1.756s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/platform/src) by extensions ['cmake', 'python']
+[1.757s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/platform/src) by extension 'cmake'
+[1.757s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/platform/src) by extension 'python'
+[1.757s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/platform/src) by extensions ['python_setup_py']
+[1.757s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface/src/Adafruit-VL530X/platform/src) by extension 'python_setup_py'
+[1.758s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb) by extensions ['ignore', 'ignore_ament_install']
+[1.758s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb) by extension 'ignore'
+[1.759s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb) by extension 'ignore_ament_install'
+[1.759s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb) by extensions ['colcon_pkg']
+[1.759s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb) by extension 'colcon_pkg'
+[1.759s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb) by extensions ['colcon_meta']
+[1.760s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb) by extension 'colcon_meta'
+[1.760s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb) by extensions ['ros']
+[1.760s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb) by extension 'ros'
+[1.760s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb) by extensions ['cmake', 'python']
+[1.761s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb) by extension 'cmake'
+[1.761s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb) by extension 'python'
+[1.761s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb) by extensions ['python_setup_py']
+[1.761s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb) by extension 'python_setup_py'
+[1.762s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src) by extensions ['ignore', 'ignore_ament_install']
+[1.762s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src) by extension 'ignore'
+[1.763s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src) by extension 'ignore_ament_install'
+[1.763s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src) by extensions ['colcon_pkg']
+[1.763s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src) by extension 'colcon_pkg'
+[1.763s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src) by extensions ['colcon_meta']
+[1.763s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src) by extension 'colcon_meta'
+[1.764s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src) by extensions ['ros']
+[1.764s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src) by extension 'ros'
+[1.764s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src) by extensions ['cmake', 'python']
+[1.764s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src) by extension 'cmake'
+[1.765s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src) by extension 'python'
+[1.765s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src) by extensions ['python_setup_py']
+[1.765s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src) by extension 'python_setup_py'
+[1.766s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X) by extensions ['ignore', 'ignore_ament_install']
+[1.766s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X) by extension 'ignore'
+[1.767s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X) by extension 'ignore_ament_install'
+[1.767s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X) by extensions ['colcon_pkg']
+[1.767s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X) by extension 'colcon_pkg'
+[1.767s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X) by extensions ['colcon_meta']
+[1.768s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X) by extension 'colcon_meta'
+[1.768s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X) by extensions ['ros']
+[1.768s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X) by extension 'ros'
+[1.768s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X) by extensions ['cmake', 'python']
+[1.769s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X) by extension 'cmake'
+[1.769s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X) by extension 'python'
+[1.769s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X) by extensions ['python_setup_py']
+[1.769s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X) by extension 'python_setup_py'
+[1.770s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/core) by extensions ['ignore', 'ignore_ament_install']
+[1.770s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/core) by extension 'ignore'
+[1.771s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/core) by extension 'ignore_ament_install'
+[1.771s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/core) by extensions ['colcon_pkg']
+[1.771s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/core) by extension 'colcon_pkg'
+[1.771s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/core) by extensions ['colcon_meta']
+[1.771s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/core) by extension 'colcon_meta'
+[1.772s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/core) by extensions ['ros']
+[1.772s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/core) by extension 'ros'
+[1.772s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/core) by extensions ['cmake', 'python']
+[1.773s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/core) by extension 'cmake'
+[1.773s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/core) by extension 'python'
+[1.773s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/core) by extensions ['python_setup_py']
+[1.773s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/core) by extension 'python_setup_py'
+[1.774s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/core/src) by extensions ['ignore', 'ignore_ament_install']
+[1.774s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/core/src) by extension 'ignore'
+[1.775s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/core/src) by extension 'ignore_ament_install'
+[1.775s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/core/src) by extensions ['colcon_pkg']
+[1.775s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/core/src) by extension 'colcon_pkg'
+[1.775s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/core/src) by extensions ['colcon_meta']
+[1.775s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/core/src) by extension 'colcon_meta'
+[1.776s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/core/src) by extensions ['ros']
+[1.776s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/core/src) by extension 'ros'
+[1.776s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/core/src) by extensions ['cmake', 'python']
+[1.777s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/core/src) by extension 'cmake'
+[1.777s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/core/src) by extension 'python'
+[1.777s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/core/src) by extensions ['python_setup_py']
+[1.777s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/core/src) by extension 'python_setup_py'
+[1.778s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/platform) by extensions ['ignore', 'ignore_ament_install']
+[1.778s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/platform) by extension 'ignore'
+[1.779s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/platform) by extension 'ignore_ament_install'
+[1.779s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/platform) by extensions ['colcon_pkg']
+[1.779s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/platform) by extension 'colcon_pkg'
+[1.779s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/platform) by extensions ['colcon_meta']
+[1.779s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/platform) by extension 'colcon_meta'
+[1.780s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/platform) by extensions ['ros']
+[1.780s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/platform) by extension 'ros'
+[1.780s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/platform) by extensions ['cmake', 'python']
+[1.781s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/platform) by extension 'cmake'
+[1.781s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/platform) by extension 'python'
+[1.781s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/platform) by extensions ['python_setup_py']
+[1.781s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/platform) by extension 'python_setup_py'
+[1.782s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/platform/src) by extensions ['ignore', 'ignore_ament_install']
+[1.782s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/platform/src) by extension 'ignore'
+[1.783s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/platform/src) by extension 'ignore_ament_install'
+[1.783s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/platform/src) by extensions ['colcon_pkg']
+[1.783s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/platform/src) by extension 'colcon_pkg'
+[1.783s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/platform/src) by extensions ['colcon_meta']
+[1.783s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/platform/src) by extension 'colcon_meta'
+[1.784s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/platform/src) by extensions ['ros']
+[1.784s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/platform/src) by extension 'ros'
+[1.784s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/platform/src) by extensions ['cmake', 'python']
+[1.785s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/platform/src) by extension 'cmake'
+[1.785s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/platform/src) by extension 'python'
+[1.785s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/platform/src) by extensions ['python_setup_py']
+[1.785s] Level 1:colcon.colcon_core.package_identification:_identify(hardware-interface/hw-interface-pcb/src/Adafruit-VL530X/platform/src) by extension 'python_setup_py'
+[1.786s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[1.786s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[1.786s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[1.787s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[1.787s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[1.788s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[1.788s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[1.789s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[1.789s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[1.789s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[1.789s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[1.929s] Level 5:colcon.colcon_core.verb:set package 'Project' build argument 'cmake_args' from command line to 'None'
+[1.929s] Level 5:colcon.colcon_core.verb:set package 'Project' build argument 'cmake_target' from command line to 'None'
+[1.930s] Level 5:colcon.colcon_core.verb:set package 'Project' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.930s] Level 5:colcon.colcon_core.verb:set package 'Project' build argument 'cmake_clean_cache' from command line to 'False'
+[1.930s] Level 5:colcon.colcon_core.verb:set package 'Project' build argument 'cmake_clean_first' from command line to 'False'
+[1.930s] Level 5:colcon.colcon_core.verb:set package 'Project' build argument 'cmake_force_configure' from command line to 'False'
+[1.930s] Level 5:colcon.colcon_core.verb:set package 'Project' build argument 'ament_cmake_args' from command line to 'None'
+[1.931s] Level 5:colcon.colcon_core.verb:set package 'Project' build argument 'catkin_cmake_args' from command line to 'None'
+[1.931s] Level 5:colcon.colcon_core.verb:set package 'Project' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.931s] DEBUG:colcon.colcon_core.verb:Building package 'Project' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/install/Project', 'merge_install': False, 'path': '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/catkin_ws/src', 'symlink_install': False, 'test_result_base': None}
+[1.946s] Level 5:colcon.colcon_core.verb:set package 'hrp_msgs' build argument 'cmake_args' from command line to 'None'
+[1.946s] Level 5:colcon.colcon_core.verb:set package 'hrp_msgs' build argument 'cmake_target' from command line to 'None'
+[1.946s] Level 5:colcon.colcon_core.verb:set package 'hrp_msgs' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.946s] Level 5:colcon.colcon_core.verb:set package 'hrp_msgs' build argument 'cmake_clean_cache' from command line to 'False'
+[1.947s] Level 5:colcon.colcon_core.verb:set package 'hrp_msgs' build argument 'cmake_clean_first' from command line to 'False'
+[1.947s] Level 5:colcon.colcon_core.verb:set package 'hrp_msgs' build argument 'cmake_force_configure' from command line to 'False'
+[1.947s] Level 5:colcon.colcon_core.verb:set package 'hrp_msgs' build argument 'ament_cmake_args' from command line to 'None'
+[1.947s] Level 5:colcon.colcon_core.verb:set package 'hrp_msgs' build argument 'catkin_cmake_args' from command line to 'None'
+[1.947s] Level 5:colcon.colcon_core.verb:set package 'hrp_msgs' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.948s] DEBUG:colcon.colcon_core.verb:Building package 'hrp_msgs' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/hrp_msgs', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/install/hrp_msgs', 'merge_install': False, 'path': '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/src/hrp_msgs', 'symlink_install': False, 'test_result_base': None}
+[1.963s] Level 5:colcon.colcon_core.verb:set package 'hw_controller' build argument 'cmake_args' from command line to 'None'
+[1.963s] Level 5:colcon.colcon_core.verb:set package 'hw_controller' build argument 'cmake_target' from command line to 'None'
+[1.963s] Level 5:colcon.colcon_core.verb:set package 'hw_controller' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.963s] Level 5:colcon.colcon_core.verb:set package 'hw_controller' build argument 'cmake_clean_cache' from command line to 'False'
+[1.964s] Level 5:colcon.colcon_core.verb:set package 'hw_controller' build argument 'cmake_clean_first' from command line to 'False'
+[1.964s] Level 5:colcon.colcon_core.verb:set package 'hw_controller' build argument 'cmake_force_configure' from command line to 'False'
+[1.964s] Level 5:colcon.colcon_core.verb:set package 'hw_controller' build argument 'ament_cmake_args' from command line to 'None'
+[1.964s] Level 5:colcon.colcon_core.verb:set package 'hw_controller' build argument 'catkin_cmake_args' from command line to 'None'
+[1.964s] Level 5:colcon.colcon_core.verb:set package 'hw_controller' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.965s] DEBUG:colcon.colcon_core.verb:Building package 'hw_controller' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/hw_controller', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/install/hw_controller', 'merge_install': False, 'path': '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/src/hw_controller', 'symlink_install': False, 'test_result_base': None}
+[1.979s] Level 5:colcon.colcon_core.verb:set package 'unicorn_hrp' build argument 'cmake_args' from command line to 'None'
+[1.979s] Level 5:colcon.colcon_core.verb:set package 'unicorn_hrp' build argument 'cmake_target' from command line to 'None'
+[1.979s] Level 5:colcon.colcon_core.verb:set package 'unicorn_hrp' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.980s] Level 5:colcon.colcon_core.verb:set package 'unicorn_hrp' build argument 'cmake_clean_cache' from command line to 'False'
+[1.980s] Level 5:colcon.colcon_core.verb:set package 'unicorn_hrp' build argument 'cmake_clean_first' from command line to 'False'
+[1.980s] Level 5:colcon.colcon_core.verb:set package 'unicorn_hrp' build argument 'cmake_force_configure' from command line to 'False'
+[1.980s] Level 5:colcon.colcon_core.verb:set package 'unicorn_hrp' build argument 'ament_cmake_args' from command line to 'None'
+[1.980s] Level 5:colcon.colcon_core.verb:set package 'unicorn_hrp' build argument 'catkin_cmake_args' from command line to 'None'
+[1.980s] Level 5:colcon.colcon_core.verb:set package 'unicorn_hrp' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.981s] DEBUG:colcon.colcon_core.verb:Building package 'unicorn_hrp' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/unicorn_hrp', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/install/unicorn_hrp', 'merge_install': False, 'path': '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/src/unicorn_hrp', 'symlink_install': False, 'test_result_base': None}
+[1.982s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[1.993s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[1.994s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/src/hrp_msgs' with build type 'ament_cmake'
+[1.995s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/src/hrp_msgs'
+[2.011s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[2.012s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.012s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.025s] DEBUG:colcon.colcon_core.shell:Ignoring prefix path '/opt/ros/eloquent'
+[2.025s] DEBUG:colcon.colcon_core.shell:Ignoring prefix path '/opt/ros/melodic'
+[2.036s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/catkin_ws/src'
+[2.045s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.045s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.057s] DEBUG:colcon.colcon_core.shell:Ignoring prefix path '/opt/ros/eloquent'
+[2.057s] DEBUG:colcon.colcon_core.shell:Ignoring prefix path '/opt/ros/melodic'
+[2.115s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/hrp_msgs': CMAKE_PREFIX_PATH=/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/install/hrp_msgs:/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/install/unicorn_hrp:/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/install/hw_controller:/opt/ros/eloquent:/opt/ros/melodic /usr/bin/cmake --build /home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/hrp_msgs -- -j6 -l6
+[2.138s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project': /usr/bin/cmake /home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/catkin_ws/src -DCMAKE_INSTALL_PREFIX=/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/install/Project
+[5.666s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project' returned '1': /usr/bin/cmake /home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/catkin_ws/src -DCMAKE_INSTALL_PREFIX=/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/install/Project
+[16.025s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[16.026s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[16.028s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '1'
+[16.029s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[16.059s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[16.059s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[16.060s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[16.099s] DEBUG:colcon.colcon_notification.desktop_notification.notify2:Failed to initialize notify2: org.freedesktop.DBus.Error.Spawn.ChildExited: Process org.freedesktop.Notifications exited with status 1
+[16.100s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[16.104s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/install/local_setup.ps1'
+[16.110s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/install/_local_setup_util_ps1.py'
+[16.117s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/install/setup.ps1'
+[16.131s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/install/local_setup.sh'
+[16.133s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/install/_local_setup_util_sh.py'
+[16.136s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/install/setup.sh'
+[16.148s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/install/local_setup.bash'
+[16.150s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/install/setup.bash'
+[16.161s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/install/local_setup.zsh'
+[16.164s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/install/setup.zsh'

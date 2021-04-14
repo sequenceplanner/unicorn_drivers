@@ -1,0 +1,67 @@
+[0.080s] Invoking command in '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project': /usr/bin/cmake /home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/catkin_ws/src -DCMAKE_INSTALL_PREFIX=/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/install/Project
+[0.422s] -- The C compiler identification is GNU 7.5.0
+[0.721s] -- The CXX compiler identification is GNU 7.5.0
+[0.745s] -- Check for working C compiler: /usr/bin/cc
+[1.019s] -- Check for working C compiler: /usr/bin/cc -- works
+[1.021s] -- Detecting C compiler ABI info
+[1.300s] -- Detecting C compiler ABI info - done
+[1.357s] -- Detecting C compile features
+[2.176s] -- Detecting C compile features - done
+[2.192s] -- Check for working CXX compiler: /usr/bin/c++
+[2.501s] -- Check for working CXX compiler: /usr/bin/c++ -- works
+[2.505s] -- Detecting CXX compiler ABI info
+[2.814s] -- Detecting CXX compiler ABI info - done
+[2.866s] -- Detecting CXX compile features
+[4.289s] -- Detecting CXX compile features - done
+[5.263s] -- Using CATKIN_DEVEL_PREFIX: /home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project/devel
+[5.264s] -- Using CMAKE_PREFIX_PATH: /home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/install/hrp_msgs;/opt/ros/melodic
+[5.264s] -- This workspace overlays: /opt/ros/melodic
+[5.393s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.6.9", minimum required is "3") 
+[5.394s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[5.398s] -- Using Debian Python package layout
+[5.398s] -- Using empy: /usr/bin/empy
+[6.069s] -- Using CATKIN_ENABLE_TESTING: ON
+[6.070s] -- Call enable_testing()
+[6.078s] -- Using CATKIN_TEST_RESULTS_DIR: /home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project/test_results
+[6.173s] -- Found gtest sources under '/usr/src/googletest': gtests will be built
+[6.174s] -- Found gmock sources under '/usr/src/googletest': gmock will be built
+[6.299s] -- Found PythonInterp: /usr/bin/python3 (found version "3.6.9") 
+[6.306s] -- Looking for pthread.h
+[6.595s] -- Looking for pthread.h - found
+[6.599s] -- Looking for pthread_create
+[6.875s] -- Looking for pthread_create - not found
+[6.878s] -- Looking for pthread_create in pthreads
+[7.112s] -- Looking for pthread_create in pthreads - not found
+[7.113s] -- Looking for pthread_create in pthread
+[7.386s] -- Looking for pthread_create in pthread - found
+[7.391s] -- Found Threads: TRUE  
+[7.413s] -- Using Python nosetests: /usr/bin/nosetests
+[7.704s] -- catkin 0.7.29
+[7.705s] -- BUILD_SHARED_LIBS is on
+[8.617s] Traceback (most recent call last):
+[8.618s]   File "/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project/catkin_generated/generate_cached_setup.py", line 22, in <module>
+[8.618s]     code = generate_environment_script('/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project/devel/env.sh')
+[8.619s]   File "/opt/ros/melodic/lib/python2.7/dist-packages/catkin/environment_cache.py", line 63, in generate_environment_script
+[8.619s]     env_after = ast.literal_eval(output.decode('utf8'))
+[8.620s]   File "/usr/lib/python3.6/ast.py", line 48, in literal_eval
+[8.620s]     node_or_string = parse(node_or_string, mode='eval')
+[8.621s]   File "/usr/lib/python3.6/ast.py", line 35, in parse
+[8.621s]     return compile(source, filename, mode, PyCF_ONLY_AST)
+[8.622s]   File "<unknown>", line 1
+[8.622s]     ROS_DISTRO was set to 'eloquent' before. Please make sure that the environment does not mix paths from different distributions.
+[8.622s]                  ^
+[8.623s] SyntaxError: invalid syntax
+[8.663s] CMake Error at /opt/ros/melodic/share/catkin/cmake/safe_execute_process.cmake:11 (message):
+[8.664s]   execute_process(/usr/bin/python3
+[8.665s]   "/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project/catkin_generated/generate_cached_setup.py")
+[8.665s]   returned error code 1
+[8.665s] Call Stack (most recent call first):
+[8.666s]   /opt/ros/melodic/share/catkin/cmake/all.cmake:208 (safe_execute_process)
+[8.666s]   /opt/ros/melodic/share/catkin/cmake/catkinConfig.cmake:20 (include)
+[8.667s]   CMakeLists.txt:58 (find_package)
+[8.667s] 
+[8.667s] 
+[8.670s] -- Configuring incomplete, errors occurred!
+[8.671s] See also "/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project/CMakeFiles/CMakeOutput.log".
+[8.672s] See also "/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project/CMakeFiles/CMakeError.log".
+[8.689s] Invoked command in '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project' returned '1': /usr/bin/cmake /home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/catkin_ws/src -DCMAKE_INSTALL_PREFIX=/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/install/Project

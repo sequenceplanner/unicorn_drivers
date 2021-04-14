@@ -1,0 +1,210 @@
+[0.000000] (-) TimerEvent: {}
+[0.002960] (Project) JobQueued: {'identifier': 'Project', 'dependencies': OrderedDict()}
+[0.003793] (hrp_msgs) JobQueued: {'identifier': 'hrp_msgs', 'dependencies': OrderedDict()}
+[0.005102] (hw_controller) JobQueued: {'identifier': 'hw_controller', 'dependencies': OrderedDict([('hrp_msgs', '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/install/hrp_msgs')])}
+[0.005476] (unicorn_hrp) JobQueued: {'identifier': 'unicorn_hrp', 'dependencies': OrderedDict([('hrp_msgs', '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/install/hrp_msgs')])}
+[0.005752] (hrp_msgs) JobStarted: {'identifier': 'hrp_msgs'}
+[0.052514] (Project) JobStarted: {'identifier': 'Project'}
+[0.095094] (hrp_msgs) JobProgress: {'identifier': 'hrp_msgs', 'progress': 'cmake'}
+[0.097450] (hrp_msgs) Command: {'cmd': ['/usr/bin/cmake', '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/src/hrp_msgs', '-DCMAKE_INSTALL_PREFIX=/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/install/hrp_msgs'], 'cwd': '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/hrp_msgs', 'env': OrderedDict([('JETSON_BOARD', 'P3509-000'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('JETSON_TYPE', 'Xavier NX (Developer Kit Version)'), ('MAIL', '/var/mail/reach-004'), ('USER', 'reach-004'), ('SSH_CLIENT', '192.168.1.143 62419 22'), ('LC_TIME', 'sv_SE.UTF-8'), ('JETSON_CUDA', 'NOT_INSTALLED'), ('ROS_PACKAGE_PATH', '/opt/ros/melodic/share'), ('LD_LIBRARY_PATH', '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/install/hrp_msgs/lib:/opt/ros/eloquent/opt/yaml_cpp_vendor/lib:/opt/ros/eloquent/opt/rviz_ogre_vendor/lib:/opt/ros/eloquent/lib/aarch64-linux-gnu:/opt/ros/eloquent/lib:/opt/ros/melodic/lib'), ('ROS_ETC_DIR', '/opt/ros/melodic/etc/ros'), ('SHLVL', '3'), ('OLDPWD', '/home/reach-004/Documents'), ('HOME', '/home/reach-004'), ('SSH_TTY', '/dev/pts/0'), ('JETSON_L4T', '32.4.4'), ('JETSON_TENSORRT', 'NOT_INSTALLED'), ('ROS_PYTHON_VERSION', '3'), ('LC_MONETARY', 'sv_SE.UTF-8'), ('JETSON_VISIONWORKS', 'NOT_INSTALLED'), ('JETSON_OPENCV_CUDA', 'NO'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('JETSON_CHIP_ID', '25'), ('COLCON_PREFIX_PATH', '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/install'), ('ROS_DISTRO', 'eloquent'), ('LOGNAME', 'reach-004'), ('JETSON_SERIAL_NUMBER', '1422420035831'), ('JETSON_MODULE', 'P3668'), ('JETSON_CUDNN', 'NOT_INSTALLED'), ('_', '/usr/bin/colcon'), ('JETSON_CODENAME', 'jakku'), ('ROS_VERSION', '2'), ('PKG_CONFIG_PATH', '/opt/ros/melodic/lib/pkgconfig'), ('XDG_SESSION_ID', '2'), ('TERM', 'screen'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/eloquent/bin:/opt/ros/melodic/bin:/home/reach-004/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('JETSON_OPENCV', '4.1.1'), ('LC_ADDRESS', 'sv_SE.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('STY', '9126.ros-hrp'), ('LANG', 'en_US.UTF-8'), ('JETSON_MACHINE', 'NVIDIA Jetson Xavier NX (Developer Kit Version)'), ('JETSON_L4T_REVISION', '4.4'), ('LC_TELEPHONE', 'sv_SE.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('JETSON_SOC', 'tegra194'), ('ROS_ROOT', '/opt/ros/melodic/share/ros'), ('ROSLISP_PACKAGE_DIRECTORIES', ''), ('AMENT_PREFIX_PATH', '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/install/unicorn_hrp:/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/install/hw_controller:/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/install/hrp_msgs:/opt/ros/eloquent'), ('LC_NAME', 'sv_SE.UTF-8'), ('SHELL', '/bin/bash'), ('ROS_MASTER_URI', 'http://localhost:11311'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('JETSON_BOARDIDS', ''), ('LC_MEASUREMENT', 'sv_SE.UTF-8'), ('JETSON_L4T_RELEASE', '32'), ('WINDOW', '2'), ('LC_IDENTIFICATION', 'sv_SE.UTF-8'), ('JETSON_VULKAN_INFO', '1.2.70'), ('JETSON_CUDA_ARCH_BIN', '7.2'), ('PWD', '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/hrp_msgs'), ('SSH_CONNECTION', '192.168.1.143 62419 192.168.1.94 22'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('LC_NUMERIC', 'sv_SE.UTF-8'), ('PYTHONPATH', '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/install/unicorn_hrp/lib/python3.6/site-packages:/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/install/hw_controller/lib/python3.6/site-packages:/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/install/hrp_msgs/lib/python3.6/site-packages:/opt/ros/eloquent/lib/python3.6/site-packages:/opt/ros/melodic/lib/python2.7/dist-packages'), ('JETSON_VPI', 'NOT_INSTALLED'), ('TERMCAP', 'SC|screen|VT 100/ANSI X3.64 virtual terminal:\\\n\t:DO=\\E[%dB:LE=\\E[%dD:RI=\\E[%dC:UP=\\E[%dA:bs:bt=\\E[Z:\\\n\t:cd=\\E[J:ce=\\E[K:cl=\\E[H\\E[J:cm=\\E[%i%d;%dH:ct=\\E[3g:\\\n\t:do=^J:nd=\\E[C:pt:rc=\\E8:rs=\\Ec:sc=\\E7:st=\\EH:up=\\EM:\\\n\t:le=^H:bl=^G:cr=^M:it#8:ho=\\E[H:nw=\\EE:ta=^I:is=\\E)0:\\\n\t:li#24:co#80:am:xn:xv:LP:sr=\\EM:al=\\E[L:AL=\\E[%dL:\\\n\t:cs=\\E[%i%d;%dr:dl=\\E[M:DL=\\E[%dM:dc=\\E[P:DC=\\E[%dP:\\\n\t:im=\\E[4h:ei=\\E[4l:mi:IC=\\E[%d@:ks=\\E[?1h\\E=:\\\n\t:ke=\\E[?1l\\E>:vi=\\E[?25l:ve=\\E[34h\\E[?25h:vs=\\E[34l:\\\n\t:ti=\\E[?1049h:te=\\E[?1049l:Km=\\E[M:k0=\\E[10~:k1=\\EOP:\\\n\t:k2=\\EOQ:k3=\\EOR:k4=\\EOS:k5=\\E[15~:k6=\\E[17~:k7=\\E[18~:\\\n\t:k8=\\E[19~:k9=\\E[20~:k;=\\E[21~:F1=\\E[23~:F2=\\E[24~:\\\n\t:kh=\\E[1~:@1=\\E[1~:kH=\\E[4~:@7=\\E[4~:kN=\\E[6~:kP=\\E[5~:\\\n\t:kI=\\E[2~:kD=\\E[3~:ku=\\EOA:kd=\\EOB:kr=\\EOC:kl=\\EOD:'), ('LC_PAPER', 'sv_SE.UTF-8'), ('COLCON', '1'), ('JETSON_JETPACK', '4.4.1'), ('CMAKE_PREFIX_PATH', '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/install/hrp_msgs:/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/install/unicorn_hrp:/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/install/hw_controller:/opt/ros/eloquent:/opt/ros/melodic')]), 'shell': False}
+[0.104902] (-) TimerEvent: {}
+[0.122862] (Project) JobProgress: {'identifier': 'Project', 'progress': 'cmake'}
+[0.124303] (Project) Command: {'cmd': ['/usr/bin/cmake', '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/catkin_ws/src', '-DCMAKE_INSTALL_PREFIX=/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/install/Project'], 'cwd': '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project', 'env': OrderedDict([('JETSON_BOARD', 'P3509-000'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('JETSON_TYPE', 'Xavier NX (Developer Kit Version)'), ('MAIL', '/var/mail/reach-004'), ('USER', 'reach-004'), ('SSH_CLIENT', '192.168.1.143 62419 22'), ('LC_TIME', 'sv_SE.UTF-8'), ('JETSON_CUDA', 'NOT_INSTALLED'), ('ROS_PACKAGE_PATH', '/opt/ros/melodic/share'), ('LD_LIBRARY_PATH', '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/install/hrp_msgs/lib:/opt/ros/eloquent/opt/yaml_cpp_vendor/lib:/opt/ros/eloquent/opt/rviz_ogre_vendor/lib:/opt/ros/eloquent/lib/aarch64-linux-gnu:/opt/ros/eloquent/lib:/opt/ros/melodic/lib'), ('ROS_ETC_DIR', '/opt/ros/melodic/etc/ros'), ('SHLVL', '3'), ('OLDPWD', '/home/reach-004/Documents'), ('HOME', '/home/reach-004'), ('SSH_TTY', '/dev/pts/0'), ('JETSON_L4T', '32.4.4'), ('JETSON_TENSORRT', 'NOT_INSTALLED'), ('ROS_PYTHON_VERSION', '3'), ('LC_MONETARY', 'sv_SE.UTF-8'), ('JETSON_VISIONWORKS', 'NOT_INSTALLED'), ('JETSON_OPENCV_CUDA', 'NO'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('JETSON_CHIP_ID', '25'), ('COLCON_PREFIX_PATH', '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/install'), ('ROS_DISTRO', 'eloquent'), ('LOGNAME', 'reach-004'), ('JETSON_SERIAL_NUMBER', '1422420035831'), ('JETSON_MODULE', 'P3668'), ('JETSON_CUDNN', 'NOT_INSTALLED'), ('_', '/usr/bin/colcon'), ('JETSON_CODENAME', 'jakku'), ('ROS_VERSION', '2'), ('PKG_CONFIG_PATH', '/opt/ros/melodic/lib/pkgconfig'), ('XDG_SESSION_ID', '2'), ('TERM', 'screen'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/eloquent/bin:/opt/ros/melodic/bin:/home/reach-004/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('JETSON_OPENCV', '4.1.1'), ('LC_ADDRESS', 'sv_SE.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('STY', '9126.ros-hrp'), ('LANG', 'en_US.UTF-8'), ('JETSON_MACHINE', 'NVIDIA Jetson Xavier NX (Developer Kit Version)'), ('JETSON_L4T_REVISION', '4.4'), ('LC_TELEPHONE', 'sv_SE.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('JETSON_SOC', 'tegra194'), ('ROS_ROOT', '/opt/ros/melodic/share/ros'), ('ROSLISP_PACKAGE_DIRECTORIES', ''), ('AMENT_PREFIX_PATH', '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/install/unicorn_hrp:/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/install/hw_controller:/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/install/hrp_msgs:/opt/ros/eloquent'), ('LC_NAME', 'sv_SE.UTF-8'), ('SHELL', '/bin/bash'), ('ROS_MASTER_URI', 'http://localhost:11311'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('JETSON_BOARDIDS', ''), ('LC_MEASUREMENT', 'sv_SE.UTF-8'), ('JETSON_L4T_RELEASE', '32'), ('WINDOW', '2'), ('LC_IDENTIFICATION', 'sv_SE.UTF-8'), ('JETSON_VULKAN_INFO', '1.2.70'), ('JETSON_CUDA_ARCH_BIN', '7.2'), ('PWD', '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project'), ('SSH_CONNECTION', '192.168.1.143 62419 192.168.1.94 22'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('LC_NUMERIC', 'sv_SE.UTF-8'), ('PYTHONPATH', '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/install/unicorn_hrp/lib/python3.6/site-packages:/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/install/hw_controller/lib/python3.6/site-packages:/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/install/hrp_msgs/lib/python3.6/site-packages:/opt/ros/eloquent/lib/python3.6/site-packages:/opt/ros/melodic/lib/python2.7/dist-packages'), ('JETSON_VPI', 'NOT_INSTALLED'), ('TERMCAP', 'SC|screen|VT 100/ANSI X3.64 virtual terminal:\\\n\t:DO=\\E[%dB:LE=\\E[%dD:RI=\\E[%dC:UP=\\E[%dA:bs:bt=\\E[Z:\\\n\t:cd=\\E[J:ce=\\E[K:cl=\\E[H\\E[J:cm=\\E[%i%d;%dH:ct=\\E[3g:\\\n\t:do=^J:nd=\\E[C:pt:rc=\\E8:rs=\\Ec:sc=\\E7:st=\\EH:up=\\EM:\\\n\t:le=^H:bl=^G:cr=^M:it#8:ho=\\E[H:nw=\\EE:ta=^I:is=\\E)0:\\\n\t:li#24:co#80:am:xn:xv:LP:sr=\\EM:al=\\E[L:AL=\\E[%dL:\\\n\t:cs=\\E[%i%d;%dr:dl=\\E[M:DL=\\E[%dM:dc=\\E[P:DC=\\E[%dP:\\\n\t:im=\\E[4h:ei=\\E[4l:mi:IC=\\E[%d@:ks=\\E[?1h\\E=:\\\n\t:ke=\\E[?1l\\E>:vi=\\E[?25l:ve=\\E[34h\\E[?25h:vs=\\E[34l:\\\n\t:ti=\\E[?1049h:te=\\E[?1049l:Km=\\E[M:k0=\\E[10~:k1=\\EOP:\\\n\t:k2=\\EOQ:k3=\\EOR:k4=\\EOS:k5=\\E[15~:k6=\\E[17~:k7=\\E[18~:\\\n\t:k8=\\E[19~:k9=\\E[20~:k;=\\E[21~:F1=\\E[23~:F2=\\E[24~:\\\n\t:kh=\\E[1~:@1=\\E[1~:kH=\\E[4~:@7=\\E[4~:kN=\\E[6~:kP=\\E[5~:\\\n\t:kI=\\E[2~:kD=\\E[3~:ku=\\EOA:kd=\\EOB:kr=\\EOC:kl=\\EOD:'), ('LC_PAPER', 'sv_SE.UTF-8'), ('COLCON', '1'), ('JETSON_JETPACK', '4.4.1'), ('CMAKE_PREFIX_PATH', '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/install/hrp_msgs:/opt/ros/melodic')]), 'shell': False}
+[0.205397] (-) TimerEvent: {}
+[0.306736] (-) TimerEvent: {}
+[0.407818] (-) TimerEvent: {}
+[0.464759] (hrp_msgs) StdoutLine: {'line': b'-- The C compiler identification is GNU 7.5.0\n'}
+[0.479384] (Project) StdoutLine: {'line': b'-- The C compiler identification is GNU 7.5.0\n'}
+[0.508031] (-) TimerEvent: {}
+[0.609096] (-) TimerEvent: {}
+[0.710233] (-) TimerEvent: {}
+[0.763541] (hrp_msgs) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 7.5.0\n'}
+[0.778479] (Project) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 7.5.0\n'}
+[0.784316] (hrp_msgs) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc\n'}
+[0.802291] (Project) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc\n'}
+[0.810415] (-) TimerEvent: {}
+[0.911475] (-) TimerEvent: {}
+[1.012531] (-) TimerEvent: {}
+[1.063232] (hrp_msgs) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc -- works\n'}
+[1.067078] (hrp_msgs) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[1.075874] (Project) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc -- works\n'}
+[1.078784] (Project) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[1.112766] (-) TimerEvent: {}
+[1.213824] (-) TimerEvent: {}
+[1.315846] (-) TimerEvent: {}
+[1.345123] (hrp_msgs) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[1.357425] (Project) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[1.378703] (hrp_msgs) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[1.414553] (Project) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[1.415936] (-) TimerEvent: {}
+[1.516966] (-) TimerEvent: {}
+[1.618158] (-) TimerEvent: {}
+[1.719262] (-) TimerEvent: {}
+[1.820333] (-) TimerEvent: {}
+[1.921477] (-) TimerEvent: {}
+[2.022593] (-) TimerEvent: {}
+[2.124695] (-) TimerEvent: {}
+[2.194019] (hrp_msgs) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[2.208631] (hrp_msgs) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++\n'}
+[2.225092] (-) TimerEvent: {}
+[2.232890] (Project) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[2.249051] (Project) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++\n'}
+[2.325402] (-) TimerEvent: {}
+[2.427889] (-) TimerEvent: {}
+[2.517407] (hrp_msgs) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ -- works\n'}
+[2.520975] (hrp_msgs) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[2.528106] (-) TimerEvent: {}
+[2.558057] (Project) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ -- works\n'}
+[2.562421] (Project) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[2.628337] (-) TimerEvent: {}
+[2.729521] (-) TimerEvent: {}
+[2.826292] (hrp_msgs) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[2.829678] (-) TimerEvent: {}
+[2.859122] (hrp_msgs) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[2.871092] (Project) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[2.923400] (Project) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[2.929896] (-) TimerEvent: {}
+[3.031648] (-) TimerEvent: {}
+[3.133462] (-) TimerEvent: {}
+[3.235497] (-) TimerEvent: {}
+[3.336569] (-) TimerEvent: {}
+[3.437590] (-) TimerEvent: {}
+[3.538992] (-) TimerEvent: {}
+[3.640800] (-) TimerEvent: {}
+[3.742733] (-) TimerEvent: {}
+[3.843814] (-) TimerEvent: {}
+[3.945987] (-) TimerEvent: {}
+[4.049118] (-) TimerEvent: {}
+[4.150246] (-) TimerEvent: {}
+[4.171476] (hrp_msgs) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[4.183715] (hrp_msgs) StdoutLine: {'line': b'-- Found ament_cmake: 0.8.3 (/opt/ros/eloquent/share/ament_cmake/cmake)\n'}
+[4.250413] (-) TimerEvent: {}
+[4.318864] (hrp_msgs) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.6.9", minimum required is "3") \n'}
+[4.320310] (hrp_msgs) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /usr/bin/python3\n'}
+[4.346468] (Project) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[4.350637] (-) TimerEvent: {}
+[4.451673] (-) TimerEvent: {}
+[4.553588] (-) TimerEvent: {}
+[4.655491] (-) TimerEvent: {}
+[4.757537] (-) TimerEvent: {}
+[4.858690] (-) TimerEvent: {}
+[4.959711] (-) TimerEvent: {}
+[5.061764] (-) TimerEvent: {}
+[5.162845] (-) TimerEvent: {}
+[5.263869] (-) TimerEvent: {}
+[5.320121] (Project) StdoutLine: {'line': b'-- Using CATKIN_DEVEL_PREFIX: /home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project/devel\n'}
+[5.321375] (Project) StdoutLine: {'line': b'-- Using CMAKE_PREFIX_PATH: /home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/install/hrp_msgs;/opt/ros/melodic\n'}
+[5.321986] (Project) StdoutLine: {'line': b'-- This workspace overlays: /opt/ros/melodic\n'}
+[5.364067] (-) TimerEvent: {}
+[5.421433] (hrp_msgs) StdoutLine: {'line': b'-- Found std_msgs: 0.8.1 (/opt/ros/eloquent/share/std_msgs/cmake)\n'}
+[5.450390] (Project) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.6.9", minimum required is "3") \n'}
+[5.451499] (Project) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /usr/bin/python3\n'}
+[5.451968] (Project) StdoutLine: {'line': b'-- Using Debian Python package layout\n'}
+[5.455869] (Project) StdoutLine: {'line': b'-- Using empy: /usr/bin/empy\n'}
+[5.464298] (-) TimerEvent: {}
+[5.501319] (hrp_msgs) StdoutLine: {'line': b'-- Found rosidl_adapter: 0.8.3 (/opt/ros/eloquent/share/rosidl_adapter/cmake)\n'}
+[5.564520] (-) TimerEvent: {}
+[5.665476] (-) TimerEvent: {}
+[5.740092] (hrp_msgs) StdoutLine: {'line': b'-- Found rosidl_default_generators: 0.8.0 (/opt/ros/eloquent/share/rosidl_default_generators/cmake)\n'}
+[5.765733] (-) TimerEvent: {}
+[5.867463] (-) TimerEvent: {}
+[5.969086] (-) TimerEvent: {}
+[6.070408] (-) TimerEvent: {}
+[6.094205] (hrp_msgs) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "1.1.1") \n'}
+[6.126450] (Project) StdoutLine: {'line': b'-- Using CATKIN_ENABLE_TESTING: ON\n'}
+[6.127433] (Project) StdoutLine: {'line': b'-- Call enable_testing()\n'}
+[6.135258] (Project) StdoutLine: {'line': b'-- Using CATKIN_TEST_RESULTS_DIR: /home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project/test_results\n'}
+[6.170618] (-) TimerEvent: {}
+[6.189378] (hrp_msgs) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/eloquent/include  \n'}
+[6.230575] (Project) StdoutLine: {'line': b"-- Found gtest sources under '/usr/src/googletest': gtests will be built\n"}
+[6.231556] (Project) StdoutLine: {'line': b"-- Found gmock sources under '/usr/src/googletest': gmock will be built\n"}
+[6.271074] (-) TimerEvent: {}
+[6.356694] (Project) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found version "3.6.9") \n'}
+[6.363505] (Project) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[6.371309] (-) TimerEvent: {}
+[6.472390] (-) TimerEvent: {}
+[6.574260] (-) TimerEvent: {}
+[6.603554] (hrp_msgs) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found version "3.6.9") \n'}
+[6.652616] (Project) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[6.656595] (Project) StdoutLine: {'line': b'-- Looking for pthread_create\n'}
+[6.674472] (-) TimerEvent: {}
+[6.776327] (-) TimerEvent: {}
+[6.878351] (-) TimerEvent: {}
+[6.932091] (Project) StdoutLine: {'line': b'-- Looking for pthread_create - not found\n'}
+[6.935003] (Project) StdoutLine: {'line': b'-- Looking for pthread_create in pthreads\n'}
+[6.978587] (-) TimerEvent: {}
+[7.080490] (-) TimerEvent: {}
+[7.169501] (Project) StdoutLine: {'line': b'-- Looking for pthread_create in pthreads - not found\n'}
+[7.170752] (Project) StdoutLine: {'line': b'-- Looking for pthread_create in pthread\n'}
+[7.180671] (-) TimerEvent: {}
+[7.280698] (hrp_msgs) StdoutLine: {'line': b'-- Using single matching rosidl_typesupport_c: rosidl_typesupport_fastrtps_c\n'}
+[7.281681] (-) TimerEvent: {}
+[7.316387] (hrp_msgs) StdoutLine: {'line': b'-- Using single matching rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp\n'}
+[7.381905] (-) TimerEvent: {}
+[7.442874] (Project) StdoutLine: {'line': b'-- Looking for pthread_create in pthread - found\n'}
+[7.448413] (Project) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[7.470726] (Project) StdoutLine: {'line': b'-- Using Python nosetests: /usr/bin/nosetests\n'}
+[7.482130] (-) TimerEvent: {}
+[7.583170] (-) TimerEvent: {}
+[7.689310] (-) TimerEvent: {}
+[7.723455] (hrp_msgs) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 0.8.1 (/opt/ros/eloquent/share/rmw_implementation_cmake/cmake)\n'}
+[7.761822] (Project) StdoutLine: {'line': b'-- catkin 0.7.29\n'}
+[7.762852] (Project) StdoutLine: {'line': b'-- BUILD_SHARED_LIBS is on\n'}
+[7.789529] (-) TimerEvent: {}
+[7.841146] (hrp_msgs) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.6.9", minimum required is "3.5") \n'}
+[7.847111] (hrp_msgs) StdoutLine: {'line': b'-- Found python_cmake_module: 0.8.0 (/opt/ros/eloquent/share/python_cmake_module/cmake)\n'}
+[7.889709] (-) TimerEvent: {}
+[7.976009] (hrp_msgs) StdoutLine: {'line': b'-- Found PythonLibs: /usr/lib/aarch64-linux-gnu/libpython3.6m.so (found suitable version "3.6.9", minimum required is "3.5") \n'}
+[7.977425] (hrp_msgs) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /usr/bin/python3\n'}
+[7.978009] (hrp_msgs) StdoutLine: {'line': b'-- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.6m\n'}
+[7.978591] (hrp_msgs) StdoutLine: {'line': b'-- Using PYTHON_LIBRARIES: /usr/lib/aarch64-linux-gnu/libpython3.6m.so\n'}
+[7.989915] (-) TimerEvent: {}
+[8.086098] (hrp_msgs) StdoutLine: {'line': b'-- Found PythonExtra: .so  \n'}
+[8.090062] (-) TimerEvent: {}
+[8.191861] (-) TimerEvent: {}
+[8.292985] (-) TimerEvent: {}
+[8.394198] (-) TimerEvent: {}
+[8.495235] (-) TimerEvent: {}
+[8.588677] (hrp_msgs) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.8.2 (/opt/ros/eloquent/share/ament_lint_auto/cmake)\n'}
+[8.595479] (-) TimerEvent: {}
+[8.669683] (hrp_msgs) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[8.674083] (Project) StderrLine: {'line': b'Traceback (most recent call last):\n'}
+[8.675210] (Project) StderrLine: {'line': b'  File "/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project/catkin_generated/generate_cached_setup.py", line 22, in <module>\n'}
+[8.675714] (Project) StderrLine: {'line': b"    code = generate_environment_script('/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project/devel/env.sh')\n"}
+[8.676163] (Project) StderrLine: {'line': b'  File "/opt/ros/melodic/lib/python2.7/dist-packages/catkin/environment_cache.py", line 63, in generate_environment_script\n'}
+[8.676622] (Project) StderrLine: {'line': b"    env_after = ast.literal_eval(output.decode('utf8'))\n"}
+[8.677147] (Project) StderrLine: {'line': b'  File "/usr/lib/python3.6/ast.py", line 48, in literal_eval\n'}
+[8.677870] (Project) StderrLine: {'line': b"    node_or_string = parse(node_or_string, mode='eval')\n"}
+[8.678287] (Project) StderrLine: {'line': b'  File "/usr/lib/python3.6/ast.py", line 35, in parse\n'}
+[8.678694] (Project) StderrLine: {'line': b'    return compile(source, filename, mode, PyCF_ONLY_AST)\n'}
+[8.679075] (Project) StderrLine: {'line': b'  File "<unknown>", line 1\n'}
+[8.679541] (Project) StderrLine: {'line': b"    ROS_DISTRO was set to 'eloquent' before. Please make sure that the environment does not mix paths from different distributions.\n"}
+[8.679992] (Project) StderrLine: {'line': b'                 ^\n'}
+[8.680368] (Project) StderrLine: {'line': b'SyntaxError: invalid syntax\n'}
+[8.680768] (hrp_msgs) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[8.691455] (hrp_msgs) StdoutLine: {'line': b'-- Configuring done\n'}
+[8.695680] (-) TimerEvent: {}
+[8.720571] (Project) StderrLine: {'line': b'CMake Error at /opt/ros/melodic/share/catkin/cmake/safe_execute_process.cmake:11 (message):\n'}
+[8.721656] (Project) StderrLine: {'line': b'  execute_process(/usr/bin/python3\n'}
+[8.722140] (Project) StderrLine: {'line': b'  "/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project/catkin_generated/generate_cached_setup.py")\n'}
+[8.722540] (Project) StderrLine: {'line': b'  returned error code 1\n'}
+[8.722932] (Project) StderrLine: {'line': b'Call Stack (most recent call first):\n'}
+[8.723344] (Project) StderrLine: {'line': b'  /opt/ros/melodic/share/catkin/cmake/all.cmake:208 (safe_execute_process)\n'}
+[8.723743] (Project) StderrLine: {'line': b'  /opt/ros/melodic/share/catkin/cmake/catkinConfig.cmake:20 (include)\n'}
+[8.724200] (Project) StderrLine: {'line': b'  CMakeLists.txt:58 (find_package)\n'}
+[8.724595] (Project) StderrLine: {'line': b'\n'}
+[8.724963] (Project) StderrLine: {'line': b'\n'}
+[8.727696] (Project) StdoutLine: {'line': b'-- Configuring incomplete, errors occurred!\n'}
+[8.728449] (Project) StdoutLine: {'line': b'See also "/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project/CMakeFiles/CMakeOutput.log".\n'}
+[8.728940] (Project) StdoutLine: {'line': b'See also "/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project/CMakeFiles/CMakeError.log".\n'}
+[8.746028] (Project) CommandEnded: {'returncode': 1}
+[8.748004] (Project) JobEnded: {'identifier': 'Project', 'rc': 1}
+[8.795978] (-) TimerEvent: {}
+[8.896897] (-) TimerEvent: {}
+[8.971783] (hrp_msgs) StdoutLine: {'line': b'-- Generating done\n'}
+[8.988896] (hrp_msgs) StdoutLine: {'line': b'-- Build files have been written to: /home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/hrp_msgs\n'}
+[8.997087] (-) TimerEvent: {}
+[9.004887] (hrp_msgs) JobEnded: {'identifier': 'hrp_msgs', 'rc': 'SIGINT'}
+[9.018457] (hw_controller) JobSkipped: {'identifier': 'hw_controller'}
+[9.018653] (unicorn_hrp) JobSkipped: {'identifier': 'unicorn_hrp'}
+[9.018768] (-) EventReactorShutdown: {}

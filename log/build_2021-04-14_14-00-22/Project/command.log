@@ -1,0 +1,2 @@
+Invoking command in '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project': /usr/bin/cmake /home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/catkin_ws/src -DCMAKE_INSTALL_PREFIX=/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/install/Project
+Invoked command in '/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project' returned '1': /usr/bin/cmake /home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/catkin_ws/src -DCMAKE_INSTALL_PREFIX=/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/install/Project

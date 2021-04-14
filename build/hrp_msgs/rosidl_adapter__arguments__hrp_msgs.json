@@ -1,0 +1,7 @@
+{
+  "package_name": "hrp_msgs",
+  "non_idl_tuples": [
+    "/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/src/hrp_msgs:msg/HrpMove.msg",
+    "/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/colcon_ws/src/hrp_msgs:msg/HrpMeasurementSensor.msg"
+  ]
+}

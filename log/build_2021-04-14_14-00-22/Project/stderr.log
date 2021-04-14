@@ -1,0 +1,23 @@
+Traceback (most recent call last):
+  File "/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project/catkin_generated/generate_cached_setup.py", line 22, in <module>
+    code = generate_environment_script('/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project/devel/env.sh')
+  File "/opt/ros/melodic/lib/python2.7/dist-packages/catkin/environment_cache.py", line 63, in generate_environment_script
+    env_after = ast.literal_eval(output.decode('utf8'))
+  File "/usr/lib/python3.6/ast.py", line 48, in literal_eval
+    node_or_string = parse(node_or_string, mode='eval')
+  File "/usr/lib/python3.6/ast.py", line 35, in parse
+    return compile(source, filename, mode, PyCF_ONLY_AST)
+  File "<unknown>", line 1
+    ROS_DISTRO was set to 'eloquent' before. Please make sure that the environment does not mix paths from different distributions.
+                 ^
+SyntaxError: invalid syntax
+CMake Error at /opt/ros/melodic/share/catkin/cmake/safe_execute_process.cmake:11 (message):
+  execute_process(/usr/bin/python3
+  "/home/reach-004/Documents/UNICORN-ROS2-CONTROLLER/build/Project/catkin_generated/generate_cached_setup.py")
+  returned error code 1
+Call Stack (most recent call first):
+  /opt/ros/melodic/share/catkin/cmake/all.cmake:208 (safe_execute_process)
+  /opt/ros/melodic/share/catkin/cmake/catkinConfig.cmake:20 (include)
+  CMakeLists.txt:58 (find_package)
+
+
